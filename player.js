@@ -13,6 +13,10 @@ var GameState = [];
 var PlayerTwoState = [];
 var currentTurn = 0;
 var gameUpdated = function(){};
+
+var X = 'X';
+var O = 'O';
+
 var CheckWinner = function() {
 	for (var i = 0; i < GameState.length; i++) {
 		var won = true;
@@ -63,10 +67,35 @@ var Game = React.createClass({
 });
 var GameBoard = React.createClass({
 	render: function() {
+		var currentRow = 0;
+		var currentCol = 0;
+		if (this.props.turn === 0) {
+			for (var i = 0; i < this.props.size; i++) {
+				var found = false;
+				for (var j = 0; j < this.props.size; j++) {
+					if (GameState[i][j] === null) {
+						found = true;
+						currentRow = i;
+						currentCol = j;
+						break;
+					}
+				}
+				if (found) break;
+			}
+		} else {
+			for (var i = 0; i < this.props.size; i++) {
+				if (!PlayerTwoState[i]) {
+					currentCol = i;
+					break;
+				}
+			}
+		}
+
 		return (
 			<div className='GameBoard'>
-				<PlayerOneBoard size={this.props.size} turn={this.props.turn} />
-				<PlayerTwoBoard size={this.props.size} turn={this.props.turn} />
+				<PlayerOneBoard size={this.props.size} turn={this.props.turn} currentRow={currentRow} currentCol={currentCol} />
+				<PlayerTwoBoard size={this.props.size} turn={this.props.turn} currentRow={currentRow} currentCol={currentCol} />
+				<PlayControls turn={this.props.turn} boardLocation={{ row: currentRow, col: currentCol }} />
 			</div>
 		);
 	}
@@ -74,26 +103,12 @@ var GameBoard = React.createClass({
 var PlayerOneBoard = React.createClass({
 	render: function() {
 		var rows = [];
-		var currentRow = 0;
-		var currentCol = 0;
-		for (var i = 0; i < this.props.size; i++) {
-			var found = false;
-			for (var j = 0; j < this.props.size; j++) {
-				if (GameState[i][j] === null) {
-					found = true;
-					currentRow = i;
-					currentCol = j;
-					break;
-				}
-			}
-			if (found) break;
-		}
 		for (var i = 0; i < this.props.size; i++) {
 			var cols = [];
 			cols.push(<td className="PlayerOneBoard_number">{i+1}</td>);
 			var thisRow = false;
 			for (var j = 0; j < this.props.size; j++) {
-				cols.push(<td><InputBox enabled={i === currentRow && j === currentCol && this.props.turn === 0} onChange={updatePlayer1Board.bind(this, i, j)} /></td>);
+				cols.push(<td><InputBox enabled={i === this.props.currentRow && j === this.props.currentCol && this.props.turn === 0} onChange={updatePlayer1Board.bind(this, i, j)} value={GameState[i][j]} /></td>);
 			}
 			rows.push(<tr>{cols}</tr>);
 		}
@@ -111,16 +126,9 @@ var PlayerTwoBoard = React.createClass({
 		var rows = [];
 		var headerColumns = [];
 		var inputColumns = [];
-		var currentCol = 0;
-		for (var i = 0; i < this.props.size; i++) {
-			if (!PlayerTwoState[i]) {
-				currentCol = i;
-				break;
-			}
-		}
 		for (var i = 0; i < this.props.size; i++) {
 			headerColumns.push(<td className="PlayerTwoBoard_number">{i+1}</td>);
-			inputColumns.push(<InputBox enabled={i === currentCol && this.props.turn === 1} onChange={updatePlayer2Board.bind(this, i)} />);
+			inputColumns.push(<InputBox enabled={i === this.props.currentCol && this.props.turn === 1} onChange={updatePlayer2Board.bind(this, i)} value={PlayerTwoState[i]} />);
 		}
 		rows.push(<tr>{headerColumns}</tr>);
 		rows.push(<tr>{inputColumns}</tr>);
@@ -138,11 +146,37 @@ var InputBox = React.createClass({
 	render: function() {
 		return (
 			<td className="InputBox">
-				<input type="text" className="InputBox_input" disabled={!this.props.enabled} onChange={this.props.onChange} />
+				<input type="text" className="InputBox_input" disabled={!this.props.enabled} onChange={this.props.onChange} value={this.props.value} />
 			</td>
 		);
 	}
 });
+var PlayControls = React.createClass({
+	render: function() {
+		return (
+			<div className="PlayControls">
+				<h1>Player {this.props.turn ? "2's" : "1's"} turn</h1>
+				<button onClick={updatePlayerBoard.bind(this, this.props.turn, this.props.boardLocation, X)}>X</button>
+				<button onClick={updatePlayerBoard.bind(this, this.props.turn, this.props.boardLocation, O)}>O</button>
+			</div>
+		);
+	}
+});
+function updatePlayerBoard(turn, boardLocation, letter) {
+	if (turn) {
+		PlayerTwoState[boardLocation.col] = letter;
+		currentTurn = 0;
+	} else {
+		GameState[boardLocation.row][boardLocation.col] = letter;
+		if (boardLocation.col === INITIAL_SIZE - 1) {
+			currentTurn = 1;
+		}
+	}
+	console.log(turn);
+	console.log(boardLocation);
+	console.log(GameState);
+	gameUpdated();
+}
 function updatePlayer1Board(i, j, event) {
 	GameState[i][j] = event.target.value;
 	if (j === INITIAL_SIZE - 1)
