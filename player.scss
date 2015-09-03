@@ -1,0 +1,27 @@
+body {
+	background: #fff;
+}
+.Game_header {
+	text-align: center;
+}
+.PlayerOneBoard {
+	position: relative;
+	margin: auto;
+	font-size: 28px;
+}
+.PlayerOneBoard_number {
+	padding: 5px;
+}
+.PlayerTwoBoard {
+	font-size: 28px;
+}
+.PlayerTwoBoard_number {
+	padding: 5px;
+}
+.InputBox {
+	padding: 5px;
+}
+.InputBox_input {
+	width: 32px;
+	height: 32px;
+}
