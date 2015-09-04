@@ -21,19 +21,25 @@ var CheckWinner = function() {
 	for (var i = 0; i < GameState.length; i++) {
 		var won = true;
 		for (var j = 0; j < PlayerTwoState.length; j++) {
-			if (PlayerTwoState[j] != GameState[i][j]) {
+			if (!PlayerTwoState[j] || PlayerTwoState[j] != GameState[i][j]) {
 				won = false;
 				break;
 			}
 		}
 		if (won) {
-			alert("win! " + i);
+			return true;
 		}
 	}
+	return false;
 };
 var Game = React.createClass({
 	componentDidMount: function() {
 		gameUpdated = function() {
+			if (CheckWinner()) {
+				this.setState({
+					won: true
+				});
+			}
 			console.log("GAME UDPATED");
 			this.setState({
 				turn: currentTurn
@@ -60,7 +66,7 @@ var Game = React.createClass({
 		return (
 			<div>
 				<h1 className='Game_header'>Dodgeball</h1>
-				<GameBoard size={this.state.size} turn={this.state.turn} />
+				<GameBoard size={this.state.size} turn={this.state.turn} won={this.state.won} />
 			</div>
 		);
 	},
@@ -93,6 +99,7 @@ var GameBoard = React.createClass({
 
 		return (
 			<div className='GameBoard'>
+				{ this.props.won ? <div>winner!</div> : null }
 				<PlayerOneBoard size={this.props.size} turn={this.props.turn} currentRow={currentRow} currentCol={currentCol} />
 				<PlayerTwoBoard size={this.props.size} turn={this.props.turn} currentRow={currentRow} currentCol={currentCol} />
 				<PlayControls turn={this.props.turn} boardLocation={{ row: currentRow, col: currentCol }} />
@@ -108,7 +115,7 @@ var PlayerOneBoard = React.createClass({
 			cols.push(<td className="PlayerOneBoard_number">{i+1}</td>);
 			var thisRow = false;
 			for (var j = 0; j < this.props.size; j++) {
-				cols.push(<td><InputBox enabled={i === this.props.currentRow && j === this.props.currentCol && this.props.turn === 0} onChange={updatePlayer1Board.bind(this, i, j)} value={GameState[i][j]} /></td>);
+				cols.push(<td><NumberBox enabled={i === this.props.currentRow && j === this.props.currentCol && this.props.turn === 0} onChange={updatePlayer1Board.bind(this, i, j)} value={GameState[i][j]} /></td>);
 			}
 			rows.push(<tr>{cols}</tr>);
 		}
@@ -128,7 +135,7 @@ var PlayerTwoBoard = React.createClass({
 		var inputColumns = [];
 		for (var i = 0; i < this.props.size; i++) {
 			headerColumns.push(<td className="PlayerTwoBoard_number">{i+1}</td>);
-			inputColumns.push(<InputBox enabled={i === this.props.currentCol && this.props.turn === 1} onChange={updatePlayer2Board.bind(this, i)} value={PlayerTwoState[i]} />);
+			inputColumns.push(<NumberBox enabled={i === this.props.currentCol && this.props.turn === 1} onChange={updatePlayer2Board.bind(this, i)} value={PlayerTwoState[i]} />);
 		}
 		rows.push(<tr>{headerColumns}</tr>);
 		rows.push(<tr>{inputColumns}</tr>);
@@ -142,11 +149,16 @@ var PlayerTwoBoard = React.createClass({
 		);
 	}
 });
-var InputBox = React.createClass({
+var NumberBox = React.createClass({
 	render: function() {
+		var classes = ['NumberBox'];
+		if (this.props.enabled) {
+			classes.push('NumberBox_active');
+		}
+
 		return (
-			<td className="InputBox">
-				<input type="text" className="InputBox_input" disabled={!this.props.enabled} onChange={this.props.onChange} value={this.props.value} />
+			<td className={classes.join(' ')}>
+				{this.props.value}
 			</td>
 		);
 	}
@@ -156,8 +168,8 @@ var PlayControls = React.createClass({
 		return (
 			<div className="PlayControls">
 				<h1>Player {this.props.turn ? "2's" : "1's"} turn</h1>
-				<button onClick={updatePlayerBoard.bind(this, this.props.turn, this.props.boardLocation, X)}>X</button>
-				<button onClick={updatePlayerBoard.bind(this, this.props.turn, this.props.boardLocation, O)}>O</button>
+				<button className="PlayControls_button" onClick={updatePlayerBoard.bind(this, this.props.turn, this.props.boardLocation, X)}>X</button>
+				<button className="PlayControls_button" onClick={updatePlayerBoard.bind(this, this.props.turn, this.props.boardLocation, O)}>O</button>
 			</div>
 		);
 	}

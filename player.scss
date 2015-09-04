@@ -18,10 +18,20 @@ body {
 .PlayerTwoBoard_number {
 	padding: 5px;
 }
-.InputBox {
+.NumberBox {
 	padding: 5px;
-}
-.InputBox_input {
+	border: solid 1px #000;
 	width: 32px;
 	height: 32px;
+}
+.NumberBox_active {
+	background: #a0a;
+}
+.PlayControls {
+	position: absolute;
+	right: 10px;
+	top: 0px;
+}
+.PlayControls_button {
+	font-size: 30px;
 }
