@@ -135,7 +135,7 @@ var PlayerTwoBoard = React.createClass({
 		var inputColumns = [];
 		for (var i = 0; i < this.props.size; i++) {
 			headerColumns.push(<td className="PlayerTwoBoard_number">{i+1}</td>);
-			inputColumns.push(<NumberBox enabled={i === this.props.currentCol && this.props.turn === 1} onChange={updatePlayer2Board.bind(this, i)} value={PlayerTwoState[i]} />);
+			inputColumns.push(<td><NumberBox enabled={i === this.props.currentCol && this.props.turn === 1} onChange={updatePlayer2Board.bind(this, i)} value={PlayerTwoState[i]} /></td>);
 		}
 		rows.push(<tr>{headerColumns}</tr>);
 		rows.push(<tr>{inputColumns}</tr>);
@@ -144,7 +144,6 @@ var PlayerTwoBoard = React.createClass({
 				<table>
 					{rows}
 				</table>
-				<input type="button" onClick={CheckWinner} />
 			</div>
 		);
 	}
@@ -157,9 +156,9 @@ var NumberBox = React.createClass({
 		}
 
 		return (
-			<td className={classes.join(' ')}>
+			<div className={classes.join(' ')}>
 				{this.props.value}
-			</td>
+			</div>
 		);
 	}
 });
