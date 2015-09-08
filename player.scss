@@ -1,8 +1,9 @@
 body {
 	background: #fff;
 }
-.Game_header {
-	text-align: center;
+.GameBoard {
+	position: relative;
+	top: 60px;
 }
 .PlayerOneBoard {
 	position: relative;
@@ -16,6 +17,7 @@ body {
 	font-size: 28px;
 	left: 26px;
 	position: relative;
+	width: 500px;
 }
 .PlayerTwoBoard_number {
 	padding: 5px;
@@ -31,9 +33,72 @@ body {
 }
 .PlayControls {
 	position: absolute;
-	right: 10px;
+	right: 80px;
 	top: 0px;
+	text-align: center;
 }
 .PlayControls_button {
 	font-size: 30px;
+	display: block;
+	padding: 30px;
+	width: 100px;
+	margin: auto;
+	margin-bottom: 10px;
+	background: #D5BBBB;
+	border: solid 1px #999;
 }
+.Game_header {
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	right: 0px;
+	height: 33px;
+	background: #444;
+	padding: 8px;
+	z-index: 1000;
+	color: #fff;
+
+	.Game_logo {
+		display: block;
+		background: url(assets/materialogo.png) no-repeat;
+		width: 60px;
+		height: 50px;
+		float: left;
+		margin-left: 17px;
+		margin-top: 2px;
+	}
+
+	.Game_title {
+		margin-left: 8px;
+		font-family: 'Lato', serif;
+		font-weight: 300;
+		font-size: 22px !important;
+		vertical-align: middle;
+		margin-top: 3px;
+		-webkit-font-smoothing: subpixel-antialiased;
+	}
+}
+.Game_turnTransition {
+	position: absolute;
+	top: 100px;
+	text-align: center;
+	background: #000;
+	color: #fff;
+	font-size: 100px;
+	-webkit-animation: swing 1s;
+}
+@keyframes swing {
+	0% {
+		-webkit-transform: rotate(-30deg) translate(-300px);
+	}
+	50% {
+		-webkit-transform: rotate(25deg) translate(100px);
+	}
+	90% {
+		-webkit-transform: rotate(25deg) translate(100px);
+	}
+	100% {
+		-webkit-transform: rotate(25deg) translate(200px,400px);
+	}
+}
+

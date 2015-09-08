@@ -41,8 +41,16 @@ var Game = React.createClass({
 				});
 			}
 			console.log("GAME UDPATED");
+			var changedTurn = false;
+			if (currentTurn != this.state.turn) {
+				changedTurn = true;
+				setTimeout(function() {
+					this.setState({ changedTurn: false });
+				}.bind(this), 1000);
+			}
 			this.setState({
-				turn: currentTurn
+				turn: currentTurn,
+				changedTurn,
 			});
 		}.bind(this);
 	},
@@ -65,8 +73,12 @@ var Game = React.createClass({
 	render: function() {
 		return (
 			<div>
-				<h1 className='Game_header'>Dodgeball</h1>
+				<div className="Game_header">
+					<div className="Game_logo" />
+					<h1 className="Game_title">Dodgeball</h1>
+				</div>
 				<GameBoard size={this.state.size} turn={this.state.turn} won={this.state.won} />
+				{ this.state.changedTurn ? <div className="Game_turnTransition">Player {this.state.turn + 1}'s turn</div> : null }
 			</div>
 		);
 	},
