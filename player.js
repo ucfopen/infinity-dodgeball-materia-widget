@@ -17,21 +17,6 @@ var gameUpdated = function(){};
 var X = 'X';
 var O = 'O';
 
-var CheckWinner = function() {
-	for (var i = 0; i < GameState.length; i++) {
-		var won = true;
-		for (var j = 0; j < PlayerTwoState.length; j++) {
-			if (!PlayerTwoState[j] || PlayerTwoState[j] != GameState[i][j]) {
-				won = false;
-				break;
-			}
-		}
-		if (won) {
-			return true;
-		}
-	}
-	return false;
-};
 var Game = React.createClass({
 	componentDidMount: function() {
 		gameUpdated = function() {
@@ -40,7 +25,6 @@ var Game = React.createClass({
 					won: true
 				});
 			}
-			console.log("GAME UDPATED");
 			var changedTurn = false;
 			if (currentTurn != this.state.turn) {
 				changedTurn = true;
@@ -112,9 +96,22 @@ var GameBoard = React.createClass({
 		return (
 			<div className='GameBoard'>
 				{ this.props.won ? <div>winner!</div> : null }
-				<PlayerOneBoard size={this.props.size} turn={this.props.turn} currentRow={currentRow} currentCol={currentCol} />
-				<PlayerTwoBoard size={this.props.size} turn={this.props.turn} currentRow={currentRow} currentCol={currentCol} />
-				<PlayControls turn={this.props.turn} boardLocation={{ row: currentRow, col: currentCol }} />
+				<PlayerOneBoard
+					currentCol={currentCol}
+					currentRow={currentRow}
+					size={this.props.size}
+					turn={this.props.turn}
+				/>
+				<PlayerTwoBoard
+					currentCol={currentCol}
+					currentRow={currentRow}
+					size={this.props.size}
+					turn={this.props.turn}
+				/>
+				<PlayControls
+					boardLocation={{ row: currentRow, col: currentCol }}
+					turn={this.props.turn}
+				/>
 			</div>
 		);
 	}
@@ -127,7 +124,19 @@ var PlayerOneBoard = React.createClass({
 			cols.push(<td className="PlayerOneBoard_number">{i+1}</td>);
 			var thisRow = false;
 			for (var j = 0; j < this.props.size; j++) {
-				cols.push(<td><NumberBox enabled={i === this.props.currentRow && j === this.props.currentCol && this.props.turn === 0} onChange={updatePlayer1Board.bind(this, i, j)} value={GameState[i][j]} /></td>);
+				cols.push(
+					<td>
+						<NumberBox
+							active={
+								i === this.props.currentRow &&
+								j === this.props.currentCol &&
+								this.props.turn === 0
+							}
+							onChange={updatePlayer1Board.bind(this, i, j)}
+							value={GameState[i][j]}
+						/>
+					</td>
+				);
 			}
 			rows.push(<tr>{cols}</tr>);
 		}
@@ -147,7 +156,18 @@ var PlayerTwoBoard = React.createClass({
 		var inputColumns = [];
 		for (var i = 0; i < this.props.size; i++) {
 			headerColumns.push(<td className="PlayerTwoBoard_number">{i+1}</td>);
-			inputColumns.push(<td><NumberBox enabled={i === this.props.currentCol && this.props.turn === 1} onChange={updatePlayer2Board.bind(this, i)} value={PlayerTwoState[i]} /></td>);
+			inputColumns.push(
+				<td>
+					<NumberBox
+						active={
+							i === this.props.currentCol &&
+								this.props.turn === 1
+						}
+						onChange={updatePlayer2Board.bind(this, i)}
+						value={PlayerTwoState[i]}
+					/>
+				</td>
+			);
 		}
 		rows.push(<tr>{headerColumns}</tr>);
 		rows.push(<tr>{inputColumns}</tr>);
@@ -163,7 +183,7 @@ var PlayerTwoBoard = React.createClass({
 var NumberBox = React.createClass({
 	render: function() {
 		var classes = ['NumberBox'];
-		if (this.props.enabled) {
+		if (this.props.active) {
 			classes.push('NumberBox_active');
 		}
 
@@ -179,8 +199,16 @@ var PlayControls = React.createClass({
 		return (
 			<div className="PlayControls">
 				<h1>Player {this.props.turn ? "2's" : "1's"} turn</h1>
-				<button className="PlayControls_button" onClick={updatePlayerBoard.bind(this, this.props.turn, this.props.boardLocation, X)}>X</button>
-				<button className="PlayControls_button" onClick={updatePlayerBoard.bind(this, this.props.turn, this.props.boardLocation, O)}>O</button>
+				<button
+					className="PlayControls_button"
+					onClick={updatePlayerBoard.bind(this, this.props.turn, this.props.boardLocation, X)}>
+					X
+				</button>
+				<button
+					className="PlayControls_button"
+					onClick={updatePlayerBoard.bind(this, this.props.turn, this.props.boardLocation, O)}>
+					O
+				</button>
 			</div>
 		);
 	}
@@ -195,9 +223,6 @@ function updatePlayerBoard(turn, boardLocation, letter) {
 			currentTurn = 1;
 		}
 	}
-	console.log(turn);
-	console.log(boardLocation);
-	console.log(GameState);
 	gameUpdated();
 }
 function updatePlayer1Board(i, j, event) {
@@ -211,6 +236,21 @@ function updatePlayer2Board(i, event) {
 	currentTurn = 0;
 	gameUpdated()
 }
+var CheckWinner = function() {
+	for (var i = 0; i < GameState.length; i++) {
+		var won = true;
+		for (var j = 0; j < PlayerTwoState.length; j++) {
+			if (!PlayerTwoState[j] || PlayerTwoState[j] != GameState[i][j]) {
+				won = false;
+				break;
+			}
+		}
+		if (won) {
+			return true;
+		}
+	}
+	return false;
+};
 
 Namespace('Dodgeball').Engine = (function() {
 	var start = function(instance, qset, version) {
@@ -220,4 +260,3 @@ Namespace('Dodgeball').Engine = (function() {
 	// Public.
 	return {start};
 })();
-
