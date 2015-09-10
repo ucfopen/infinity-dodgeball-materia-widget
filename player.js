@@ -52,6 +52,7 @@ var Game = React.createClass({
 		return {
 			size: INITIAL_SIZE,
 			turn: 0,
+			initial: true,
 		};
 	},
 	render: function() {
@@ -61,6 +62,7 @@ var Game = React.createClass({
 					<div className="Game_logo" />
 					<h1 className="Game_title">Dodgeball</h1>
 				</div>
+				{ this.state.initial ? <Instructions /> : null }
 				<GameBoard size={this.state.size} turn={this.state.turn} won={this.state.won} />
 				{ this.state.changedTurn ? <div className="Game_turnTransition">Player {this.state.turn + 1}'s turn</div> : null }
 			</div>
@@ -251,6 +253,37 @@ var CheckWinner = function() {
 	}
 	return false;
 };
+var Instructions = React.createClass({
+	getInitialState: function() {
+		return {
+			step: 0
+		};
+	},
+	_handleNextButtonClicked: function() {
+		this.setState({ step: this.state.step + 1 });
+	},
+	render: function() {
+		var instruction = null;
+		switch (this.state.step) {
+			case 0:
+				instruction = (<div>Here are some instructions about the game.</div>);
+				break;
+			case 1:
+				instruction = (<div>Eh.</div>);
+				break;
+			case 2:
+				instruction = (<div>Eh 2.0.</div>);
+				break;
+		}
+		return (
+			<div>
+				<h1>Instructions</h1>
+				{ instruction }
+				<button onClick={this._handleNextButtonClicked}>Next</button>
+			</div>
+		);
+	},
+});
 
 Namespace('Dodgeball').Engine = (function() {
 	var start = function(instance, qset, version) {
