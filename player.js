@@ -19,6 +19,12 @@ var O = 'O';
 
 var Game = React.createClass({
 	componentDidMount: function() {
+		var Store = Namespace('Dodgeball').Store;
+		Store.addChangeListener(function() {
+			this.setState({
+				instructionsShown: Store.getInstructionsShown(),
+			});
+		}.bind(this));
 		gameUpdated = function() {
 			if (CheckWinner()) {
 				this.setState({
@@ -39,6 +45,7 @@ var Game = React.createClass({
 		}.bind(this);
 	},
 	getInitialState: function() {
+		var Store = Namespace('Dodgeball').Store;
 		GameState = [];
 		PlayerTwoState = [];
 		for (var i = 0; i < INITIAL_SIZE; i++) {
@@ -52,7 +59,7 @@ var Game = React.createClass({
 		return {
 			size: INITIAL_SIZE,
 			turn: 0,
-			initial: true,
+			instructionsShown: Store.getInstructionsShown()
 		};
 	},
 	render: function() {
@@ -62,7 +69,7 @@ var Game = React.createClass({
 					<div className="Game_logo" />
 					<h1 className="Game_title">Dodgeball</h1>
 				</div>
-				{ this.state.initial ? <Instructions /> : null }
+				{ this.state.instructionsShown ? <Instructions /> : null }
 				<GameBoard size={this.state.size} turn={this.state.turn} won={this.state.won} />
 				{ this.state.changedTurn ? <div className="Game_turnTransition">Player {this.state.turn + 1}'s turn</div> : null }
 			</div>
@@ -261,6 +268,10 @@ var Instructions = React.createClass({
 	},
 	_handleNextButtonClicked: function() {
 		this.setState({ step: this.state.step + 1 });
+		var Actions = Namespace('Dodgeball').Actions;
+		if (this.state.step + 1 === 3) {
+			Actions.dismissInstructions();
+		}
 	},
 	render: function() {
 		var instruction = null;
