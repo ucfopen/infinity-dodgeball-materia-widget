@@ -87,6 +87,29 @@ body {
 	font-size: 100px;
 	-webkit-animation: swing 1s;
 }
+.ModalBackground {
+	position: absolute;
+	left: 0;
+	right: 0;
+	top: 0;
+	bottom: 0;
+	background: rgba(0,0,0,0.6);
+	z-index: 99;
+}
+.ModalContent {
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	z-index: 100;
+	width: 400px;
+	margin-left: -210px;
+	height: 350px;
+	margin-top: -175px;
+	background: #fff;
+	border: solid 1px #888;
+	padding: 10px;
+
+}
 @keyframes swing {
 	0% {
 		-webkit-transform: rotate(-30deg) translate(-300px);

@@ -26,9 +26,10 @@ var Game = React.createClass({
 			});
 		}.bind(this));
 		gameUpdated = function() {
-			if (CheckWinner()) {
+			var a;
+			if (a = CheckWinner()) {
 				this.setState({
-					won: true
+					winner: a,
 				});
 			}
 			var changedTurn = false;
@@ -59,8 +60,12 @@ var Game = React.createClass({
 		return {
 			size: INITIAL_SIZE,
 			turn: 0,
-			instructionsShown: Store.getInstructionsShown()
+			instructionsShown: Store.getInstructionsShown(),
+			winner: false,
 		};
+	},
+	_handleDismissWon: function() {
+		this.setState(this.getInitialState());
 	},
 	render: function() {
 		return (
@@ -70,6 +75,14 @@ var Game = React.createClass({
 					<h1 className="Game_title">Dodgeball</h1>
 				</div>
 				{ this.state.instructionsShown ? <Instructions /> : null }
+				{ this.state.winner ? (
+					<Modal>
+						Player {this.state.winner} wins!
+						<button onClick={this._handleDismissWon}>
+							Play again!
+						</button>
+					</Modal>
+				) : null}
 				<GameBoard size={this.state.size} turn={this.state.turn} won={this.state.won} />
 				{ this.state.changedTurn ? <div className="Game_turnTransition">Player {this.state.turn + 1}'s turn</div> : null }
 			</div>
@@ -255,8 +268,11 @@ var CheckWinner = function() {
 			}
 		}
 		if (won) {
-			return true;
+			return 1;
 		}
+	}
+	if (PlayerTwoState[PlayerTwoState.length -1]) {
+		return 2;
 	}
 	return false;
 };
@@ -287,10 +303,22 @@ var Instructions = React.createClass({
 				break;
 		}
 		return (
-			<div>
+			<Modal>
 				<h1>Instructions</h1>
 				{ instruction }
 				<button onClick={this._handleNextButtonClicked}>Next</button>
+			</Modal>
+		);
+	},
+});
+var Modal = React.createClass({
+	render: function() {
+		return (
+			<div>
+				<div className="ModalBackground" />
+				<div className="ModalContent">
+					{this.props.children}
+				</div>
 			</div>
 		);
 	},
