@@ -1,9 +1,11 @@
 body {
 	background: #fff;
+	font-family: Lato, sans-serif;
 }
 .GameBoard {
 	position: relative;
 	top: 60px;
+	font-family: 'Roboto Slab', sans-serif;
 }
 .PlayerOneBoard {
 	position: relative;
@@ -29,7 +31,19 @@ body {
 	height: 32px;
 }
 .NumberBox_active {
-	background: #a0a;
+	background: #F5CC29;
+	animation: highlightPulse 1s infinite;
+}
+@keyframes highlightPulse {
+	0% {
+		background: #F5CC29;
+	}
+	50% {
+		background: #FFF;
+	}
+	100% {
+		background: #F5CC29;
+	}
 }
 .PlayControls {
 	position: absolute;
@@ -79,15 +93,18 @@ body {
 	}
 }
 .Game_turnTransition {
-	position: absolute;
+	position: fixed;
 	top: 100px;
 	text-align: center;
 	background: #000;
 	color: #fff;
 	font-size: 100px;
-	-webkit-animation: swing 1s;
+	left: 10px;
+	padding: 50px;
+	background: #468DC8;
+	-webkit-animation: grow 1s;
 }
-.ModalBackground {
+.Modal_Background {
 	position: absolute;
 	left: 0;
 	right: 0;
@@ -96,7 +113,7 @@ body {
 	background: rgba(0,0,0,0.6);
 	z-index: 99;
 }
-.ModalContent {
+.Modal_Content {
 	position: absolute;
 	left: 50%;
 	top: 50%;
@@ -110,18 +127,38 @@ body {
 	padding: 10px;
 
 }
-@keyframes swing {
-	0% {
-		-webkit-transform: rotate(-30deg) translate(-300px);
+.BigButton {
+	background: #5fac4b;
+	border: solid 1px #4f9c3b;
+	color: #fff;
+	cursor: pointer;
+	font-family: Lato;
+	font-size: 16px;
+	margin: 16px 6px 4px;
+	outline: none;
+	padding: 7px;
+	position: relative;
+	width: 130px;
+
+	&:hover {
+		background: #78DD5E;
+		color: #000;
 	}
-	50% {
-		-webkit-transform: rotate(25deg) translate(100px);
+}
+.CenteredContent {
+	position: relative;
+	margin: auto;
+	text-align: center;
+}
+@keyframes grow {
+	0% {
+		-webkit-transform: scale(0);
 	}
 	90% {
-		-webkit-transform: rotate(25deg) translate(100px);
+		-webkit-transform: scale(1);
 	}
 	100% {
-		-webkit-transform: rotate(25deg) translate(200px,400px);
+		-webkit-transform: scale(1);
 	}
 }
 

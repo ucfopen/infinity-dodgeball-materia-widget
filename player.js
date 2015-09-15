@@ -78,9 +78,11 @@ var Game = React.createClass({
 				{ this.state.winner ? (
 					<Modal>
 						Player {this.state.winner} wins!
-						<button onClick={this._handleDismissWon}>
-							Play again!
-						</button>
+						<CenteredContent>
+							<BigButton onClick={this._handleDismissWon}>
+								Play again!
+							</BigButton>
+						</CenteredContent>
 					</Modal>
 				) : null}
 				<GameBoard size={this.state.size} turn={this.state.turn} won={this.state.won} />
@@ -296,17 +298,19 @@ var Instructions = React.createClass({
 				instruction = (<div>Here are some instructions about the game.</div>);
 				break;
 			case 1:
-				instruction = (<div>Eh.</div>);
+				instruction = (<div>Some more instructions.</div>);
 				break;
 			case 2:
-				instruction = (<div>Eh 2.0.</div>);
+				instruction = (<div>Ready, set, go!</div>);
 				break;
 		}
 		return (
 			<Modal>
 				<h1>Instructions</h1>
 				{ instruction }
-				<button onClick={this._handleNextButtonClicked}>Next</button>
+				<CenteredContent>
+					<BigButton onClick={this._handleNextButtonClicked}>Next</BigButton>
+				</CenteredContent>
 			</Modal>
 		);
 	},
@@ -315,10 +319,28 @@ var Modal = React.createClass({
 	render: function() {
 		return (
 			<div>
-				<div className="ModalBackground" />
-				<div className="ModalContent">
+				<div className="Modal_Background" />
+				<div className="Modal_Content">
 					{this.props.children}
 				</div>
+			</div>
+		);
+	},
+});
+var BigButton = React.createClass({
+	render: function() {
+		return (
+			<button className="BigButton" onClick={this.props.onClick}>
+				{this.props.children}
+			</button>
+		);
+	},
+});
+var CenteredContent = React.createClass({
+	render: function() {
+		return (
+			<div className="CenteredContent">
+				{this.props.children}
 			</div>
 		);
 	},
