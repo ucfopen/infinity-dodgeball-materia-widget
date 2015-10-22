@@ -146,7 +146,6 @@ var PlayerOneBoard = React.createClass({
 		for (var i = 0; i < this.props.size; i++) {
 			var cols = [];
 			cols.push(<td className="PlayerOneBoard_number">{i+1}</td>);
-			var thisRow = false;
 			for (var j = 0; j < this.props.size; j++) {
 				cols.push(
 					<td>
@@ -156,6 +155,7 @@ var PlayerOneBoard = React.createClass({
 								j === this.props.currentCol &&
 								this.props.turn === 0
 							}
+							activeRow={i === this.props.currentRow && this.props.turn === 0}
 							onChange={updatePlayer1Board.bind(this, i, j)}
 							value={GameState[i][j]}
 						/>
@@ -209,6 +209,9 @@ var NumberBox = React.createClass({
 		var classes = ['NumberBox'];
 		if (this.props.active) {
 			classes.push('NumberBox_active');
+		}
+		if (!this.props.activeRow) {
+			classes.push('NumberBox_inactiveRow');
 		}
 
 		return (
@@ -295,7 +298,29 @@ var Instructions = React.createClass({
 		var instruction = null;
 		switch (this.state.step) {
 			case 0:
-				instruction = (<div>Here are some instructions about the game.</div>);
+				instruction = (<div>
+					<p>
+						Player 1 fills a row with X's or O's
+					</p>
+					<div className="Instructions_p1Tutorial">
+						<div className="Instructions_arrow"></div>
+						<div className="Instructions_table">
+							<table>
+								<tr>
+									<td>X</td>
+									<td>X</td>
+									<td>O</td>
+									<td>X</td>
+								</tr>
+							</table>
+						</div>
+						<div className="Instructions_controls">
+							<div className="Instructions_button">X</div>
+							<div className="Instructions_button">O</div>
+							<div className="Instructions_cursor"></div>
+						</div>
+					</div>
+				</div>);
 				break;
 			case 1:
 				instruction = (<div>Some more instructions.</div>);
@@ -306,7 +331,7 @@ var Instructions = React.createClass({
 		}
 		return (
 			<Modal>
-				<h1>Instructions</h1>
+				<h1>How to play Dodgeball</h1>
 				{ instruction }
 				<CenteredContent>
 					<BigButton onClick={this._handleNextButtonClicked}>Next</BigButton>

@@ -1,5 +1,5 @@
 body {
-	background: #fff;
+	background: #4DB2E4;
 	font-family: Lato, sans-serif;
 }
 .GameBoard {
@@ -29,10 +29,14 @@ body {
 	border: solid 1px #000;
 	width: 32px;
 	height: 32px;
+	background: #fff;
 }
 .NumberBox_active {
 	background: #F5CC29;
 	animation: highlightPulse 1s infinite;
+}
+.NumberBox_inactiveRow {
+	background: #DFDFDF;
 }
 @keyframes highlightPulse {
 	0% {
@@ -161,4 +165,60 @@ body {
 		-webkit-transform: scale(1);
 	}
 }
+.Instructions_p1Tutorial {
+	position: relative;
+	height: 150px;
 
+	.Instructions_arrow {
+
+	}
+	.Instructions_table td {
+		padding: 5px;
+		border: solid 1px #000;
+		width: 32px;
+		height: 32px;
+		animation: fadeInFromWhite 1s;
+		animation-fill-mode: forwards;
+		animation-timing-function:steps(3, end);
+		color: #fff;
+		text-align: center;
+
+		&:nth-child(1) {
+			animation-delay: 1s;
+		}
+		&:nth-child(2) {
+			animation-delay: 2s;
+		}
+		&:nth-child(3) {
+			animation-delay: 3s;
+		}
+		&:nth-child(4) {
+			animation-delay: 4s;
+		}
+	}
+	.Instructions_controls {
+		position: absolute;
+		right: 30px;
+		top: 0;
+	}
+	.Instructions_button {
+		padding: 15px;
+		width: 15px;
+		height: 20px;
+		margin-bottom: 5px;
+		border: solid 1px #aaa;
+		display: block;
+		text-align: center;
+	}
+}
+@keyframes fadeInFromWhite {
+	0% {
+		color: #fff;
+	}
+	90% {
+		color: #fff;
+	}
+	100% {
+		color: inherit;
+	}
+}
