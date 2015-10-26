@@ -284,8 +284,12 @@ var CheckWinner = function() {
 var Instructions = React.createClass({
 	getInitialState: function() {
 		return {
-			step: 0
+			step: 0,
+			animation: true
 		};
+	},
+	componentDidMount: function() {
+		this.resetAnimation();
 	},
 	_handleNextButtonClicked: function() {
 		this.setState({ step: this.state.step + 1 });
@@ -294,17 +298,27 @@ var Instructions = React.createClass({
 			Actions.dismissInstructions();
 		}
 	},
+	resetAnimation: function() {
+		this.setState({ animation: false });
+		setTimeout(function() {
+			this.setState({ animation: true });
+			setTimeout(this.resetAnimation.bind(this), 12000);
+		}.bind(this), 1000);
+	},
 	render: function() {
 		var instruction = null;
 		switch (this.state.step) {
 			case 0:
+				var tableClass = "Instructions_table";
+				if (this.state.animation)
+					tableClass += " animate";
 				instruction = (<div>
 					<p>
 						Player 1 fills a row with X's or O's
 					</p>
 					<div className="Instructions_p1Tutorial">
 						<div className="Instructions_arrow"></div>
-						<div className="Instructions_table">
+						<div className={tableClass}>
 							<table>
 								<tr>
 									<td>X</td>
@@ -313,6 +327,9 @@ var Instructions = React.createClass({
 									<td>X</td>
 								</tr>
 							</table>
+							<div className="Instructions_cursor">
+								<img src="assets/cursor.svg" />
+							</div>
 						</div>
 						<div className="Instructions_controls">
 							<div className="Instructions_button">X</div>

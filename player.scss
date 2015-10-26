@@ -177,23 +177,42 @@ body {
 		border: solid 1px #000;
 		width: 32px;
 		height: 32px;
-		animation: fadeInFromWhite 1s;
-		animation-fill-mode: forwards;
-		animation-timing-function:steps(3, end);
 		color: #fff;
 		text-align: center;
 
-		&:nth-child(1) {
-			animation-delay: 1s;
+	}
+	.Instructions_table {
+		&.animate {
+			td {
+				animation: fadeInFromWhite 15s;
+				//animation-fill-mode: forwards;
+				animation-timing-function:steps(3, end);
+
+				&:nth-child(1) {
+					animation-delay: 1s;
+				}
+				&:nth-child(2) {
+					animation-delay: 2s;
+				}
+				&:nth-child(3) {
+					animation-delay: 3s;
+				}
+				&:nth-child(4) {
+					animation-delay: 4s;
+				}
+			}
+			.Instructions_cursor {
+				position: absolute;
+				left: 0;
+				top: 0;
+				animation: introCursor 8s;
+			}
 		}
-		&:nth-child(2) {
-			animation-delay: 2s;
-		}
-		&:nth-child(3) {
-			animation-delay: 3s;
-		}
-		&:nth-child(4) {
-			animation-delay: 4s;
+		.Instructions_cursor {
+			transform: translate(250px,100px);
+			z-index: 10;
+			width: 100px;
+			height: 100px;
 		}
 	}
 	.Instructions_controls {
@@ -215,10 +234,39 @@ body {
 	0% {
 		color: #fff;
 	}
-	90% {
+	9% {
 		color: #fff;
+	}
+	10% {
+		color: #000;
+	}
+	66% {
+		color: inherit;
 	}
 	100% {
 		color: inherit;
+	}
+}
+@keyframes introCursor {
+	0% {
+		transform: translate(250px,100px);
+	}
+	20% {
+		transform: translate(350px,30px);
+	}
+	40% {
+		transform: translate(350px,30px);
+	}
+	50% {
+		transform: translate(350px,30px);
+	}
+	60% {
+		transform: translate(330px,100px);
+	}
+	70% {
+		transform: translate(350px,30px);
+	}
+	100% {
+		transform: translate(250px,100px);
 	}
 }
