@@ -7,5 +7,11 @@ Namespace('Dodgeball').Actions = (function() {
 				actionType: Constants.INSTRUCTIONS_DISMISSED,
 			});
 		},
+		selectGameMode: function(mode) {
+			console.log("GAME MDOE SELECTEDDDD");
+			AppDispatcher.dispatch({
+				actionType: Constants.GAME_MODE_SELECTED,
+			});
+		},
 	};
 })();

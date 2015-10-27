@@ -202,17 +202,17 @@ body {
 				}
 			}
 			.Instructions_cursor {
-				position: absolute;
-				left: 0;
-				top: 0;
 				animation: introCursor 8s;
 			}
 		}
 		.Instructions_cursor {
-			transform: translate(250px,100px);
+			transform: translate(290px,80px);
 			z-index: 10;
 			width: 100px;
 			height: 100px;
+			position: absolute;
+			left: 0;
+			top: 0;
 		}
 	}
 	.Instructions_controls {
@@ -249,7 +249,7 @@ body {
 }
 @keyframes introCursor {
 	0% {
-		transform: translate(250px,100px);
+		transform: translate(290px,80px);
 	}
 	20% {
 		transform: translate(350px,30px);
@@ -261,12 +261,12 @@ body {
 		transform: translate(350px,30px);
 	}
 	60% {
-		transform: translate(330px,100px);
+		transform: translate(330px,80px);
 	}
 	70% {
 		transform: translate(350px,30px);
 	}
 	100% {
-		transform: translate(250px,100px);
+		transform: translate(290px,80px);
 	}
 }

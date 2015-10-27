@@ -13,6 +13,7 @@ var GameState = [];
 var PlayerTwoState = [];
 var currentTurn = 0;
 var gameUpdated = function(){};
+var GameType = '';
 
 var X = 'X';
 var O = 'O';
@@ -23,7 +24,9 @@ var Game = React.createClass({
 		Store.addChangeListener(function() {
 			this.setState({
 				instructionsShown: Store.getInstructionsShown(),
+				gameModeModalShown: Store.getGameModeModalShown(),
 			});
+			console.log(Store.getGameModeModalShown());
 		}.bind(this));
 		gameUpdated = function() {
 			var a;
@@ -61,6 +64,7 @@ var Game = React.createClass({
 			size: INITIAL_SIZE,
 			turn: 0,
 			instructionsShown: Store.getInstructionsShown(),
+			gameModeModalShown: Store.getGameModeModalShown(),
 			winner: false,
 		};
 	},
@@ -75,6 +79,7 @@ var Game = React.createClass({
 					<h1 className="Game_title">Dodgeball</h1>
 				</div>
 				{ this.state.instructionsShown ? <Instructions /> : null }
+				{ this.state.gameModeModalShown ? <GameModeSelectModal /> : null }
 				{ this.state.winner ? (
 					<Modal>
 						Player {this.state.winner} wins!
@@ -281,6 +286,25 @@ var CheckWinner = function() {
 	}
 	return false;
 };
+var GameModeSelectModal = React.createClass({
+	_chooseGameMode: function(type) {
+		var Actions = Namespace('Dodgeball').Actions;
+		Actions.selectGameMode(type);
+	},
+	render: function() {
+		return (
+			<Modal>
+				<h1>Choose a play mode</h1>
+				<h3>Play against another person locally</h3>
+				Have two players play at the same computer.<br />
+				<BigButton onClick={this._chooseGameMode.bind(this, '2_PLAYER')}>Play</BigButton>
+				<h3>Play against the computer</h3>
+				Play against the computer player.<br />
+				<BigButton onClick={this._chooseGameMode.bind(this, 'CPU')}>Play</BigButton>
+			</Modal>
+		);
+	},
+});
 var Instructions = React.createClass({
 	getInitialState: function() {
 		return {
@@ -290,6 +314,9 @@ var Instructions = React.createClass({
 	},
 	componentDidMount: function() {
 		this.resetAnimation();
+	},
+	componentWillUnmount: function() {
+		clearTimeout(this._animationTimeout);
 	},
 	_handleNextButtonClicked: function() {
 		this.setState({ step: this.state.step + 1 });
@@ -302,7 +329,7 @@ var Instructions = React.createClass({
 		this.setState({ animation: false });
 		setTimeout(function() {
 			this.setState({ animation: true });
-			setTimeout(this.resetAnimation.bind(this), 12000);
+			this._animationTimeout = setTimeout(this.resetAnimation.bind(this), 12000);
 		}.bind(this), 1000);
 	},
 	render: function() {
@@ -340,10 +367,10 @@ var Instructions = React.createClass({
 				</div>);
 				break;
 			case 1:
-				instruction = (<div>Some more instructions.</div>);
+				instruction = (<div>Player 2 fills a single space with an X or an O</div>);
 				break;
 			case 2:
-				instruction = (<div>Ready, set, go!</div>);
+				instruction = (<div>Player 1 wins if any of their rows match Player 2's single row.<br /><br />Player 2 wins if their single row matches none of Player 1's rows.</div>);
 				break;
 		}
 		return (
