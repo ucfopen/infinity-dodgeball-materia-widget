@@ -14,6 +14,7 @@ var PlayerTwoState = [];
 var currentTurn = 0;
 var gameUpdated = function(){};
 var GameType = '';
+var AI_Difficulty_Level = 'WIN';
 
 var X = 'X';
 var O = 'O';
@@ -25,6 +26,7 @@ var Game = React.createClass({
 			this.setState({
 				instructionsShown: Store.getInstructionsShown(),
 				gameModeModalShown: Store.getGameModeModalShown(),
+				gameMode: Store.getGameMode(),
 			});
 			console.log(Store.getGameModeModalShown());
 		}.bind(this));
@@ -36,15 +38,56 @@ var Game = React.createClass({
 				});
 			}
 			var changedTurn = false;
+			var cpuThinking = false;
 			if (currentTurn != this.state.turn) {
-				changedTurn = true;
-				setTimeout(function() {
-					this.setState({ changedTurn: false });
-				}.bind(this), 1000);
+				if (this.state.gameMode === '2_PLAYER') {
+					changedTurn = true;
+					setTimeout(function() {
+						this.setState({ changedTurn: false });
+					}.bind(this), 1000);
+				} else {
+					cpuThinking = true;
+					currentTurn = this.state.turn;
+					setTimeout(function() {
+						var currentCol = 0;
+						var play = O;
+						for (var i = 0; i < PlayerTwoState.length; i++) {
+							if (!PlayerTwoState[i]) {
+								currentCol = i;
+								break;
+							}
+						}
+						if (AI_Difficulty_Level === 'LOSE') {
+							play = GameState[0][currentCol];
+						}
+						if (AI_Difficulty_Level === '50') {
+							play = Math.random() > 0.5 ? X : O;
+						}
+						if (AI_Difficulty_Level === 'WIN') {
+							var currentRow = 0;
+							for (var i = 0; i < GameState.length; i++) {
+								var found = false;
+								for (var j = 0; j < GameState.length; j++) {
+									if (GameState[i][j] === null) {
+										found = true;
+										currentRow = i - 1;
+										break;
+									}
+								}
+								if (found) break;
+							}
+							play = GameState[currentRow][currentCol] == X ? O : X;
+						}
+						PlayerTwoState[currentCol] = play;
+						this.setState({ cpuThinking: false });
+						gameUpdated();
+					}.bind(this), 1000);
+				}
 			}
 			this.setState({
 				turn: currentTurn,
 				changedTurn,
+				cpuThinking,
 			});
 		}.bind(this);
 	},
@@ -92,6 +135,7 @@ var Game = React.createClass({
 				) : null}
 				<GameBoard size={this.state.size} turn={this.state.turn} won={this.state.won} />
 				{ this.state.changedTurn ? <div className="Game_turnTransition">Player {this.state.turn + 1}'s turn</div> : null }
+				{ this.state.cpuThinking ? <div className="Game_turnTransition">CPU is thinking...</div> : null }
 			</div>
 		);
 	},

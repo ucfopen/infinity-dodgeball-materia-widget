@@ -4,6 +4,7 @@ Namespace('Dodgeball').Store = (function() {
 
 	var instructionsShown = true;
 	var gameModeModalShown = false;
+	var gameMode;
 
 	var Store = (function() {
 		var changeCallbacks = [];
@@ -26,6 +27,9 @@ Namespace('Dodgeball').Store = (function() {
 			getGameModeModalShown: function() {
 				return gameModeModalShown;
 			},
+			getGameMode: function() {
+				return gameMode;
+			},
 		};
 	})();
 
@@ -39,6 +43,7 @@ Namespace('Dodgeball').Store = (function() {
 			break;
 			case Constants.GAME_MODE_SELECTED:
 				gameModeModalShown = false;
+				gameMode = action.mode;
 				Store.emitChange();
 			break;
 			default:

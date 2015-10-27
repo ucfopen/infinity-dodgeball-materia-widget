@@ -11,6 +11,7 @@ Namespace('Dodgeball').Actions = (function() {
 			console.log("GAME MDOE SELECTEDDDD");
 			AppDispatcher.dispatch({
 				actionType: Constants.GAME_MODE_SELECTED,
+				mode: mode,
 			});
 		},
 	};
