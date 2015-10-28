@@ -47,7 +47,6 @@ var Game = React.createClass({
 					}.bind(this), 1000);
 				} else {
 					cpuThinking = true;
-					currentTurn = this.state.turn;
 					setTimeout(function() {
 						var currentCol = 0;
 						var play = O;
@@ -79,7 +78,8 @@ var Game = React.createClass({
 							play = GameState[currentRow][currentCol] == X ? O : X;
 						}
 						PlayerTwoState[currentCol] = play;
-						this.setState({ cpuThinking: false });
+						currentTurn = 0;
+						this.setState({ cpuThinking: false, turn: 0 });
 						gameUpdated();
 					}.bind(this), 1000);
 				}
@@ -272,8 +272,17 @@ var NumberBox = React.createClass({
 });
 var PlayControls = React.createClass({
 	render: function() {
+		var Store = Namespace('Dodgeball').Store;
+		var classes = ["PlayControls"];
+		if (this.props.turn) {
+			if (Store.getGameMode() === 'CPU') {
+				classes.push('cpuPlaying');
+			} else {
+				classes.push('playerTwo');
+			}
+		}
 		return (
-			<div className="PlayControls">
+			<div className={classes.join(' ')}>
 				<h1>Player {this.props.turn ? "2's" : "1's"} turn</h1>
 				<button
 					className="PlayControls_button"

@@ -54,16 +54,25 @@ body {
 	right: 80px;
 	top: 0px;
 	text-align: center;
+
+	&.cpuPlaying {
+		display: none;
+	}
+	&.playerTwo {
+		top: 230px;
+	}
 }
 .PlayControls_button {
 	font-size: 30px;
-	display: block;
+	display: inline-block;
 	padding: 30px;
 	width: 100px;
 	margin: auto;
+	margin-right: 10px;
+	margin-left: 5px;
 	margin-bottom: 10px;
-	background: #D5BBBB;
-	border: solid 1px #999;
+	background: #53FFD3;
+	border: solid 1px #58A18A;
 }
 .Game_header {
 	position: absolute;
