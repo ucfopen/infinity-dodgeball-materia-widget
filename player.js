@@ -48,36 +48,8 @@ var Game = React.createClass({
 				} else {
 					cpuThinking = true;
 					setTimeout(function() {
-						var currentCol = 0;
-						var play = O;
-						for (var i = 0; i < PlayerTwoState.length; i++) {
-							if (!PlayerTwoState[i]) {
-								currentCol = i;
-								break;
-							}
-						}
-						if (AI_Difficulty_Level === 'LOSE') {
-							play = GameState[0][currentCol];
-						}
-						if (AI_Difficulty_Level === '50') {
-							play = Math.random() > 0.5 ? X : O;
-						}
-						if (AI_Difficulty_Level === 'WIN') {
-							var currentRow = 0;
-							for (var i = 0; i < GameState.length; i++) {
-								var found = false;
-								for (var j = 0; j < GameState.length; j++) {
-									if (GameState[i][j] === null) {
-										found = true;
-										currentRow = i - 1;
-										break;
-									}
-								}
-								if (found) break;
-							}
-							play = GameState[currentRow][currentCol] == X ? O : X;
-						}
-						PlayerTwoState[currentCol] = play;
+						var currentCol = getCurrentColumn();
+						PlayerTwoState[currentCol] = Namespace('Dodgeball').AI(AI_Difficulty_Level).getAIMove(GameState, currentCol);
 						currentTurn = 0;
 						this.setState({ cpuThinking: false, turn: 0 });
 						gameUpdated();
@@ -467,6 +439,15 @@ var CenteredContent = React.createClass({
 		);
 	},
 });
+
+var getCurrentColumn = function() {
+	for (var i = 0; i < PlayerTwoState.length; i++) {
+		if (!PlayerTwoState[i]) {
+			return i;
+		}
+	}
+	return 0;
+}
 
 Namespace('Dodgeball').Engine = (function() {
 	var start = function(instance, qset, version) {
