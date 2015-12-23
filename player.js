@@ -106,7 +106,7 @@ var Game = React.createClass({
 					</Modal>
 				) : null}
 				<GameBoard size={this.state.size} turn={this.state.turn} won={this.state.won} />
-				{ this.state.changedTurn ? <div className="Game_turnTransition">Player {this.state.turn + 1}'s turn</div> : null }
+				{ this.state.changedTurn ? <div className="Game_turnTransition">Player {this.state.turn + 1}&#39;s turn</div> : null }
 				{ this.state.cpuThinking ? <div className="Game_turnTransition">CPU is thinking...</div> : null }
 			</div>
 		);
@@ -366,7 +366,7 @@ var Instructions = React.createClass({
 					tableClass += " animate";
 				instruction = (<div>
 					<p>
-						Player 1 fills a row with X's or O's
+						Player 1 fills a row with X&#39;s or O&#39;s
 					</p>
 					<div className="Instructions_p1Tutorial">
 						<div className="Instructions_arrow"></div>
@@ -395,7 +395,7 @@ var Instructions = React.createClass({
 				instruction = (<div>Player 2 fills a single space with an X or an O</div>);
 				break;
 			case 2:
-				instruction = (<div>Player 1 wins if any of their rows match Player 2's single row.<br /><br />Player 2 wins if their single row matches none of Player 1's rows.</div>);
+				instruction = (<div>Player 1 wins if any of their rows match Player 2&#39;s single row.<br /><br />Player 2 wins if their single row matches none of Player 1&#39;s rows.</div>);
 				break;
 		}
 		return (
