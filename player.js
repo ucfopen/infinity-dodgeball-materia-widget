@@ -451,7 +451,6 @@ var ModeSelection = React.createClass({
 		};
 	},
 	onCheckedChange: function(e) {
-		console.log(e.currentTarget.value);
 		this.setState({
 			selected: e.currentTarget.value
 		});
@@ -460,10 +459,11 @@ var ModeSelection = React.createClass({
 	render: function() {
 		return (
 			<div className="ModeSelection">
+				<h4>AI Difficulty Level</h4>
 				<ul>
-					<li><label>Hard</label><input name="difficulty" type="checkbox" value="WIN" onChange={this.onCheckedChange} checked={this.state.selected === "WIN"} /></li>
-					<li><label>Average</label><input name="difficulty" type="checkbox" value="50" onChange={this.onCheckedChange} checked={this.state.selected === "50"} /></li>
-					<li><label>Easy</label><input name="difficulty" type="checkbox" value="LOSE" onChange={this.onCheckedChange} checked={this.state.selected === "LOSE"} /></li>
+					<li><label>Hard</label><input name="difficulty" type="radio" value="WIN" onChange={this.onCheckedChange} checked={this.state.selected === "WIN"} /></li>
+					<li><label>Average</label><input name="difficulty" type="radio" value="50" onChange={this.onCheckedChange} checked={this.state.selected === "50"} /></li>
+					<li><label>Easy</label><input name="difficulty" type="radio" value="LOSE" onChange={this.onCheckedChange} checked={this.state.selected === "LOSE"} /></li>
 				</ul>
 			</div>
 		);
