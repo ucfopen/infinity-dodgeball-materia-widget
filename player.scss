@@ -164,10 +164,20 @@ body {
 	text-align: center;
 }
 .ModeSelection {
-	display: inline-block;
+	float: right;
+	font-size: 16px;
+	margin-top: 14px;
+}
+.ModeSelection h4 {
+	display: block;
+	margin: 0px;
+	padding: 0px 20px 0px 0px;
+	text-align: center;
 }
 .ModeSelection ul{
 	list-style: none;
+	margin: 0px;
+	padding: 0px 20px 0px 0px;
 }
 .ModeSelection li {
 	display: inline-block;
@@ -175,6 +185,22 @@ body {
 .ModeSelection label {
 	color: #4DB2E4;
 	font-weight: bold;
+}
+.ModeSelection input[type=radio] {
+	cursor: pointer;
+	font-size: 22px;
+	margin-right: 8px;
+}
+.ModeSelection input[type=radio]:after {
+	display: inline-block;
+	visibility: visible;
+}
+.ModeSelection input[type=radio]:checked:after {
+	content: "\272A";
+	background-color: #FFFFFF;
+	position: relative;
+	top: -5px;
+	left: -2px;
 }
 @keyframes grow {
 	0% {
