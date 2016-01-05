@@ -447,51 +447,25 @@ var CenteredContent = React.createClass({
 var ModeSelection = React.createClass({
 	getInitialState: function() {
 		return {
-			hardChecked: true,
-			averageChecked: false,
-			easyChecked: false
+			selected: "WIN"
 		};
 	},
-	onHardChanged: function(e) {
-		if(e.currentTarget.checked)
-		{
-			this.setState({
-				hardChecked: true,
-				averageChecked: false,
-				easyChecked: false
-			});
-			this.props.onDifficultyChange("WIN");
-		}
-	},
-	onAverageChanged: function(e) {
-		if(e.currentTarget.checked)
-		{
-			this.setState({
-				hardChecked: false,
-				averageChecked: true,
-				easyChecked: false
-			});
-			this.props.onDifficultyChange("50");
-		}
-	},
-	onEasyChanged: function(e) {
-		if(e.currentTarget.checked)
-		{
-			this.setState({
-				hardChecked: false,
-				averageChecked: false,
-				easyChecked: true
-			});
-			this.props.onDifficultyChange("LOSE");
-		}
+	onCheckedChange: function(e) {
+		console.log(e.currentTarget.value);
+		this.setState({
+			selected: e.currentTarget.value
+		});
+		this.props.onDifficultyChange(e.currentTarget.value);
 	},
 	render: function() {
 		return (
-			<ul className="ModeSelection">
-				<li><label>Hard</label><input name="difficulty" type="checkbox" value="WIN" onChange={this.onHardChanged} checked={this.state.hardChecked} /></li>
-				<li><label>Average</label><input name="difficulty" type="checkbox" value="50" onChange={this.onAverageChanged} checked={this.state.averageChecked} /></li>
-				<li><label>Easy</label><input name="difficulty" type="checkbox" value="LOSE" onChange={this.onEasyChanged} checked={this.state.easyChecked} /></li>
-			</ul>
+			<div className="ModeSelection">
+				<ul>
+					<li><label>Hard</label><input name="difficulty" type="checkbox" value="WIN" onChange={this.onCheckedChange} checked={this.state.selected === "WIN"} /></li>
+					<li><label>Average</label><input name="difficulty" type="checkbox" value="50" onChange={this.onCheckedChange} checked={this.state.selected === "50"} /></li>
+					<li><label>Easy</label><input name="difficulty" type="checkbox" value="LOSE" onChange={this.onCheckedChange} checked={this.state.selected === "LOSE"} /></li>
+				</ul>
+			</div>
 		);
 	},
 });
