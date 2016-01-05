@@ -312,6 +312,10 @@ var CheckWinner = function() {
 	return false;
 };
 var GameModeSelectModal = React.createClass({
+	onDifficultyChange: function(difficulty) {
+		AI_Difficulty_Level = difficulty;
+		console.log("AI Difficulty is now " + AI_Difficulty_Level);
+	},
 	_chooseGameMode: function(type) {
 		var Actions = Namespace('Dodgeball').Actions;
 		Actions.selectGameMode(type);
@@ -326,6 +330,7 @@ var GameModeSelectModal = React.createClass({
 				<h3>Play against the computer</h3>
 				Play against the computer player.<br />
 				<BigButton onClick={this._chooseGameMode.bind(this, 'CPU')}>Play</BigButton>
+				<ModeSelection onDifficultyChange={this.onDifficultyChange}></ModeSelection>
 			</Modal>
 		);
 	},
@@ -436,6 +441,57 @@ var CenteredContent = React.createClass({
 			<div className="CenteredContent">
 				{this.props.children}
 			</div>
+		);
+	},
+});
+var ModeSelection = React.createClass({
+	getInitialState: function() {
+		return {
+			hardChecked: true,
+			averageChecked: false,
+			easyChecked: false
+		};
+	},
+	onHardChanged: function(e) {
+		if(e.currentTarget.checked)
+		{
+			this.setState({
+				hardChecked: true,
+				averageChecked: false,
+				easyChecked: false
+			});
+			this.props.onDifficultyChange("WIN");
+		}
+	},
+	onAverageChanged: function(e) {
+		if(e.currentTarget.checked)
+		{
+			this.setState({
+				hardChecked: false,
+				averageChecked: true,
+				easyChecked: false
+			});
+			this.props.onDifficultyChange("50");
+		}
+	},
+	onEasyChanged: function(e) {
+		if(e.currentTarget.checked)
+		{
+			this.setState({
+				hardChecked: false,
+				averageChecked: false,
+				easyChecked: true
+			});
+			this.props.onDifficultyChange("LOSE");
+		}
+	},
+	render: function() {
+		return (
+			<ul className="ModeSelection">
+				<li><label>Hard</label><input name="difficulty" type="checkbox" value="WIN" onChange={this.onHardChanged} checked={this.state.hardChecked} /></li>
+				<li><label>Average</label><input name="difficulty" type="checkbox" value="50" onChange={this.onAverageChanged} checked={this.state.averageChecked} /></li>
+				<li><label>Easy</label><input name="difficulty" type="checkbox" value="LOSE" onChange={this.onEasyChanged} checked={this.state.easyChecked} /></li>
+			</ul>
 		);
 	},
 });
