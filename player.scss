@@ -129,16 +129,33 @@ body {
 .Modal_Content {
 	position: absolute;
 	left: 50%;
-	top: 50%;
+	top: 40%;
 	z-index: 100;
 	width: 400px;
 	margin-left: -210px;
-	height: 350px;
+	height: 380px;
 	margin-top: -175px;
 	background: #fff;
-	border: solid 1px #888;
-	padding: 10px;
+	border: solid 2px #BBBBBB;
+	border-radius: 5px;
+	padding: 0px;
 
+}
+.Modal_Content h1 {
+	background-color: #BBBBBB;
+	color: #FFFFFF;
+	height: 62px;
+	margin: 0px 0px 20px 0px;
+	padding-top: 20px;
+	text-align: center;
+}
+.Modal_Content h3 {
+	margin: 5px 0px;
+	padding: 0px 20px;
+}
+.Modal_Content p {
+	margin: 5px 0px 30px 0px;
+	padding: 0px 20px;
 }
 .BigButton {
 	background: #5fac4b;
@@ -147,7 +164,8 @@ body {
 	cursor: pointer;
 	font-family: Lato;
 	font-size: 16px;
-	margin: 16px 6px 4px;
+	margin-bottom: 20px;
+	margin-left: 20px;
 	outline: none;
 	padding: 7px;
 	position: relative;
@@ -159,14 +177,16 @@ body {
 	}
 }
 .CenteredContent {
-	position: relative;
-	margin: auto;
+	bottom: 0px;
+	left: 115px;
+	position: absolute;
+	margin: 0px;
 	text-align: center;
 }
 .ModeSelection {
 	float: right;
 	font-size: 16px;
-	margin-top: 14px;
+	margin-top: -2px;
 }
 .ModeSelection h4 {
 	display: block;
@@ -177,7 +197,7 @@ body {
 .ModeSelection ul{
 	list-style: none;
 	margin: 0px;
-	padding: 0px 20px 0px 0px;
+	padding: 0px 12px 0px 0px;
 }
 .ModeSelection li {
 	display: inline-block;
@@ -221,12 +241,15 @@ body {
 
 	}
 	.Instructions_table td {
-		padding: 5px;
-		border: solid 1px #000;
-		width: 32px;
+		background-color: #4DB2E4;
+		border: solid 1px #4DB2E4;
+		color: #4DB2E4;
 		height: 32px;
-		color: #fff;
+		left: 20px;
+		padding: 5px;
+		position: relative;
 		text-align: center;
+		width: 32px;
 
 	}
 	.Instructions_table {
@@ -265,10 +288,13 @@ body {
 	}
 	.Instructions_controls {
 		position: absolute;
-		right: 30px;
+		right: 20px;
 		top: 0;
 	}
 	.Instructions_button {
+		background-color: #4DB2E4;
+		border: solid 1px #4DB2E4;
+		color: #FFFFFF;
 		padding: 15px;
 		width: 15px;
 		height: 20px;
@@ -280,19 +306,19 @@ body {
 }
 @keyframes fadeInFromWhite {
 	0% {
-		color: #fff;
+		color: #4DB2E4;
 	}
 	9% {
-		color: #fff;
+		color: #4DB2E4;
 	}
 	10% {
-		color: #000;
+		color: #FFFFFF;
 	}
 	66% {
-		color: inherit;
+		color: #FFFFFF;
 	}
 	100% {
-		color: inherit;
+		color: #4DB2E4;
 	}
 }
 @keyframes introCursor {

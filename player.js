@@ -97,7 +97,8 @@ var Game = React.createClass({
 				{ this.state.gameModeModalShown ? <GameModeSelectModal /> : null }
 				{ this.state.winner ? (
 					<Modal>
-						Player {this.state.winner} wins!
+						<h1>The Winner is:</h1>
+						<p>Player {this.state.winner}</p>
 						<CenteredContent>
 							<BigButton onClick={this._handleDismissWon}>
 								Play again!
@@ -325,10 +326,10 @@ var GameModeSelectModal = React.createClass({
 			<Modal>
 				<h1>Choose a play mode</h1>
 				<h3>Play against another person locally</h3>
-				Have two players play at the same computer.<br />
+				<p>Have two players play at the same computer.</p>
 				<BigButton onClick={this._chooseGameMode.bind(this, '2_PLAYER')}>Play</BigButton>
 				<h3>Play against the computer</h3>
-				Play against the computer player.<br />
+				<p>Play against the computer player.</p>
 				<BigButton onClick={this._chooseGameMode.bind(this, 'CPU')}>Play</BigButton>
 				<ModeSelection onDifficultyChange={this.onDifficultyChange}></ModeSelection>
 			</Modal>
@@ -397,10 +398,10 @@ var Instructions = React.createClass({
 				</div>);
 				break;
 			case 1:
-				instruction = (<div>Player 2 fills a single space with an X or an O</div>);
+				instruction = (<div><p>Player 2 fills a single space with an X or an O</p></div>);
 				break;
 			case 2:
-				instruction = (<div>Player 1 wins if any of their rows match Player 2&#39;s single row.<br /><br />Player 2 wins if their single row matches none of Player 1&#39;s rows.</div>);
+				instruction = (<div><p>Player 1 wins if any of their rows match Player 2&#39;s single row.</p><p>Player 2 wins if their single row matches none of Player 1&#39;s rows.</p></div>);
 				break;
 		}
 		return (
@@ -461,9 +462,9 @@ var ModeSelection = React.createClass({
 			<div className="ModeSelection">
 				<h4>AI Difficulty Level</h4>
 				<ul>
-					<li><label>Hard</label><input name="difficulty" type="radio" value="WIN" onChange={this.onCheckedChange} checked={this.state.selected === "WIN"} /></li>
-					<li><label>Average</label><input name="difficulty" type="radio" value="50" onChange={this.onCheckedChange} checked={this.state.selected === "50"} /></li>
-					<li><label>Easy</label><input name="difficulty" type="radio" value="LOSE" onChange={this.onCheckedChange} checked={this.state.selected === "LOSE"} /></li>
+					<li><label>Hard<input name="difficulty" type="radio" value="WIN" onChange={this.onCheckedChange} checked={this.state.selected === "WIN"} /> </label></li>
+					<li><label>Average<input name="difficulty" type="radio" value="50" onChange={this.onCheckedChange} checked={this.state.selected === "50"} /> </label></li>
+					<li><label>Easy<input name="difficulty" type="radio" value="LOSE" onChange={this.onCheckedChange} checked={this.state.selected === "LOSE"} /> </label></li>
 				</ul>
 			</div>
 		);
