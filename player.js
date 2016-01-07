@@ -457,37 +457,37 @@ var Instructions = React.createClass({
 					<div className="Instruction_row">
 						<div className="Instructions_winnerTutorial">
 							<p className="left">
-								<strong>Player 1 wins if:</strong><br/>any one row matches<br/>Player 2&#39;s single row.
+								<span className="Instruction_subheader">Player 1 wins if:</span><br/>any one row matches<br/>Player 2&#39;s single row.
 							</p>
 							<div className="Instructions_table3 right">
 								<table>
 									<tbody>
 										<tr>
-											<td className="oldMoves">X</td>
-											<td className="oldMoves">X</td>
-											<td className="oldMoves">O</td>
-											<td className="oldMoves">X</td>
-										</tr>
-										<tr className="greenOutline">
-											<td className="oldMoves">O</td>
-											<td className="oldMoves">X</td>
-											<td className="oldMoves">O</td>
-											<td className="oldMoves">X</td>
+											<td>X</td>
+											<td>X</td>
+											<td>O</td>
+											<td>X</td>
 										</tr>
 										<tr>
-											<td className="oldMoves">O</td>
-											<td className="oldMoves">O</td>
-											<td className="oldMoves">X</td>
-											<td className="oldMoves">X</td>
+											<td className="greenOutline">O</td>
+											<td className="greenOutline">X</td>
+											<td className="greenOutline">O</td>
+											<td className="greenOutline">X</td>
+										</tr>
+										<tr>
+											<td>O</td>
+											<td>O</td>
+											<td>X</td>
+											<td>X</td>
 										</tr>
 										<tr>
 											<td className="blankCell"></td>
 										</tr>
-										<tr className="greenOutline">
-											<td className="oldMoves">O</td>
-											<td className="oldMoves">X</td>
-											<td className="oldMoves">O</td>
-											<td className="oldMoves">X</td>
+										<tr>
+											<td className="greenOutline">O</td>
+											<td className="greenOutline">X</td>
+											<td className="greenOutline">O</td>
+											<td className="greenOutline">X</td>
 										</tr>
 									</tbody>
 								</table>
@@ -497,42 +497,42 @@ var Instructions = React.createClass({
 					<hr/>
 					<div className="Instruction_row">
 						<div className="Instructions_winnerTutorial">
-							<div className="Instructions_table3 left">
+							<p className="left">
+								<span className="Instruction_subheader">Player 2 wins if:</span><br/>their single row doesn&#39;t<br/>match any of Player 1&#39;s rows.
+							</p>
+							<div className="Instructions_table3 right">
 								<table>
 									<tbody>
 										<tr>
-											<td className="oldMoves">X</td>
-											<td className="oldMoves">X</td>
-											<td className="oldMoves">O</td>
-											<td className="oldMoves">X</td>
+											<td>X</td>
+											<td>X</td>
+											<td>O</td>
+											<td>X</td>
 										</tr>
 										<tr>
-											<td className="oldMoves">O</td>
-											<td className="oldMoves">X</td>
-											<td className="oldMoves">O</td>
-											<td className="oldMoves">X</td>
+											<td>O</td>
+											<td>X</td>
+											<td>O</td>
+											<td>X</td>
 										</tr>
 										<tr>
-											<td className="oldMoves">O</td>
-											<td className="oldMoves">O</td>
-											<td className="oldMoves">X</td>
-											<td className="oldMoves">X</td>
+											<td className="greenOutline">O</td>
+											<td className="greenOutline">O</td>
+											<td className="redOutline">X</td>
+											<td className="greenOutline">X</td>
 										</tr>
 										<tr>
 											<td className="blankCell"></td>
 										</tr>
-										<tr className="greenOutline">
-											<td className="oldMoves">O</td>
-											<td className="oldMoves">O</td>
-											<td className="oldMoves">O</td>
-											<td className="oldMoves">X</td>
+										<tr>
+											<td className="greenOutline">O</td>
+											<td className="greenOutline">O</td>
+											<td className="redOutline">O</td>
+											<td className="greenOutline">X</td>
 										</tr>
 									</tbody>
 								</table>
 							</div>
-							<p className="right">
-								<strong>Player 2 wins if:</strong><br/>their single row doesn&#39;t<br/>match any of Player 1&#39;s rows.
-							</p>
 						</div>
 					</div>
 				</div>);

@@ -3,7 +3,7 @@ body {
 	font-family: Lato, sans-serif;
 }
 hr {
-	margin: 2px 0px 10px 0px;
+	margin: 2px 0px 20px 0px;
 }
 .GameBoard {
 	position: relative;
@@ -334,10 +334,16 @@ hr {
 }
 .Instructions_winnerTutorial {
 	display: block;
-	height: 70px;
+	height: 74px;
 	padding-right: 20px;
 	position: relative;
 
+	p .Instruction_subheader {
+		display: inline-block;
+		font-size: 18px;
+		font-weight: bold;
+		margin-bottom: 10px;
+	}
 	p {
 		margin: 0px;
 		padding-left: 20px;
@@ -349,10 +355,10 @@ hr {
 		float: right;
 		padding: 0px 20px;
 	}
-	.Instructions_table3 td,
-	.Instructions_table3 td.oldMoves {
+	.Instructions_table3 td {
 		background-color: #4DB2E4;
 		border: solid 1px #4DB2E4;
+		color: #FFFFFF;
 		font-size: 9px;
 		height: 8px;
 		left: 20px;
@@ -361,15 +367,16 @@ hr {
 		text-align: center;
 		width: 8px;
 	}
-	.Instructions_table3 td.oldMoves {
-		color: #FFFFFF;
-	}
 	.Instructions_table3 td.blankCell {
 		background-color: #FFFFFF;
 		border: solid 1px #FFFFFF;
+		height: 2px;
 	}
-	.Instructions_table3 tr.greenOutline {
-		border: 1px solid #00FF00;
+	.Instructions_table3 td.greenOutline {
+		border: 3px solid #78DD5E;
+	}
+	.Instructions_table3 td.redOutline {
+		border: 3px solid #FF3333;
 	}
 }
 .Instructions_cursor {
