@@ -398,7 +398,57 @@ var Instructions = React.createClass({
 				</div>);
 				break;
 			case 1:
-				instruction = (<div><p>Player 2 fills a single space with an X or an O</p></div>);
+				var tableClass = "Instructions_table";
+				var tableClass2 = "Instructions_table2";
+				var blankCell = {bgColor: 'white'};
+				if (this.state.animation)
+				{
+					tableClass += " animate";
+					tableClass2 += " animate";
+				}
+				instruction = (<div>
+					<p>
+						Player 2 fills a single space with an X or an O
+					</p>
+					<div className="Instructions_p2Tutorial">
+						<div className="Instructions_arrow"></div>
+						<div className={tableClass}>
+							<table>
+								<tbody>
+									<tr>
+										<td className="oldMoves">X</td>
+										<td className="oldMoves">X</td>
+										<td className="oldMoves">O</td>
+										<td className="oldMoves">X</td>
+									</tr>
+									<tr>
+										<td className="blankCell"></td>
+									</tr>
+								</tbody>
+							</table>
+							<div className="Instructions_cursor">
+								<img src="assets/cursor.svg" />
+							</div>
+						</div>
+						<div className={tableClass2}>
+							<table>
+								<tbody>
+									<tr>
+										<td>O</td>
+										<td></td>
+										<td></td>
+										<td></td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+						<div className="Instructions_controls">
+							<div className="Instructions_button">X</div>
+							<div className="Instructions_button">O</div>
+							<div className="Instructions_cursor"></div>
+						</div>
+					</div>
+				</div>);
 				break;
 			case 2:
 				instruction = (<div><p>Player 1 wins if any of their rows match Player 2&#39;s single row.</p><p>Player 2 wins if their single row matches none of Player 1&#39;s rows.</p></div>);

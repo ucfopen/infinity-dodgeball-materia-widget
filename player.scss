@@ -273,36 +273,87 @@ body {
 				}
 			}
 			.Instructions_cursor {
-				animation: introCursor 8s;
+				animation: introCursor1 8s;
 			}
 		}
-		.Instructions_cursor {
-			transform: translate(290px,80px);
-			z-index: 10;
-			width: 100px;
-			height: 100px;
-			position: absolute;
-			left: 0;
-			top: 0;
-		}
 	}
-	.Instructions_controls {
-		position: absolute;
-		right: 20px;
-		top: 0;
+}
+.Instructions_p2Tutorial {
+	position: relative;
+	height: 150px;
+
+	.Instructions_arrow {
+
 	}
-	.Instructions_button {
+	.Instructions_table td,
+	.Instructions_table td.oldMoves,
+	.Instructions_table2 td {
 		background-color: #4DB2E4;
 		border: solid 1px #4DB2E4;
-		color: #FFFFFF;
-		padding: 15px;
-		width: 15px;
-		height: 20px;
-		margin-bottom: 5px;
-		border: solid 1px #aaa;
-		display: block;
+		height: 32px;
+		left: 20px;
+		padding: 5px;
+		position: relative;
 		text-align: center;
+		width: 32px;
 	}
+	.Instructions_table td.oldMoves {
+		color: #FFFFFF;
+	}
+	.Instructions_table td.blankCell
+	{
+		background-color: #FFFFFF;
+		border: solid 1px #FFFFFF;
+	}
+	.Instructions_table2 td {
+		color: #4DB2E4;
+	}
+	.Instructions_table {
+		&.animate {
+			.Instructions_cursor {
+				animation: introCursor2 6s;
+			}
+		}
+	}
+	.Instructions_table2 {
+		&.animate {
+			td {
+				animation: fadeInFromWhite 8s;
+				//animation-fill-mode: forwards;
+				animation-timing-function:steps(1, end);
+
+				&:nth-child(1) {
+					animation-delay: 1s;
+				}
+			}
+		}
+	}
+}
+.Instructions_cursor {
+	transform: translate(290px,80px);
+	z-index: 10;
+	width: 100px;
+	height: 100px;
+	position: absolute;
+	left: 0;
+	top: 0;
+}
+.Instructions_controls {
+	position: absolute;
+	right: 20px;
+	top: 0;
+}
+.Instructions_button {
+	background-color: #4DB2E4;
+	border: solid 1px #4DB2E4;
+	color: #FFFFFF;
+	padding: 15px;
+	width: 15px;
+	height: 20px;
+	margin-bottom: 5px;
+	border: solid 1px #aaa;
+	display: block;
+	text-align: center;
 }
 @keyframes fadeInFromWhite {
 	0% {
@@ -321,7 +372,7 @@ body {
 		color: #4DB2E4;
 	}
 }
-@keyframes introCursor {
+@keyframes introCursor1 {
 	0% {
 		transform: translate(290px,80px);
 	}
@@ -339,6 +390,20 @@ body {
 	}
 	70% {
 		transform: translate(350px,30px);
+	}
+	100% {
+		transform: translate(290px,80px);
+	}
+}
+@keyframes introCursor2 {
+	0% {
+		transform: translate(290px,80px);
+	}
+	20% {
+		transform: translate(350px,80px);
+	}
+	70% {
+		transform: translate(350px,80px);
 	}
 	100% {
 		transform: translate(290px,80px);
