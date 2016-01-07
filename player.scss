@@ -2,6 +2,9 @@ body {
 	background: #4DB2E4;
 	font-family: Lato, sans-serif;
 }
+hr {
+	margin: 2px 0px 10px 0px;
+}
 .GameBoard {
 	position: relative;
 	top: 60px;
@@ -329,6 +332,46 @@ body {
 		}
 	}
 }
+.Instructions_winnerTutorial {
+	display: block;
+	height: 70px;
+	padding-right: 20px;
+	position: relative;
+
+	p {
+		margin: 0px;
+		padding-left: 20px;
+	}
+	.left {
+		float: left;
+	}
+	.right {
+		float: right;
+		padding: 0px 20px;
+	}
+	.Instructions_table3 td,
+	.Instructions_table3 td.oldMoves {
+		background-color: #4DB2E4;
+		border: solid 1px #4DB2E4;
+		font-size: 9px;
+		height: 8px;
+		left: 20px;
+		padding: 2px;
+		position: relative;
+		text-align: center;
+		width: 8px;
+	}
+	.Instructions_table3 td.oldMoves {
+		color: #FFFFFF;
+	}
+	.Instructions_table3 td.blankCell {
+		background-color: #FFFFFF;
+		border: solid 1px #FFFFFF;
+	}
+	.Instructions_table3 tr.greenOutline {
+		border: 1px solid #00FF00;
+	}
+}
 .Instructions_cursor {
 	transform: translate(290px,80px);
 	z-index: 10;
@@ -354,6 +397,10 @@ body {
 	border: solid 1px #aaa;
 	display: block;
 	text-align: center;
+}
+.Instruction_row {
+	height: 100px;
+	width: 100%;
 }
 @keyframes fadeInFromWhite {
 	0% {
