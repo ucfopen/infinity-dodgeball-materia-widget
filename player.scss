@@ -240,9 +240,6 @@ hr {
 	position: relative;
 	height: 150px;
 
-	.Instructions_arrow {
-
-	}
 	.Instructions_table td {
 		background-color: #4DB2E4;
 		border: solid 1px #4DB2E4;
@@ -275,7 +272,7 @@ hr {
 					animation-delay: 4s;
 				}
 			}
-			.Instructions_cursor {
+			.demonstration_cursor {
 				animation: introCursor1 8s;
 			}
 		}
@@ -285,9 +282,6 @@ hr {
 	position: relative;
 	height: 150px;
 
-	.Instructions_arrow {
-
-	}
 	.Instructions_table td,
 	.Instructions_table td.oldMoves,
 	.Instructions_table2 td {
@@ -313,7 +307,7 @@ hr {
 	}
 	.Instructions_table {
 		&.animate {
-			.Instructions_cursor {
+			.demonstration_cursor {
 				animation: introCursor2 6s;
 			}
 		}
@@ -332,13 +326,13 @@ hr {
 		}
 	}
 }
-.Instructions_winnerTutorial {
+.demonstration_win-scenario {
 	display: block;
 	height: 74px;
 	padding-right: 20px;
 	position: relative;
 
-	p .Instruction_subheader {
+	p .demonstration_subheader {
 		display: inline-block;
 		font-size: 18px;
 		font-weight: bold;
@@ -355,7 +349,7 @@ hr {
 		float: right;
 		padding: 0px 20px;
 	}
-	.Instructions_table3 td {
+	.demonstration_table td {
 		background-color: #4DB2E4;
 		border: solid 1px #4DB2E4;
 		color: #FFFFFF;
@@ -367,19 +361,19 @@ hr {
 		text-align: center;
 		width: 8px;
 	}
-	.Instructions_table3 td.blankCell {
+	.demonstration_table td.blankCell {
 		background-color: #FFFFFF;
 		border: solid 1px #FFFFFF;
 		height: 2px;
 	}
-	.Instructions_table3 td.greenOutline {
+	.demonstration_table td.greenOutline {
 		border: 3px solid #78DD5E;
 	}
-	.Instructions_table3 td.redOutline {
+	.demonstration_table td.redOutline {
 		border: 3px solid #FF3333;
 	}
 }
-.Instructions_cursor {
+.demonstration_cursor {
 	transform: translate(290px,80px);
 	z-index: 10;
 	width: 100px;
@@ -388,12 +382,12 @@ hr {
 	left: 0;
 	top: 0;
 }
-.Instructions_controls {
+.demonstration_controls {
 	position: absolute;
 	right: 20px;
 	top: 0;
 }
-.Instructions_button {
+.demonstration_button {
 	background-color: #4DB2E4;
 	border: solid 1px #4DB2E4;
 	color: #FFFFFF;
@@ -405,7 +399,7 @@ hr {
 	display: block;
 	text-align: center;
 }
-.Instruction_row {
+.demonstration_row {
 	height: 100px;
 	width: 100%;
 }
