@@ -98,7 +98,46 @@ var Game = React.createClass({
 				{ this.state.winner ? (
 					<Modal>
 						<h1>The Winner is:</h1>
-						<p>Player {this.state.winner}</p>
+						<div className="demonstration_row">
+						<div className="demonstration_win-scenario">
+							<p className="left">
+								<span className="demonstration_subheader">Player {this.state.winner}</span>
+							</p>
+							<div className="demonstration_table right">
+								<table>
+									<tbody>
+										<tr>
+											<td>X</td>
+											<td>X</td>
+											<td>O</td>
+											<td>X</td>
+										</tr>
+										<tr>
+											<td>O</td>
+											<td>X</td>
+											<td>O</td>
+											<td>X</td>
+										</tr>
+										<tr>
+											<td className="greenOutline">O</td>
+											<td className="greenOutline">O</td>
+											<td className="redOutline">X</td>
+											<td className="greenOutline">X</td>
+										</tr>
+										<tr>
+											<td className="blankCell"></td>
+										</tr>
+										<tr>
+											<td className="greenOutline">O</td>
+											<td className="greenOutline">O</td>
+											<td className="redOutline">O</td>
+											<td className="greenOutline">X</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
 						<CenteredContent>
 							<BigButton onClick={this._handleDismissWon}>
 								Play again!
@@ -138,7 +177,6 @@ var GameBoard = React.createClass({
 				}
 			}
 		}
-
 		return (
 			<div className='GameBoard'>
 				{ this.props.won ? <div>winner!</div> : null }
@@ -315,7 +353,6 @@ var CheckWinner = function() {
 var GameModeSelectModal = React.createClass({
 	onDifficultyChange: function(difficulty) {
 		AI_Difficulty_Level = difficulty;
-		console.log("AI Difficulty is now " + AI_Difficulty_Level);
 	},
 	_chooseGameMode: function(type) {
 		var Actions = Namespace('Dodgeball').Actions;
@@ -375,7 +412,6 @@ var Instructions = React.createClass({
 						Player 1 fills a row with X&#39;s or O&#39;s
 					</p>
 					<div className="Instructions_p1Tutorial">
-						<div className="Instructions_arrow"></div>
 						<div className={tableClass}>
 							<table>
 								<tr>
@@ -385,14 +421,14 @@ var Instructions = React.createClass({
 									<td>X</td>
 								</tr>
 							</table>
-							<div className="Instructions_cursor">
+							<div className="demonstration_cursor">
 								<img src="assets/cursor.svg" />
 							</div>
 						</div>
-						<div className="Instructions_controls">
-							<div className="Instructions_button">X</div>
-							<div className="Instructions_button">O</div>
-							<div className="Instructions_cursor"></div>
+						<div className="demonstration_controls">
+							<div className="demonstration_button">X</div>
+							<div className="demonstration_button">O</div>
+							<div className="demonstration_cursor"></div>
 						</div>
 					</div>
 				</div>);
@@ -411,7 +447,6 @@ var Instructions = React.createClass({
 						Player 2 fills a single space with an X or an O
 					</p>
 					<div className="Instructions_p2Tutorial">
-						<div className="Instructions_arrow"></div>
 						<div className={tableClass}>
 							<table>
 								<tbody>
@@ -426,7 +461,7 @@ var Instructions = React.createClass({
 									</tr>
 								</tbody>
 							</table>
-							<div className="Instructions_cursor">
+							<div className="demonstration_cursor">
 								<img src="assets/cursor.svg" />
 							</div>
 						</div>
@@ -442,24 +477,24 @@ var Instructions = React.createClass({
 								</tbody>
 							</table>
 						</div>
-						<div className="Instructions_controls">
-							<div className="Instructions_button">X</div>
-							<div className="Instructions_button">O</div>
-							<div className="Instructions_cursor"></div>
+						<div className="demonstration_controls">
+							<div className="demonstration_button">X</div>
+							<div className="demonstration_button">O</div>
+							<div className="demonstration_cursor"></div>
 						</div>
 					</div>
 				</div>);
 				break;
 			case 2:
-				var tableClass3 = "Instructions_table3";
+				var tableClass3 = "demonstration_table";
 				var blankCell = {bgColor: 'white'};
 				instruction = (<div>
-					<div className="Instruction_row">
-						<div className="Instructions_winnerTutorial">
+					<div className="demonstration_row">
+						<div className="demonstration_win-scenario">
 							<p className="left">
-								<span className="Instruction_subheader">Player 1 wins if:</span><br/>any one row matches<br/>Player 2&#39;s single row.
+								<span className="demonstration_subheader">Player 1 wins if:</span><br/>any one row matches<br/>Player 2&#39;s single row.
 							</p>
-							<div className="Instructions_table3 right">
+							<div className="demonstration_table right">
 								<table>
 									<tbody>
 										<tr>
@@ -495,12 +530,12 @@ var Instructions = React.createClass({
 						</div>
 					</div>
 					<hr/>
-					<div className="Instruction_row">
-						<div className="Instructions_winnerTutorial">
+					<div className="demonstration_row">
+						<div className="demonstration_win-scenario">
 							<p className="left">
-								<span className="Instruction_subheader">Player 2 wins if:</span><br/>their single row doesn&#39;t<br/>match any of Player 1&#39;s rows.
+								<span className="demonstration_subheader">Player 2 wins if:</span><br/>their single row doesn&#39;t<br/>match any of Player 1&#39;s rows.
 							</p>
-							<div className="Instructions_table3 right">
+							<div className="demonstration_table right">
 								<table>
 									<tbody>
 										<tr>
