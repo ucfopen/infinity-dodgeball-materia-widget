@@ -16,6 +16,7 @@ hr {
 	font-size: 28px;
 }
 .PlayerOneBoard_number {
+	background-color: none;
 	padding: 5px;
 }
 .PlayerTwoBoard {
@@ -25,6 +26,7 @@ hr {
 	width: 500px;
 }
 .PlayerTwoBoard_number {
+	background-color: none;
 	padding: 5px;
 }
 .NumberBox {
@@ -342,6 +344,9 @@ hr {
 		margin: 0px;
 		padding-left: 20px;
 	}
+	.block{
+		display: block;
+	}
 	.left {
 		float: left;
 	}
@@ -349,7 +354,7 @@ hr {
 		float: right;
 		padding: 0px 20px;
 	}
-	.demonstration_table td {
+	.demonstration_table td:not(.PlayerOneBoard_number) {
 		background-color: #4DB2E4;
 		border: solid 1px #4DB2E4;
 		color: #FFFFFF;
@@ -371,6 +376,17 @@ hr {
 	}
 	.demonstration_table td.redOutline {
 		border: 3px solid #FF3333;
+	}
+	td.PlayerOneBoard_number,
+	td.PlayerTwoBoard_number {
+		background-color: none;
+		font-size: 9px;
+		height: 8px;
+		left: 20px;
+		padding: 2px;
+		position: relative;
+		text-align: center;
+		width: 8px;
 	}
 }
 .demonstration_cursor {

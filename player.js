@@ -98,46 +98,7 @@ var Game = React.createClass({
 				{ this.state.winner ? (
 					<Modal>
 						<h1>The Winner is:</h1>
-						<div className="demonstration_row">
-						<div className="demonstration_win-scenario">
-							<p className="left">
-								<span className="demonstration_subheader">Player {this.state.winner}</span>
-							</p>
-							<div className="demonstration_table right">
-								<table>
-									<tbody>
-										<tr>
-											<td>X</td>
-											<td>X</td>
-											<td>O</td>
-											<td>X</td>
-										</tr>
-										<tr>
-											<td>O</td>
-											<td>X</td>
-											<td>O</td>
-											<td>X</td>
-										</tr>
-										<tr>
-											<td className="greenOutline">O</td>
-											<td className="greenOutline">O</td>
-											<td className="redOutline">X</td>
-											<td className="greenOutline">X</td>
-										</tr>
-										<tr>
-											<td className="blankCell"></td>
-										</tr>
-										<tr>
-											<td className="greenOutline">O</td>
-											<td className="greenOutline">O</td>
-											<td className="redOutline">O</td>
-											<td className="greenOutline">X</td>
-										</tr>
-									</tbody>
-								</table>
-							</div>
-						</div>
-					</div>
+						<GameResult data={this.state.winner}/>
 						<CenteredContent>
 							<BigButton onClick={this._handleDismissWon}>
 								Play again!
@@ -151,6 +112,55 @@ var Game = React.createClass({
 			</div>
 		);
 	},
+});
+var GameResult = React.createClass
+({
+	result: function()
+	{
+		var winner = this.props.data;
+		var p1rows = [];
+		var p2row;
+		var p2cols = [];
+		p2cols.push(<td className="blankCell"></td>);
+		for (var i = 0; i < GameState.length; i++) {
+			var p1cols = [];
+			p1cols.push(<td className="PlayerOneBoard_number">{i+1}</td>);
+			for (var j = 0; j < GameState[i].length; j++) {
+				p1cols.push(<td>{GameState[i][j]}</td>);
+			}
+			p1rows.push(<tr>{p1cols}</tr>);
+		}
+		for (var k = 0; k < PlayerTwoState.length; k++) {
+			p2cols.push(<td>{PlayerTwoState[k]}</td>);
+		}
+		p2row = <tr>{p2cols}</tr>;
+		return (
+			<div>
+				<div className="demonstration_row">
+					<div className="demonstration_win-scenario">
+						<p className="left block">
+							<span className="demonstration_subheader">Player {winner}</span>
+							<br/>
+							The above player won because...
+						</p>
+						<table className="demonstration_table right block">
+							{p1rows}
+							<tr><td className="blankCell"></td></tr>
+							<tr><td className="blankCell"></td></tr>
+							{p2row}
+						</table>
+					</div>
+				</div>
+			</div>
+		);
+	},
+	render: function()
+	{
+		var board = this.result();
+		return (<div>
+					{board}
+				</div>);
+	}
 });
 var GameBoard = React.createClass({
 	render: function() {
@@ -436,7 +446,6 @@ var Instructions = React.createClass({
 			case 1:
 				var tableClass = "Instructions_table";
 				var tableClass2 = "Instructions_table2";
-				var blankCell = {bgColor: 'white'};
 				if (this.state.animation)
 				{
 					tableClass += " animate";
@@ -486,8 +495,6 @@ var Instructions = React.createClass({
 				</div>);
 				break;
 			case 2:
-				var tableClass3 = "demonstration_table";
-				var blankCell = {bgColor: 'white'};
 				instruction = (<div>
 					<div className="demonstration_row">
 						<div className="demonstration_win-scenario">
