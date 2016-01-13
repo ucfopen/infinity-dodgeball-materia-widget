@@ -344,8 +344,9 @@ hr {
 		margin: 0px;
 		padding-left: 20px;
 	}
-	.block{
+	.winner-half {
 		display: block;
+		width: 40%;
 	}
 	.left {
 		float: left;
@@ -388,6 +389,16 @@ hr {
 		text-align: center;
 		width: 8px;
 	}
+}
+#winner-content-left {
+	display: block;
+	float: left;
+	width: 45%;
+}
+#winner-content-right {
+	display: block;
+	float: right;
+	width: 45%;
 }
 .demonstration_cursor {
 	transform: translate(290px,80px);

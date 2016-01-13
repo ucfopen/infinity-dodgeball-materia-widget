@@ -122,11 +122,16 @@ var GameResult = React.createClass
 		var p2row;
 		var p2cols = [];
 		p2cols.push(<td className="blankCell"></td>);
-		for (var i = 0; i < GameState.length; i++) {
+		var winExplanation = (winner === 1) ? <p>...wins because they matched the row in solid green (each square matches) with Player 2&#39;s single row there at the bottom.</p> : <p>...wins because none of Player 1&#39;s rows are solid green (not all squares match the single row at the bottom).</p>
+		for (var i = 0; i < GameState.length; i++)
+		{
 			var p1cols = [];
 			p1cols.push(<td className="PlayerOneBoard_number">{i+1}</td>);
-			for (var j = 0; j < GameState[i].length; j++) {
-				p1cols.push(<td>{GameState[i][j]}</td>);
+			for (var j = 0; j < GameState[i].length; j++)
+			{
+				if(GameState[i][j] === PlayerTwoState[j]) var bordercolor = "greenOutline";
+				else var bordercolor = "redOutline";
+				p1cols.push(<td className={bordercolor}>{GameState[i][j]}</td>);
 			}
 			p1rows.push(<tr>{p1cols}</tr>);
 		}
@@ -138,17 +143,20 @@ var GameResult = React.createClass
 			<div>
 				<div className="demonstration_row">
 					<div className="demonstration_win-scenario">
-						<p className="left block">
-							<span className="demonstration_subheader">Player {winner}</span>
-							<br/>
-							The above player won because...
-						</p>
-						<table className="demonstration_table right block">
-							{p1rows}
-							<tr><td className="blankCell"></td></tr>
-							<tr><td className="blankCell"></td></tr>
-							{p2row}
-						</table>
+						<div id="winner-content-left">
+							<p>
+								<span className="demonstration_subheader">Player {winner}</span>
+								{winExplanation}
+							</p>
+						</div>
+						<div id="winner-content-right">
+							<table className="demonstration_table">
+								{p1rows}
+								<tr><td className="blankCell"></td></tr>
+								<tr><td className="blankCell"></td></tr>
+								{p2row}
+							</table>
+						</div>
 					</div>
 				</div>
 			</div>
