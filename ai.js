@@ -3,6 +3,7 @@ Namespace('Dodgeball').AI = (function(AI_Difficulty_Level) {
 	return {
 		getAIMove: function(GameState, currentCol) {
 			var play = O;
+			console.log("DEBUG: ", AI_Difficulty_Level);
 			if (AI_Difficulty_Level === 'LOSE') {
 				if(Math.random() > 0.8) play = this.getItRight(currentCol);
 				else play = GameState[0][currentCol];

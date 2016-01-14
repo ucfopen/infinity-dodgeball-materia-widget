@@ -28,7 +28,7 @@ var Game = React.createClass({
 				gameModeModalShown: Store.getGameModeModalShown(),
 				gameMode: Store.getGameMode(),
 			});
-			console.log(Store.getGameModeModalShown());
+			console.log("DEBUG: GameModeModalShown = ", Store.getGameModeModalShown());
 		}.bind(this));
 		gameUpdated = function() {
 			var a;
@@ -636,7 +636,7 @@ var CenteredContent = React.createClass({
 var ModeSelection = React.createClass({
 	getInitialState: function() {
 		return {
-			selected: "WIN"
+			selected: AI_Difficulty_Level
 		};
 	},
 	onCheckedChange: function(e) {
