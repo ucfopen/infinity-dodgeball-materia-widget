@@ -8,7 +8,7 @@ Namespace('Dodgeball').Actions = (function() {
 			});
 		},
 		selectGameMode: function(mode) {
-			console.log("GAME MDOE SELECTEDDDD");
+			console.log("DEBUG: GAME MODE SELECTED = ", mode);
 			AppDispatcher.dispatch({
 				actionType: Constants.GAME_MODE_SELECTED,
 				mode: mode,
