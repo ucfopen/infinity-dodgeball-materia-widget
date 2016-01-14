@@ -85,6 +85,10 @@ var Game = React.createClass({
 	},
 	_handleDismissWon: function() {
 		this.setState(this.getInitialState());
+		this.setState({
+			instructionsShown: false,
+			gameModeModalShown: true
+		});
 	},
 	render: function() {
 		return (
