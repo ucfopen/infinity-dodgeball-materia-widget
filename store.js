@@ -4,7 +4,9 @@ Namespace('Dodgeball').Store = (function() {
 
 	var instructionsShown = true;
 	var gameModeModalShown = false;
+	var boardSizeModalShown = false;
 	var gameMode;
+	var boardSize;
 
 	var Store = (function() {
 		var changeCallbacks = [];
@@ -27,8 +29,14 @@ Namespace('Dodgeball').Store = (function() {
 			getGameModeModalShown: function() {
 				return gameModeModalShown;
 			},
+			getBoardSizeModalShown: function() {
+				return boardSizeModalShown;
+			},
 			getGameMode: function() {
 				return gameMode;
+			},
+			getBoardSize: function() {
+				return boardSize;
 			},
 		};
 	})();
@@ -43,7 +51,13 @@ Namespace('Dodgeball').Store = (function() {
 			break;
 			case Constants.GAME_MODE_SELECTED:
 				gameModeModalShown = false;
+				boardSizeModalShown = true;
 				gameMode = action.mode;
+				Store.emitChange();
+			break;
+			case Constants.BOARD_SIZE_SELECTED:
+				boardSizeModalShown = false;
+				boardSize = action.size;
 				Store.emitChange();
 			break;
 			default:

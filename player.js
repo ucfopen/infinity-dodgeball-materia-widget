@@ -26,9 +26,11 @@ var Game = React.createClass({
 			this.setState({
 				instructionsShown: Store.getInstructionsShown(),
 				gameModeModalShown: Store.getGameModeModalShown(),
-				gameMode: Store.getGameMode(),
+				boardSizeModalShown: Store.getBoardSizeModalShown(),
+				boardSize: Store.getBoardSize(),
 			});
 			console.log("DEBUG: GameModeModalShown = ", Store.getGameModeModalShown());
+			console.log("DEBUG: BoardSizeModalShown = ", Store.getBoardSizeModalShown());
 		}.bind(this));
 		gameUpdated = function() {
 			var a;
@@ -77,21 +79,32 @@ var Game = React.createClass({
 		}
 		return {
 			size: INITIAL_SIZE,
+			showBoard: false,
 			turn: 0,
 			instructionsShown: Store.getInstructionsShown(),
 			gameModeModalShown: Store.getGameModeModalShown(),
+			boardSizeModalShown: Store.getBoardSizeModalShown(),
 			winner: false,
 		};
+	},
+	onSizeSelection: function(size) {
+		INITIAL_SIZE = size;
+		this.setState(this.getInitialState());
+		this.setState({
+			showBoard: true
+		});
 	},
 	_handleDismissWon: function() {
 		INITIAL_SIZE = (++INITIAL_SIZE >= 7) ? 7 : INITIAL_SIZE;
 		this.setState(this.getInitialState());
 		this.setState({
 			instructionsShown: false,
-			gameModeModalShown: true
+			gameModeModalShown: true,
+			boardSizeModalShown: false
 		});
 	},
 	render: function() {
+		var board = this.state.showBoard ? <GameBoard size={this.state.size} turn={this.state.turn} won={this.state.won} /> : null;
 		return (
 			<div>
 				<div className="Game_header">
@@ -100,6 +113,7 @@ var Game = React.createClass({
 				</div>
 				{ this.state.instructionsShown ? <Instructions /> : null }
 				{ this.state.gameModeModalShown ? <GameModeSelectModal /> : null }
+				{ this.state.boardSizeModalShown ? <BoardSizeSelectModal onSizeSelection={this.onSizeSelection}/> : null }
 				{ this.state.winner ? (
 					<Modal>
 						<h1>The Winner is:</h1>
@@ -111,7 +125,7 @@ var Game = React.createClass({
 						</CenteredContent>
 					</Modal>
 				) : null}
-				<GameBoard size={this.state.size} turn={this.state.turn} won={this.state.won} />
+				{ board }
 				{ this.state.changedTurn ? <div className="Game_turnTransition">Player {this.state.turn + 1}&#39;s turn</div> : null }
 				{ this.state.cpuThinking ? <div className="Game_turnTransition">CPU is thinking...</div> : null }
 			</div>
@@ -373,6 +387,22 @@ var CheckWinner = function() {
 	}
 	return false;
 };
+var BoardSizeSelectModal = React.createClass({
+	onBoardSizeChange: function(size) {
+		var Actions = Namespace('Dodgeball').Actions;
+		Actions.selectBoardSize(size);
+		this.props.onSizeSelection(size);
+	},
+	render: function()
+	{
+		return (
+			<Modal>
+				<h1>Choose a board size</h1>
+				<SizeSelection onBoardSizeChange={this.onBoardSizeChange}></SizeSelection>
+			</Modal>
+		);
+	},
+});
 var GameModeSelectModal = React.createClass({
 	onDifficultyChange: function(difficulty) {
 		AI_Difficulty_Level = difficulty;
@@ -659,7 +689,34 @@ var ModeSelection = React.createClass({
 		);
 	},
 });
-
+var SizeSelection = React.createClass({
+	getInitialState: function() {
+		return {
+			selected: INITIAL_SIZE
+		};
+	},
+	onCheckedChange: function(e) {
+		this.setState({
+			selected: e.currentTarget.value
+		});
+		this.props.onBoardSizeChange(e.currentTarget.value);
+	},
+	render: function() {
+		return (
+			<div className="ModeSelection SizeSelection">
+				<h4>Board Size</h4>
+				<ul>
+					<li><label>2x2<input name="size" type="radio" value="2" onChange={this.onCheckedChange} checked={this.state.selected === "2"} /> </label></li>
+					<li><label>3x3<input name="size" type="radio" value="3" onChange={this.onCheckedChange} checked={this.state.selected === "3"} /> </label></li>
+					<li><label>4x4<input name="size" type="radio" value="4" onChange={this.onCheckedChange} checked={this.state.selected === "4"} /> </label></li>
+					<li><label>5x5<input name="size" type="radio" value="5" onChange={this.onCheckedChange} checked={this.state.selected === "5"} /> </label></li>
+					<li><label>6x6<input name="size" type="radio" value="6" onChange={this.onCheckedChange} checked={this.state.selected === "6"} /> </label></li>
+					<li><label>7x7<input name="size" type="radio" value="7" onChange={this.onCheckedChange} checked={this.state.selected === "7"} /> </label></li>
+				</ul>
+			</div>
+		);
+	},
+});
 var getCurrentColumn = function() {
 	for (var i = 0; i < PlayerTwoState.length; i++) {
 		if (!PlayerTwoState[i]) {

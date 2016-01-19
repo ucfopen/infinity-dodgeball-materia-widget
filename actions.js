@@ -14,5 +14,12 @@ Namespace('Dodgeball').Actions = (function() {
 				mode: mode,
 			});
 		},
+		selectBoardSize: function(size) {
+			console.log("DEBUG: BOARD SIZE SELECTED = ", size);
+			AppDispatcher.dispatch({
+				actionType: Constants.BOARD_SIZE_SELECTED,
+				size: size,
+			});
+		},
 	};
 })();
