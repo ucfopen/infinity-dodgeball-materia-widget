@@ -8,7 +8,7 @@ Authors : Jonathan Warner
 
 */
 
-var INITIAL_SIZE = 6;
+var INITIAL_SIZE = 2;
 var GameState = [];
 var PlayerTwoState = [];
 var currentTurn = 0;
@@ -84,6 +84,7 @@ var Game = React.createClass({
 		};
 	},
 	_handleDismissWon: function() {
+		INITIAL_SIZE = (++INITIAL_SIZE >= 7) ? 7 : INITIAL_SIZE;
 		this.setState(this.getInitialState());
 		this.setState({
 			instructionsShown: false,
