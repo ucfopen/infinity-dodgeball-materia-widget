@@ -227,6 +227,13 @@ hr {
 	top: -5px;
 	left: -2px;
 }
+.SizeSelection {
+	float: left;
+	padding-left: 35px;
+}
+.SizeSelection ul {
+	margin-top: 20px;
+}
 @keyframes grow {
 	0% {
 		-webkit-transform: scale(0);
