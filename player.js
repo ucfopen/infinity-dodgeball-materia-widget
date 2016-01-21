@@ -32,6 +32,7 @@ var Game = React.createClass({
 				gameModeModalShown: Store.getGameModeModalShown(),
 				boardSizeModalShown: Store.getBoardSizeModalShown(),
 				boardSize: Store.getBoardSize(),
+				gameMode: Store.getGameMode(),
 			});
 			console.log("DEBUG: GameModeModalShown = ", Store.getGameModeModalShown());
 			console.log("DEBUG: BoardSizeModalShown = ", Store.getBoardSizeModalShown());
