@@ -61,8 +61,8 @@ var Game = React.createClass({
 			}
 			this.setState({
 				turn: currentTurn,
-				changedTurn,
-				cpuThinking,
+				changedTurn: changedTurn,
+				cputThinking: cpuThinking
 			});
 		}.bind(this);
 	},
