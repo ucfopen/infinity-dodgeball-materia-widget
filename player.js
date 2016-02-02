@@ -48,8 +48,9 @@ var Game = React.createClass({
 				if (this.state.gameMode === '2_PLAYER') {
 					changedTurn = true;
 					setTimeout(function() { this.setState({ changedTurn: false }); }.bind(this), 1000);
-				} else {
-					cpuThinking = true;
+				}
+				else {
+					this.setState({ cpuThinking: true });
 					setTimeout(function() {
 						var currentCol = getCurrentColumn();
 						PlayerTwoState[currentCol] = Namespace('Dodgeball').AI(AI_Difficulty_Level).getAIMove(GameState, currentCol);
@@ -83,6 +84,7 @@ var Game = React.createClass({
 			instructionsShown: Store.getInstructionsShown(),
 			gameModeModalShown: Store.getGameModeModalShown(),
 			boardSizeModalShown: Store.getBoardSizeModalShown(),
+			cpuThinking: false,
 			winner: false,
 		};
 	},
@@ -100,6 +102,7 @@ var Game = React.createClass({
 		});
 	},
 	render: function() {
+		console.log("DEBUG: cpuThinking ", this.state.cpuThinking);
 		var board = this.state.showBoard ? <GameBoard size={this.state.size} turn={this.state.turn} won={this.state.won} /> : null;
 		return (
 			<div>
