@@ -20,7 +20,7 @@
  * @author      ADD NAME HERE
  */
 namespace Materia;
-class Score_Modules_Matching extends Score_Module
+class Score_Modules_Dodgeball extends Score_Module
 {
 	
 	/** @var unknown NEEDS DOCUMENTATION */
