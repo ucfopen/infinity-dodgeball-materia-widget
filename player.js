@@ -93,16 +93,31 @@ var Game = React.createClass({
 		this.setState(this.getInitialState());
 		this.setState({ showBoard: true });
 	},
-	_handleDismissWon: function() {
-		this.setState(this.getInitialState());
-		this.setState({
-			instructionsShown: false,
-			gameModeModalShown: true,
-			boardSizeModalShown: false
-		});
+	_handleDismissWon: function(e) {
+		console.log("DEBUG: Button Pressed ", e.currentTarget.innerHTML);
+		if(e.currentTarget.innerHTML === "Quit")
+		{
+			console.log("DEBUG: This is where we quit.");
+			Materia.Score.submitQuestionForScoring(0, 0, -100);
+			Materia.Engine.end();
+			this.setState(this.getInitialState());
+			this.setState({
+				instructionsShown: false,
+				gameModeModalShown: false,
+				boardSizeModalShown: false
+			});
+		}
+		else
+		{
+			this.setState(this.getInitialState());
+			this.setState({
+				instructionsShown: false,
+				gameModeModalShown: true,
+				boardSizeModalShown: false
+			});
+		}
 	},
 	render: function() {
-		console.log("DEBUG: cpuThinking ", this.state.cpuThinking);
 		var board = this.state.showBoard ? <GameBoard size={this.state.size} turn={this.state.turn} won={this.state.won} /> : null;
 		return (
 			<div>
@@ -119,7 +134,10 @@ var Game = React.createClass({
 						<GameResult data={this.state.winner}/>
 						<CenteredContent>
 							<BigButton onClick={this._handleDismissWon}>
-								Play again!
+								Play again
+							</BigButton>
+							<BigButton onClick={this._handleDismissWon}>
+								Quit
 							</BigButton>
 						</CenteredContent>
 					</Modal>
