@@ -16,7 +16,7 @@ return [
 			$results = [];
 			foreach ($logs as $play)
 			{
-				$play_id = $play['id'];
+				$play_id = $play['play_id'];
 				if ( ! isset($results[$play_id])) $results[$play_id] = [];
 
 				$play_events = \Materia\Session_Logger::get_logs($play_id);
