@@ -10,6 +10,7 @@ Authors : Jonathan Warner
 
 var INITIAL_SIZE = 6; //Player changes this value through modal at start of each round.
 var GameState = [];
+var roundsPlayed = 1;
 var PlayerTwoState = [];
 var currentTurn = 0;
 var gameUpdated = function(){};
@@ -97,8 +98,10 @@ var Game = React.createClass({
 		console.log("DEBUG: Button Pressed ", e.currentTarget.innerHTML);
 		if(e.currentTarget.innerHTML === "Quit")
 		{
-			console.log("DEBUG: This is where we quit.");
-			Materia.Score.submitQuestionForScoring(0, 0, -100);
+			console.log("DEBUG: This is where we quit. Rounds played = ", roundsPlayed);
+			Materia.Score.submitQuestionForScoring(0, "", 100)
+			var msg = "Rounds played: " + roundsPlayed;
+			Materia.Score.addGlobalScoreFeedback(msg);
 			Materia.Engine.end();
 			this.setState(this.getInitialState());
 			this.setState({
@@ -109,6 +112,7 @@ var Game = React.createClass({
 		}
 		else
 		{
+			roundsPlayed++;
 			this.setState(this.getInitialState());
 			this.setState({
 				instructionsShown: false,

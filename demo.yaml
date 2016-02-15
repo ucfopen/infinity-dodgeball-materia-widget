@@ -13,8 +13,8 @@ qset:
             type: QA
             questions:
               - 
-                text: cambiar
+                text: 
             answers:
               - 
-                value: 100
-                text: to change
+                value: 0
+                text: 

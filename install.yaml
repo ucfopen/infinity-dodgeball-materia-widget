@@ -18,6 +18,13 @@ files:
 score:
   is_scorable: Yes
   score_module: Dodgeball
+  logs_export_methods:
+    -
+      value: csv
+      option: Scores
+    -
+      value: raw
+      option: 'All raw data'
 meta_data:
   features:
     - Scorable
