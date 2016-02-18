@@ -16,7 +16,7 @@ return [
 			$results = [];
 			foreach ($logs as $play)
 			{
-				$play_id = $play['play_id'];
+				$play_id = $play['id'];
 				if ( ! isset($results[$play_id])) $results[$play_id] = [];
 
 				$play_events = \Materia\Session_Logger::get_logs($play_id);
@@ -32,8 +32,6 @@ return [
 					$r['type']           = $play_event->type;
 					$r['item_id']        = $play_event->item_id;
 					$r['text']           = $play_event->text;
-					//if(substr($r['text'],0,16) === "Rounds played: ") $r['text'] = intval(substr($r['text'],16,$r['text'].length));
-					//else $r['text'] = 0;
 					$r['value']          = $play_event->value;
 					$r['game_time']      = $play_event->game_time;
 					$r['created_at']     = $play_event->created_at;
@@ -106,7 +104,8 @@ return [
 				{
 					$game_time = 0;
 				}
-
+				if(strpos($playlog[2]['text'], "Rounds", 0) >= 0) $numOfRounds = intval(substr($playlog[2]['text'], 15, strlen($playlog[2]['text'])));
+				else $numOfRounds = 0;
 				// Array for the current row. Initialize with empty strings so when it is
 				// concatenated later it takes in account empty spots.
 				$logs = array_fill(0, $num_slots, '');
@@ -114,7 +113,7 @@ return [
 				$logs[1] = $playlog[0]['last_name'];
 				$logs[2] = $playlog[0]['first_name'];
 				$logs[3] = $playlog[0]['semester'];
-				$logs[4] = $playlog[0]['text'];
+				$logs[4] = $numOfRounds;
 				$logs[5] = $game_time;
 
 				foreach ($playlog as $r)
