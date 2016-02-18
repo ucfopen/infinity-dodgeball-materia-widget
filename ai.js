@@ -3,7 +3,6 @@ Namespace('Dodgeball').AI = (function(AI_Difficulty_Level) {
 	return {
 		getAIMove: function(GameState, currentCol) {
 			var play = O;
-			console.log("DEBUG: ", AI_Difficulty_Level);
 			// Using a random number generator, AI has only a 20% of making the correct move each turn.
 			if (AI_Difficulty_Level === 'LOSE') {
 				if(Math.random() > 0.8) play = this.getItRight(currentCol);
