@@ -35,8 +35,6 @@ var Game = React.createClass({
 				boardSize: Store.getBoardSize(),
 				gameMode: Store.getGameMode(),
 			});
-			console.log("DEBUG: GameModeModalShown = ", Store.getGameModeModalShown());
-			console.log("DEBUG: BoardSizeModalShown = ", Store.getBoardSizeModalShown());
 		}.bind(this));
 		gameUpdated = function() {
 			var a;
@@ -95,10 +93,8 @@ var Game = React.createClass({
 		this.setState({ showBoard: true });
 	},
 	_handleDismissWon: function(e) {
-		console.log("DEBUG: Button Pressed ", e.currentTarget.innerHTML);
 		if(e.currentTarget.innerHTML === "Quit")
 		{
-			console.log("DEBUG: This is where we quit. Rounds played = ", roundsPlayed);
 			Materia.Score.submitQuestionForScoring(0, "", 100)
 			var msg = "Rounds played: " + roundsPlayed;
 			Materia.Score.addGlobalScoreFeedback(msg);
