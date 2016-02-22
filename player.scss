@@ -180,6 +180,10 @@ hr {
 		background: #78DD5E;
 		color: #000;
 	}
+	&:active {
+		background: #5FAC4B;
+		color: #FFF;
+	}
 }
 .CenteredContent {
 	bottom: 0px;

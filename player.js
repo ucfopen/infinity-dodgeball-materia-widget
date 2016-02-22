@@ -438,7 +438,7 @@ var Instructions = React.createClass({
 	_handleNextButtonClicked: function() {
 		this.setState({ step: this.state.step + 1 });
 		var Actions = Namespace('Dodgeball').Actions;
-		if (this.state.step + 1 === 3) { Actions.dismissInstructions(); }
+		if (this.state.step + 1 === 4) { Actions.dismissInstructions(); }
 	},
 	resetAnimation: function() {
 		this.setState({ animation: false });
@@ -451,6 +451,67 @@ var Instructions = React.createClass({
 		var instruction = null;
 		switch (this.state.step) {
 			case 0:
+				instruction = (<div>
+					<div className="demonstration_row">
+						<div className="demonstration_win-scenario">
+							<p className="left">
+								<span className="demonstration_subheader">Player 1 has many rows:</span>
+							</p>
+							<div className="demonstration_table right">
+								<table>
+									<tbody>
+										<tr>
+											<td></td>
+											<td></td>
+											<td></td>
+											<td></td>
+										</tr>
+										<tr>
+											<td></td>
+											<td></td>
+											<td></td>
+											<td></td>
+										</tr>
+										<tr>
+											<td></td>
+											<td></td>
+											<td></td>
+											<td></td>
+										</tr>
+										<tr>
+											<td></td>
+											<td></td>
+											<td></td>
+											<td></td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+					<hr/>
+					<div className="demonstration_row">
+						<div className="demonstration_win-scenario">
+							<p className="left">
+								<span className="demonstration_subheader">Player 2 has a single row:</span>
+							</p>
+							<div className="demonstration_table right">
+								<table>
+									<tbody>
+										<tr>
+											<td></td>
+											<td></td>
+											<td></td>
+											<td></td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>);
+				break;
+			case 1:
 				var tableClass = "Instructions_table";
 				if (this.state.animation) tableClass += " animate";
 				instruction = (<div>
@@ -477,7 +538,7 @@ var Instructions = React.createClass({
 					</div>
 				</div>);
 				break;
-			case 1:
+			case 2:
 				var tableClass = "Instructions_table";
 				var tableClass2 = "Instructions_table2";
 				if (this.state.animation) {
@@ -525,7 +586,7 @@ var Instructions = React.createClass({
 					</div>
 				</div>);
 				break;
-			case 2:
+			case 3:
 				instruction = (<div>
 					<div className="demonstration_row">
 						<div className="demonstration_win-scenario">
