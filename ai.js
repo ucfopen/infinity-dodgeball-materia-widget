@@ -22,11 +22,8 @@ Namespace('Dodgeball').AI = (function(AI_Difficulty_Level)
 			return play;
 		},
 		/*
-		** Works off the simple logic of always picking the opposite choice from that of the human player's last move.
-		** When used every move, this guarantees the computer will not be defeated. The nested for-loops find the first
-		** empty space, and then backtracks one cell to know human player's last move. Then chooses opposite in the return statement.
-		** If there are no more empty spaces on human player's board, it signifies human player has made their final move.
-		** The final if-statement makes sure to choose opposite from that final move.
+		** If the board is full (Player's last move was made) then the comparison is made with the final square.
+		** If the board is not full, comparison is made with the last move. The opposite of that X or O is returned.
 		*/
 		getItRight: function(currentCol)
 		{
