@@ -1,12 +1,13 @@
-Namespace('Dodgeball').AI = (function(AI_Difficulty_Level) {
-	
+Namespace('Dodgeball').AI = (function(AI_Difficulty_Level)
+{
 	return {
-		getAIMove: function(GameState, currentCol) {
+		getAIMove: function(GameState, currentCol)
+		{
 			var play = O;
 			// Using a random number generator, AI has only a 20% of making the correct move each turn.
 			if (AI_Difficulty_Level === 'LOSE') {
 				if(Math.random() > 0.8) play = this.getItRight(currentCol);
-				else play = GameState[0][currentCol];
+				else play = GameState.boardState[0][currentCol];
 			}
 			// Using a random number generator, AI has only a 50% of making the correct move each turn.
 			// Otherwise they take a fifty-fifty shot at placing an X or O regardless of human's move.
@@ -30,19 +31,9 @@ Namespace('Dodgeball').AI = (function(AI_Difficulty_Level) {
 		getItRight: function(currentCol)
 		{
 			var currentRow = 0;
-			var found = false;
-			for (var i = 0; i < GameState.length; i++) {
-				for (var j = 0; j < GameState[i].length; j++) {
-					if (GameState[i][j] === null) {
-						found = true;
-						currentRow = i - 1;
-						break;
-					}
-				}
-				if (found) break;
-			}
-			if(!found) currentRow = GameState.length - 1;
-			return GameState[currentRow][currentCol] == X ? O : X;
+			if(GameState.isBoardFull) currentRow = GameState.boardState.length - 1;
+			else currentRow = GameState.nextEmptySpace[0];
+			return GameState.boardState[currentRow][currentCol] == X ? O : X;
 		},
 	};
 });
