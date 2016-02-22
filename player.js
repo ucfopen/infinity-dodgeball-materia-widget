@@ -9,7 +9,11 @@ Authors : Jonathan Warner
 */
 
 var INITIAL_SIZE = 6; //Player changes this value through modal at start of each round.
-var GameState = [];
+var GameState = {
+	boardState: [],
+	nextEmptySpace: [0,0],
+	isBoardFull: false
+};
 var roundsPlayed = 1;
 var PlayerTwoState = [];
 var currentTurn = 0;
@@ -68,12 +72,14 @@ var Game = React.createClass({
 	},
 	getInitialState: function() {
 		var Store = Namespace('Dodgeball').Store;
-		GameState = [];
+		GameState.boardState = [];
+		GameState.nextEmptySpace = [0,0];
+		GameState.isBoardFull = false;
 		PlayerTwoState = [];
 		for (var i = 0; i < INITIAL_SIZE; i++) {
 			var row = [];
 			for (var j = 0; j < INITIAL_SIZE; j++) { row.push(null); }
-			GameState.push(row);
+			GameState.boardState.push(row);
 			PlayerTwoState.push(null);
 		}
 		return {
@@ -161,13 +167,13 @@ var GameResult = React.createClass({
 		var p2cols = [];
 		p2cols.push(<td className="blankCell"></td>);
 		var winExplanation = (winner === 1) ? <p>...wins because they matched the row in solid green (each square matches) with Player 2&#39;s single row there at the bottom.</p> : <p>...wins because none of Player 1&#39;s rows are solid green (not all squares match the single row at the bottom).</p>
-		for (var i = 0; i < GameState.length; i++) {
+		for (var i = 0; i < GameState.boardState.length; i++) {
 			var p1cols = [];
 			p1cols.push(<td className="PlayerOneBoard_number">{i+1}</td>);
-			for (var j = 0; j < GameState[i].length; j++) {
-				if(GameState[i][j] === PlayerTwoState[j]) var bordercolor = "greenOutline";
+			for (var j = 0; j < GameState.boardState[i].length; j++) {
+				if(GameState.boardState[i][j] === PlayerTwoState[j]) var bordercolor = "greenOutline";
 				else var bordercolor = "redOutline";
-				p1cols.push(<td className={bordercolor}>{GameState[i][j]}</td>);
+				p1cols.push(<td className={bordercolor}>{GameState.boardState[i][j]}</td>);
 			}
 			p1rows.push(<tr>{p1cols}</tr>);
 		}
@@ -210,20 +216,25 @@ var GameBoard = React.createClass({
 	render: function() {
 		var currentRow = 0;
 		var currentCol = 0;
-		if (this.props.turn === 0) {
+		if (this.props.turn === 0)
+		{
+			var found = false;
 			for (var i = 0; i < this.props.size; i++) {
-				var found = false;
 				for (var j = 0; j < this.props.size; j++) {
-					if (GameState[i][j] === null) {
+					if (GameState.boardState[i][j] === null) {
 						found = true;
 						currentRow = i;
 						currentCol = j;
+						GameState.nextEmptySpace = [currentRow, currentCol];
 						break;
 					}
 				}
 				if (found) break;
 			}
-		} else {
+			if(!found) GameState.isBoardFull = true;
+		}
+		else
+		{
 			for (var i = 0; i < this.props.size; i++) {
 				if (!PlayerTwoState[i]) {
 					currentCol = i;
@@ -274,7 +285,7 @@ var PlayerOneBoard = React.createClass({
 							}
 							activeRow={i === this.props.currentRow && this.props.turn === 0}
 							onChange={updatePlayer1Board.bind(this, i, j)}
-							value={GameState[i][j]}
+							value={GameState.boardState[i][j]}
 						/>
 					</td>
 				);
@@ -443,7 +454,7 @@ var Instructions = React.createClass({
 				var tableClass = "Instructions_table";
 				if (this.state.animation) tableClass += " animate";
 				instruction = (<div>
-					<p>Player 1 fills a row with X&#39;s or O&#39;s</p>
+					<p>Player 1 fills one of their rows with X&#39;s or O&#39;s</p>
 					<div className="Instructions_p1Tutorial">
 						<div className={tableClass}>
 							<table>
@@ -519,7 +530,7 @@ var Instructions = React.createClass({
 					<div className="demonstration_row">
 						<div className="demonstration_win-scenario">
 							<p className="left">
-								<span className="demonstration_subheader">Player 1 wins if:</span><br/>any one row matches<br/>Player 2&#39;s single row.
+								<span className="demonstration_subheader">Player 1 wins if:</span><br/>Any one row matches<br/>Player 2&#39;s single row.
 							</p>
 							<div className="demonstration_table right">
 								<table>
@@ -560,7 +571,7 @@ var Instructions = React.createClass({
 					<div className="demonstration_row">
 						<div className="demonstration_win-scenario">
 							<p className="left">
-								<span className="demonstration_subheader">Player 2 wins if:</span><br/>their single row doesn&#39;t<br/>match any of Player 1&#39;s rows.
+								<span className="demonstration_subheader">Player 2 wins if:</span><br/>Their single row doesn&#39;t<br/>match any of Player 1&#39;s rows.
 							</p>
 							<div className="demonstration_table right">
 								<table>
@@ -718,10 +729,10 @@ var SizeSelection = React.createClass({
 ** row in Player 2's board.
 */
 var CheckWinner = function() {
-	for (var i = 0; i < GameState.length; i++) {
+	for (var i = 0; i < GameState.boardState.length; i++) {
 		var won = true;
 		for (var j = 0; j < PlayerTwoState.length; j++) {
-			if (!PlayerTwoState[j] || PlayerTwoState[j] != GameState[i][j]) {
+			if (!PlayerTwoState[j] || PlayerTwoState[j] != GameState.boardState[i][j]) {
 				won = false;
 				break;
 			}
@@ -751,13 +762,13 @@ function updatePlayerBoard(turn, boardLocation, letter) {
 		PlayerTwoState[boardLocation.col] = letter;
 		currentTurn = 0;
 	} else {
-		GameState[boardLocation.row][boardLocation.col] = letter;
+		GameState.boardState[boardLocation.row][boardLocation.col] = letter;
 		if (boardLocation.col === INITIAL_SIZE - 1) { currentTurn = 1; }
 	}
 	gameUpdated();
 }
 function updatePlayer1Board(i, j, event) {
-	GameState[i][j] = event.target.value;
+	GameState.boardState[i][j] = event.target.value;
 	if (j === INITIAL_SIZE - 1) currentTurn = 1;
 	gameUpdated()
 }
