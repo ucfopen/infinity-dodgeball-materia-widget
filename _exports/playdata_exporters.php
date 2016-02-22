@@ -1,10 +1,10 @@
 <?php
 
 return [
-	'Rounds Played' => function($inst, $semesters_string)
+	'Rounds Played' => function ($inst, $semesters_string)
 	{
 		$csvs = [];
-		$headers = "User ID, Last Name, First Name, Semester, Rounds Played, Game Time (seconds),";
+		$headers = 'User ID, Last Name, First Name, Semester, Rounds Played, Game Time (seconds)';
 
 		foreach ($semesters_string as $semester)
 		{
@@ -23,7 +23,7 @@ return [
 				foreach ($play_events as $play_event)
 				{
 					$r                   = [];
-					$r['last_name']      = $play['last'] ? $play['last'] : "(Guest)";
+					$r['last_name']      = $play['last'] ? $play['last'] : '(Guest)';
 					$r['first_name']     = $play['first'];
 					$r['username']       = $play['username'];
 					$r['user_id']        = $play['user_id'];
@@ -69,17 +69,17 @@ return [
 					}
 
 					// Question_text is the question headers in the form of a string.
-					$cur_csv['question_text'] = "";
+					$cur_csv['question_text'] = '';
 					foreach ($questions as $q)
 					{
-						$clean_str = str_replace(["\r","\n", ","], "", $q->questions[0]['text']);
+						$clean_str = str_replace(['\r','\n', ','], '', $q->questions[0]['text']);
 
 						if (strlen($clean_str) > 80)
 						{
-							$clean_str = substr($clean_str, 0, 80) . "...";
+							$clean_str = substr($clean_str, 0, 80).'...';
 						}
 
-						$cur_csv['question_text'] .= $clean_str . ', ';
+						$cur_csv['question_text'] .= $clean_str.', ';
 						$cur_csv['questions'][] = $q->id;
 					}
 
@@ -104,7 +104,7 @@ return [
 				{
 					$game_time = 0;
 				}
-				if(strpos($playlog[2]['text'], "Rounds", 0) >= 0) $numOfRounds = intval(substr($playlog[2]['text'], 15, strlen($playlog[2]['text'])));
+				if (strpos($playlog[2]['text'], 'Rounds', 0) >= 0) $numOfRounds = intval(substr($playlog[2]['text'], 15, strlen($playlog[2]['text'])));
 				else $numOfRounds = 0;
 				// Array for the current row. Initialize with empty strings so when it is
 				// concatenated later it takes in account empty spots.
@@ -123,15 +123,15 @@ return [
 					if ($r['type'] == 'SCORE_QUESTION_ANSWERED')
 					{
 						// If the question id is in the question array for the current csv.
-						if (array_search($r['item_id'], $cur_csv['questions']) !== FALSE)
+						if (array_search($r['item_id'], $cur_csv['questions']) !== false)
 						{
 							$position = array_search($r['item_id'], $cur_csv['questions']);
-							$logs[5 + $position] = str_replace(["\r","\n", ","], "", $r['text']);
+							$logs[5 + $position] = str_replace(['\r','\n', ','], '', $r['text']);
 						}
 					}
 				}
 
-				$cur_csv['rows'][] = implode(", ", $logs);
+				$cur_csv['rows'][] = implode(', ', $logs);
 				$csvs[$qset_id] = $cur_csv;
 			}
 
@@ -141,15 +141,15 @@ return [
 			$zip->open($tempname);
 			foreach ($csvs as $key => $csv)
 			{
-				$string = $headers . $csv['question_text'] . "\r\n" . implode("\r\n", $csv['rows']);
-				$zip->addFromString($inst->name . ' (created ' . date('m-d-y h_ia', $csv['timestamp'] ) . ').csv', $string);
+				$string = $headers.$csv['question_text']."\r\n".implode("\r\n", $csv['rows']);
+				$zip->addFromString($inst->name.' (created '.date('m-d-y h_ia', $csv['timestamp'] ).').csv', $string);
 			}
 			$zip->close();
 
 			$data = file_get_contents($tempname);
 			unlink($tempname);
 
-			return [$data, ".zip"];
+			return [$data, '.zip'];
 		}
 	},
 ];
