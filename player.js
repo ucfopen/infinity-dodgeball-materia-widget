@@ -138,7 +138,7 @@ var Game = React.createClass({
 					<Modal>
 						<h1>The Winner is:</h1>
 						<GameResult data={this.state.winner}/>
-						<CenteredContent>
+						<CenteredContent data="endGame_buttons">
 							<BigButton onClick={this._handleDismissWon}>
 								Play again
 							</BigButton>
@@ -149,8 +149,8 @@ var Game = React.createClass({
 					</Modal>
 				) : null}
 				{ board }
-				{ this.state.changedTurn ? <div className="Game_turnTransition">Player {this.state.turn + 1}&#39;s turn</div> : null }
-				{ this.state.cpuThinking ? <div className="Game_turnTransition">CPU is thinking...</div> : null }
+				{ this.state.changedTurn ? <div className="Game_turnTransition">Player {this.state.turn + 1}&#39;s turn<div className="loadWheel"></div></div> : null }
+				{ this.state.cpuThinking ? <div className="Game_turnTransition">CPU is thinking...<div className="loadWheel"></div></div> : null }
 			</div>
 		);
 	},
@@ -410,9 +410,16 @@ var BigButton = React.createClass({
 ** A parent class that the others extend.
 */
 var CenteredContent = React.createClass({
+	getInitialState: function() {
+		return {
+			id: this.props.data
+		};
+	},
 	render: function() {
+		if(this.state.id !== this.props.data) this.setState.id = this.props.data;
+
 		return (
-			<div className="CenteredContent">
+			<div id={this.state.id} className="CenteredContent">
 				{this.props.children}
 			</div>
 		);
