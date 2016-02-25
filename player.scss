@@ -110,6 +110,19 @@ hr {
 		-webkit-font-smoothing: subpixel-antialiased;
 	}
 }
+.loadWheel {
+	background-color: #FFFFFF;
+	background: url("assets/loadingWheel.gif");
+	background-repeat: no-repeat;
+	background-size: 60px 60px;
+	background-position: center;
+	left: center;
+	margin: 0px auto 0px auto;
+	padding: 50px;
+	position: relative;
+	z-index: 10000;
+	-webkit-animation: grow 0s;
+}
 .Game_turnTransition {
 	position: fixed;
 	top: 100px;
@@ -120,7 +133,8 @@ hr {
 	left: 10px;
 	padding: 50px;
 	background: #468DC8;
-	-webkit-animation: grow 1s;
+	z-index: 100;
+	-webkit-animation: grow 0s;
 }
 .Modal_Background {
 	position: absolute;
@@ -191,6 +205,9 @@ hr {
 	position: absolute;
 	margin: 0px;
 	text-align: center;
+}
+#endGame_buttons {
+	left: 35px;
 }
 .ModeSelection {
 	float: right;
