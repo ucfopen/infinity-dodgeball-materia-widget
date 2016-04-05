@@ -854,5 +854,5 @@ Namespace('Dodgeball').Engine = (function() {
 	};
 
 	// Public.
-	return (start);
+	return {start:start};
 })();
