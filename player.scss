@@ -17,7 +17,9 @@ hr {
 }
 .PlayerOneBoard_number {
 	background-color: none;
+	cursor: default;
 	padding: 5px;
+	-webkit-user-select: none;
 }
 .PlayerTwoBoard {
 	font-size: 28px;
@@ -27,7 +29,9 @@ hr {
 }
 .PlayerTwoBoard_number {
 	background-color: none;
+	cursor: default;
 	padding: 5px;
+	-webkit-user-select: none;
 }
 .NumberBox {
 	background: #4DB2E4;
@@ -43,7 +47,7 @@ hr {
 	width: 32px;
 }
 .NumberBox_active {
-	background: #F5CC29;
+	background: #78DD5E;
 	animation: highlightPulse 1s infinite;
 }
 .NumberBox_inactiveRow {
@@ -51,13 +55,13 @@ hr {
 }
 @keyframes highlightPulse {
 	0% {
-		background: #F5CC29;
+		background: #78DD5E;
 	}
 	50% {
 		background: #FFF;
 	}
 	100% {
-		background: #F5CC29;
+		background: #78DD5E;
 	}
 }
 .PlayControls {
@@ -80,7 +84,7 @@ hr {
 	cursor: pointer;
 	display: inline-block;
 	font-family: Lato;
-	font-size: 16px;
+	font-size: 20px;
 	margin: auto;
 	margin-right: 10px;
 	margin-left: 5px;
@@ -426,12 +430,14 @@ hr {
 	td.PlayerOneBoard_number,
 	td.PlayerTwoBoard_number {
 		background-color: none;
+		cursor: default;
 		font-size: 9px;
 		height: 8px;
 		left: 20px;
 		padding: 2px;
 		position: relative;
 		text-align: center;
+		-webkit-user-select: none;
 		width: 8px;
 	}
 }
