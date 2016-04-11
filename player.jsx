@@ -372,6 +372,7 @@ var PlayControls = React.createClass({
 					onClick={updatePlayerBoard.bind(this, this.props.turn, this.props.boardLocation, O)}>
 					O
 				</button>
+				<h2>Click to choose Your Move</h2>
 			</div>
 		);
 	}
