@@ -1,5 +1,5 @@
 body {
-	background: #4DB2E4;
+	background: #FFFFFF;
 	font-family: Lato, sans-serif;
 }
 hr {
@@ -30,18 +30,24 @@ hr {
 	padding: 5px;
 }
 .NumberBox {
-	padding: 5px;
-	border: solid 1px #000;
+	background: #4DB2E4;
+	border: none;
+	color: #FFFFFF;
+	cursor: default;
+	font-family: Lato;
+	font-size: 18px;
+	height: 24px;
+	padding: 10px 5px 8px 5px;
+	text-align: center;
+	-webkit-user-select: none;
 	width: 32px;
-	height: 32px;
-	background: #fff;
 }
 .NumberBox_active {
 	background: #F5CC29;
 	animation: highlightPulse 1s infinite;
 }
 .NumberBox_inactiveRow {
-	background: #DFDFDF;
+	background: #4DB2E4;
 }
 @keyframes highlightPulse {
 	0% {
@@ -68,16 +74,31 @@ hr {
 	}
 }
 .PlayControls_button {
-	font-size: 30px;
+	background: #5FAC4B;
+	border: solid 1px #4F9C3B;
+	color: #FFFFFF;
+	cursor: pointer;
 	display: inline-block;
-	padding: 30px;
-	width: 100px;
+	font-family: Lato;
+	font-size: 16px;
 	margin: auto;
 	margin-right: 10px;
 	margin-left: 5px;
 	margin-bottom: 10px;
-	background: #53FFD3;
-	border: solid 1px #58A18A;
+	padding: 30px;
+	width: 100px;
+
+	&:hover {
+		background: #78DD5E;
+		color: #000;
+	}
+	&:active {
+		background: #5FAC4B;
+		color: #FFF;
+	}
+	&:focus {
+		outline: 0;
+	}
 }
 .Game_header {
 	position: absolute;
