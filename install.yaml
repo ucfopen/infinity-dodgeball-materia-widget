@@ -4,7 +4,7 @@ general:
   group: Materia
   height: 548
   width: 750
-  in_catalog: Yes
+  in_catalog: No
   is_editable: Yes
   is_playable: Yes
   is_qset_encrypted: Yes
@@ -17,7 +17,14 @@ files:
   flash_version: 0
 score:
   is_scorable: Yes
-  score_module: Matching
+  score_module: Dodgeball
+  logs_export_methods:
+    -
+      value: csv
+      option: Scores
+    -
+      value: raw
+      option: 'All raw data'
 meta_data:
   features:
     - Scorable
@@ -25,4 +32,10 @@ meta_data:
   supported_data:
     - Question/Answer
   about: >
+    Dodgeball demonstrates the concept of infinity through
+    the use of a simplistic game environment where no
+    matter the board size or skill level of players,
+    results in a no win situation. Infinite possible moves,
+    yet infinitely unbeatable.
   excerpt: >
+    A standalone game for demonstraing a single math concept.

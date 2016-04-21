@@ -1,6 +1,9 @@
 body {
-	background: #4DB2E4;
+	background: #FFFFFF;
 	font-family: Lato, sans-serif;
+}
+hr {
+	margin: 2px 0px 20px 0px;
 }
 .GameBoard {
 	position: relative;
@@ -13,7 +16,10 @@ body {
 	font-size: 28px;
 }
 .PlayerOneBoard_number {
+	background-color: none;
+	cursor: default;
 	padding: 5px;
+	-webkit-user-select: none;
 }
 .PlayerTwoBoard {
 	font-size: 28px;
@@ -22,36 +28,45 @@ body {
 	width: 500px;
 }
 .PlayerTwoBoard_number {
+	background-color: none;
+	cursor: default;
 	padding: 5px;
+	-webkit-user-select: none;
 }
 .NumberBox {
-	padding: 5px;
-	border: solid 1px #000;
+	background: #4DB2E4;
+	border: none;
+	color: #FFFFFF;
+	cursor: default;
+	font-family: Lato;
+	font-size: 18px;
+	height: 24px;
+	padding: 10px 5px 8px 5px;
+	text-align: center;
+	-webkit-user-select: none;
 	width: 32px;
-	height: 32px;
-	background: #fff;
 }
 .NumberBox_active {
-	background: #F5CC29;
+	background: #78DD5E;
 	animation: highlightPulse 1s infinite;
 }
 .NumberBox_inactiveRow {
-	background: #DFDFDF;
+	background: #4DB2E4;
 }
 @keyframes highlightPulse {
 	0% {
-		background: #F5CC29;
+		background: #78DD5E;
 	}
 	50% {
 		background: #FFF;
 	}
 	100% {
-		background: #F5CC29;
+		background: #78DD5E;
 	}
 }
 .PlayControls {
 	position: absolute;
-	right: 80px;
+	right: 40px;
 	top: 0px;
 	text-align: center;
 
@@ -63,16 +78,31 @@ body {
 	}
 }
 .PlayControls_button {
-	font-size: 30px;
+	background: #5FAC4B;
+	border: solid 1px #4F9C3B;
+	color: #FFFFFF;
+	cursor: pointer;
 	display: inline-block;
-	padding: 30px;
-	width: 100px;
+	font-family: Lato;
+	font-size: 20px;
 	margin: auto;
 	margin-right: 10px;
 	margin-left: 5px;
 	margin-bottom: 10px;
-	background: #53FFD3;
-	border: solid 1px #58A18A;
+	padding: 30px;
+	width: 100px;
+
+	&:hover {
+		background: #78DD5E;
+		color: #000;
+	}
+	&:active {
+		background: #5FAC4B;
+		color: #FFF;
+	}
+	&:focus {
+		outline: 0;
+	}
 }
 .Game_header {
 	position: absolute;
@@ -105,6 +135,19 @@ body {
 		-webkit-font-smoothing: subpixel-antialiased;
 	}
 }
+.loadWheel {
+	background-color: #FFFFFF;
+	background: url("assets/loadingWheel.gif");
+	background-repeat: no-repeat;
+	background-size: 60px 60px;
+	background-position: center;
+	left: center;
+	margin: 0px auto 0px auto;
+	padding: 50px;
+	position: relative;
+	z-index: 10000;
+	-webkit-animation: grow 0s;
+}
 .Game_turnTransition {
 	position: fixed;
 	top: 100px;
@@ -115,7 +158,8 @@ body {
 	left: 10px;
 	padding: 50px;
 	background: #468DC8;
-	-webkit-animation: grow 1s;
+	z-index: 100;
+	-webkit-animation: grow 0s;
 }
 .Modal_Background {
 	position: absolute;
@@ -129,16 +173,33 @@ body {
 .Modal_Content {
 	position: absolute;
 	left: 50%;
-	top: 50%;
+	top: 40%;
 	z-index: 100;
 	width: 400px;
 	margin-left: -210px;
-	height: 350px;
+	height: 380px;
 	margin-top: -175px;
 	background: #fff;
-	border: solid 1px #888;
-	padding: 10px;
-
+	border: solid 2px #BBBBBB;
+	border-radius: 5px;
+	padding: 0px;
+	overflow-x: hidden;
+}
+.Modal_Content h1 {
+	background-color: #BBBBBB;
+	color: #FFFFFF;
+	height: 62px;
+	margin: 0px 0px 20px 0px;
+	padding-top: 20px;
+	text-align: center;
+}
+.Modal_Content h3 {
+	margin: 5px 0px;
+	padding: 0px 20px;
+}
+.Modal_Content p {
+	margin: 5px 0px 30px 0px;
+	padding: 0px 20px;
 }
 .BigButton {
 	background: #5fac4b;
@@ -147,7 +208,8 @@ body {
 	cursor: pointer;
 	font-family: Lato;
 	font-size: 16px;
-	margin: 16px 6px 4px;
+	margin-bottom: 20px;
+	margin-left: 20px;
 	outline: none;
 	padding: 7px;
 	position: relative;
@@ -157,11 +219,66 @@ body {
 		background: #78DD5E;
 		color: #000;
 	}
+	&:active {
+		background: #5FAC4B;
+		color: #FFF;
+	}
 }
 .CenteredContent {
-	position: relative;
-	margin: auto;
+	bottom: 0px;
+	left: 115px;
+	position: absolute;
+	margin: 0px;
 	text-align: center;
+}
+#endGame_buttons {
+	left: 35px;
+}
+.ModeSelection {
+	float: right;
+	font-size: 16px;
+	margin-top: -2px;
+}
+.ModeSelection h4 {
+	display: block;
+	margin: 0px;
+	padding: 0px 20px 0px 0px;
+	text-align: center;
+}
+.ModeSelection ul{
+	list-style: none;
+	margin: 0px;
+	padding: 0px 12px 0px 0px;
+}
+.ModeSelection li {
+	display: inline-block;
+}
+.ModeSelection label {
+	color: #4DB2E4;
+	font-weight: bold;
+}
+.ModeSelection input[type=radio] {
+	cursor: pointer;
+	font-size: 22px;
+	margin-right: 8px;
+}
+.ModeSelection input[type=radio]:after {
+	display: inline-block;
+	visibility: visible;
+}
+.ModeSelection input[type=radio]:checked:after {
+	content: "\272A";
+	background-color: #FFFFFF;
+	position: relative;
+	top: -5px;
+	left: -2px;
+}
+.SizeSelection {
+	float: left;
+	padding-left: 35px;
+}
+.SizeSelection ul {
+	margin-top: 20px;
 }
 @keyframes grow {
 	0% {
@@ -178,16 +295,16 @@ body {
 	position: relative;
 	height: 150px;
 
-	.Instructions_arrow {
-
-	}
 	.Instructions_table td {
-		padding: 5px;
-		border: solid 1px #000;
-		width: 32px;
+		background-color: #4DB2E4;
+		border: solid 1px #4DB2E4;
+		color: #4DB2E4;
 		height: 32px;
-		color: #fff;
+		left: 20px;
+		padding: 5px;
+		position: relative;
 		text-align: center;
+		width: 32px;
 
 	}
 	.Instructions_table {
@@ -210,53 +327,178 @@ body {
 					animation-delay: 4s;
 				}
 			}
-			.Instructions_cursor {
-				animation: introCursor 8s;
+			.demonstration_cursor {
+				animation: introCursor1 8s;
 			}
 		}
-		.Instructions_cursor {
-			transform: translate(290px,80px);
-			z-index: 10;
-			width: 100px;
-			height: 100px;
-			position: absolute;
-			left: 0;
-			top: 0;
+	}
+}
+.Instructions_p2Tutorial {
+	position: relative;
+	height: 150px;
+
+	.Instructions_table td,
+	.Instructions_table td.oldMoves,
+	.Instructions_table2 td {
+		background-color: #4DB2E4;
+		border: solid 1px #4DB2E4;
+		height: 32px;
+		left: 20px;
+		padding: 5px;
+		position: relative;
+		text-align: center;
+		width: 32px;
+	}
+	.Instructions_table td.oldMoves {
+		color: #FFFFFF;
+	}
+	.Instructions_table td.blankCell
+	{
+		background-color: #FFFFFF;
+		border: solid 1px #FFFFFF;
+	}
+	.Instructions_table2 td {
+		color: #4DB2E4;
+	}
+	.Instructions_table {
+		&.animate {
+			.demonstration_cursor {
+				animation: introCursor2 6s;
+			}
 		}
 	}
-	.Instructions_controls {
-		position: absolute;
-		right: 30px;
-		top: 0;
+	.Instructions_table2 {
+		&.animate {
+			td {
+				animation: fadeInFromWhite 8s;
+				//animation-fill-mode: forwards;
+				animation-timing-function:steps(1, end);
+
+				&:nth-child(1) {
+					animation-delay: 1s;
+				}
+			}
+		}
 	}
-	.Instructions_button {
-		padding: 15px;
-		width: 15px;
-		height: 20px;
-		margin-bottom: 5px;
-		border: solid 1px #aaa;
-		display: block;
+}
+.demonstration_win-scenario {
+	display: block;
+	height: 74px;
+	padding-right: 20px;
+	position: relative;
+
+	p .demonstration_subheader {
+		display: inline-block;
+		font-size: 18px;
+		font-weight: bold;
+		margin-bottom: 10px;
+	}
+	p {
+		margin: 0px;
+		padding-left: 20px;
+	}
+	.left {
+		float: left;
+	}
+	.right {
+		float: right;
+		padding: 0px 20px;
+	}
+	.demonstration_table td:not(.PlayerOneBoard_number) {
+		background-color: #4DB2E4;
+		border: solid 1px #4DB2E4;
+		color: #FFFFFF;
+		font-size: 9px;
+		height: 8px;
+		left: 20px;
+		padding: 2px;
+		position: relative;
 		text-align: center;
+		width: 8px;
 	}
+	.demonstration_table td.blankCell {
+		background-color: #FFFFFF;
+		border: solid 1px #FFFFFF;
+		height: 2px;
+	}
+	.demonstration_table td.greenOutline {
+		border: 3px solid #78DD5E;
+	}
+	.demonstration_table td.redOutline {
+		border: 3px solid #FF3333;
+	}
+	td.PlayerOneBoard_number,
+	td.PlayerTwoBoard_number {
+		background-color: none;
+		cursor: default;
+		font-size: 9px;
+		height: 8px;
+		left: 20px;
+		padding: 2px;
+		position: relative;
+		text-align: center;
+		-webkit-user-select: none;
+		width: 8px;
+	}
+}
+#winner-content-left {
+	display: block;
+	float: left;
+	width: 45%;
+}
+#winner-content-right {
+	display: block;
+	float: right;
+	width: 45%;
+}
+.demonstration_cursor {
+	transform: translate(290px,80px);
+	z-index: 10;
+	width: 100px;
+	height: 100px;
+	position: absolute;
+	left: 0;
+	top: 0;
+}
+.demonstration_controls {
+	position: absolute;
+	right: 20px;
+	top: 0;
+}
+.demonstration_button {
+	background-color: #4DB2E4;
+	border: solid 1px #4DB2E4;
+	color: #FFFFFF;
+	padding: 15px;
+	width: 15px;
+	height: 20px;
+	margin-bottom: 5px;
+	border: solid 1px #aaa;
+	display: block;
+	text-align: center;
+}
+.demonstration_row {
+	height: 100px;
+	width: 100%;
 }
 @keyframes fadeInFromWhite {
 	0% {
-		color: #fff;
+		color: #4DB2E4;
 	}
 	9% {
-		color: #fff;
+		color: #4DB2E4;
 	}
 	10% {
-		color: #000;
+		color: #FFFFFF;
 	}
 	66% {
-		color: inherit;
+		color: #FFFFFF;
 	}
 	100% {
-		color: inherit;
+		color: #4DB2E4;
 	}
 }
-@keyframes introCursor {
+@keyframes introCursor1 {
 	0% {
 		transform: translate(290px,80px);
 	}
@@ -274,6 +516,20 @@ body {
 	}
 	70% {
 		transform: translate(350px,30px);
+	}
+	100% {
+		transform: translate(290px,80px);
+	}
+}
+@keyframes introCursor2 {
+	0% {
+		transform: translate(290px,80px);
+	}
+	20% {
+		transform: translate(350px,80px);
+	}
+	70% {
+		transform: translate(350px,80px);
 	}
 	100% {
 		transform: translate(290px,80px);
