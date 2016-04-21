@@ -5,7 +5,7 @@
  * @group Score
  * @group Matching
  */
-class Test_Score_Modules_Matching extends \Basetest
+class Test_Score_Modules_Dodgeball extends \Basetest
 {
 
 	protected function _get_qset()
@@ -35,97 +35,7 @@ class Test_Score_Modules_Matching extends \Basetest
 						 		],
 						 		"options":{},
 						 		"id":0
-						 	},
-							{
-						 		"name":null,
-						 		"type":"QA",
-						 		"assets":null,
-						 		"answers":[
-						 			{
-						 				"text":"2",
-						 				"options":{},
-						 				"value":"100"
-						 			}
-						 		],
-						 		"questions":[
-						 			{
-						 				"text":"2",
-						 				"options":{},
-						 				"value":""
-						 			}
-						 		],
-						 		"options":{},
-						 		"id":0
-						 	},
-							{
-						 		"name":null,
-						 		"type":"QA",
-						 		"assets":null,
-						 		"answers":[
-						 			{
-						 				"text":"3",
-						 				"options":{},
-						 				"value":"100"
-						 			}
-						 		],
-						 		"questions":[
-						 			{
-						 				"text":"3",
-						 				"options":{},
-						 				"value":""
-						 			}
-						 		],
-						 		"options":{},
-						 		"id":0
-						 	},
-							{
-						 		"name":null,
-						 		"type":"QA",
-						 		"assets":null,
-						 		"answers":[
-						 			{
-						 				"text":"This Is A Test",
-						 				"options":{},
-						 				"value":"100"
-						 			}
-						 		],
-						 		"questions":[
-						 			{
-						 				"text":" This Is A Test ",
-						 				"options":{},
-						 				"value":""
-						 			}
-						 		],
-						 		"options":{},
-						 		"id":0
-						 	},
-							{
-						 		"name":null,
-						 		"type":"QA",
-						 		"assets":null,
-						 		"answers":[
-						 			{
-						 				"text":"5",
-						 				"options":{},
-						 				"value":"100"
-						 			}
-						 		],
-						 		"questions":[
-						 			{
-						 				"text":"5",
-						 				"options":{},
-						 				"value":""
-						 			}
-						 		],
-						 		"options":{},
-						 		"id":0
 						 	}
-						],
-						"name":"",
-						"options":{},
-						"assets":[],
-						"rand":false
-					}
 				],
 				 "name":"",
 				 "options":

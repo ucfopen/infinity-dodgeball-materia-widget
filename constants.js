@@ -1,4 +1,5 @@
 Namespace('Dodgeball').Constants = {
 	INSTRUCTIONS_DISMISSED: 1,
 	GAME_MODE_SELECTED: 2,
+	BOARD_SIZE_SELECTED: 3
 };

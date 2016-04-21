@@ -8,10 +8,15 @@ Namespace('Dodgeball').Actions = (function() {
 			});
 		},
 		selectGameMode: function(mode) {
-			console.log("GAME MDOE SELECTEDDDD");
 			AppDispatcher.dispatch({
 				actionType: Constants.GAME_MODE_SELECTED,
 				mode: mode,
+			});
+		},
+		selectBoardSize: function(size) {
+			AppDispatcher.dispatch({
+				actionType: Constants.BOARD_SIZE_SELECTED,
+				size: size,
 			});
 		},
 	};
