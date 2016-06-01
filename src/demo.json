@@ -1,0 +1,31 @@
+{
+  "name": "Dodgeball",
+  "qset": {
+    "version": 1,
+    "data": {
+      "items": [
+        {
+          "name": null,
+          "items": [
+            {
+              "materiaType": "question",
+              "id": null,
+              "type": "QA",
+              "questions": [
+                {
+                  "text": null
+                }
+              ],
+              "answers": [
+                {
+                  "value": 0,
+                  "text": null
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  }
+}
