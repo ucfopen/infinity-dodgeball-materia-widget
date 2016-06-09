@@ -1,25 +1,43 @@
 <!DOCTYPE html>
-<!-- INJECTS IE CLASSES ONTO HTML TAG -->
-<!--[if IE 8 ]>    <html class="IE8"> <![endif]-->
-<!--[if IE 9 ]>    <html class="IE9"> <![endif]-->
-<!--[if (gt IE 9)|!(IE)]><!--> <html class=""> <!--<![endif]-->
-	<head>
-		<title>Dodgeball Creator</title>
-		<meta charset="utf-8" />
+<html ng-app="popupCreator">
+<head>
+	<meta charset="utf-8" />
+	<title>Dodgeball Widget</title>
+	<link rel="stylesheet" href="creator.css">
 
-		<!-- STYLESHEETS -->
-		<link rel="stylesheet" type="text/css" href="creator.css">
-		<link href='//fonts.googleapis.com/css?family=Lato:100,300,400,700' rel='stylesheet' type='text/css'>
+	<!-- YOUR PREREQUISITES -->
+	<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.10/angular.min.js"></script>
+</head>
+<body ng-controller="popupCtrl">
 
-		<!-- REQUIRED MATERIA JAVASCRIPT -->
-		<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-		<script src="materia.creatorcore.js"></script>
+	<header>
+		{{widget.engineName}}
+	</header>
 
-		<!-- YOUR PREREQUISITES -->
+	<div class="container">
+		<h1>How to create your widget:</h1>
+		<ol>
+			<li>
+				<p>
+					First, give your widget a name:
+				</p>
+				<input type="text" ng-model="widget.title" placeholder="Widget name..." />
+			</li>
 
-		<!-- MAIN CREATOR SCRIPT -->
-		<script src="creator.js"></script>
-	</head>
-	<body>
-	</body>
+			<li>
+				<p>
+					Then, click <b ng-if="!state.isEditingExistingWidget">Publish</b><b ng-if="state.isEditingExistingWidget">Update</b> at the top of the page.
+				</p>
+			</li>
+		</ol>
+	</div>
+
+	<!-- REQUIRED MATERIA JS -->
+	<script type="text/javascript" src="materia.creatorcore.js"></script>
+	<script type="text/javascript" src="materia.storage.manager.js"></script>
+	<script type="text/javascript" src="materia.storage.table.js"></script>
+
+	<!-- MAIN APP -->
+	<script src="creator.js"></script>
+</body>
 </html>
