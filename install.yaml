@@ -5,7 +5,7 @@ general:
   height: 548
   width: 750
   in_catalog: No
-  is_editable: Yes
+  is_editable: No
   is_playable: Yes
   is_qset_encrypted: Yes
   is_answer_encrypted: Yes
