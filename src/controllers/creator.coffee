@@ -1,20 +1,9 @@
-###
+MateriaCreator = angular.module 'materiaCreator'
 
-Materia
-It's a thing
-
-Widget  : Dodgeball, Creator
-Authors : Jonathan Warner
-Updated : 9/15
-
-###
-
-PopupCreator = angular.module( 'popupCreator', [] )
-
-PopupCreator.controller 'popupCtrl', ['$scope', ($scope) ->
+MateriaCreator.controller 'creatorCtrl', ['$scope', ($scope) ->
 	$scope.widget =
-		engineName: ""
-		title     : ""
+		engineName : ''
+		title      : ''
 
 	$scope.state =
 		isEditingExistingWidget: false
@@ -23,26 +12,21 @@ PopupCreator.controller 'popupCtrl', ['$scope', ($scope) ->
 		$scope.$apply ->
 			$scope.widget.engineName = $scope.widget.title = widget.name
 
-	$scope.initExistingWidget = (title, widget, qset, version, baseUrl) ->
+	$scope.initExistingWidget = (title, widget) ->
 		$scope.state.isEditingExistingWidget = true
 		$scope.$apply ->
 			$scope.widget.engineName = widget.name
-			$scope.widget.title     = title
+			$scope.widget.title      = title
 
-	$scope.onSaveClicked = (mode = 'save') ->
+	$scope.onSaveClicked = ->
 		if $scope.widget.title
 			Materia.CreatorCore.save $scope.widget.title, _buildSaveData()
 		else Materia.CreatorCore.cancelSave 'This widget has no title!'
-
-	$scope.onSaveComplete = (title, widget, qset, version) -> null
-
-	$scope.onMediaImportComplete = (media) -> null
 
 	# Private methods
 	_buildSaveData = ->
 		name    : ''
 		items   : []
-
 
 	Materia.CreatorCore.start $scope
 ]

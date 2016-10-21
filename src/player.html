@@ -15,29 +15,172 @@
 		<script src="materia.enginecore.js"></script>
 		<script src="materia.score.js"></script>
 
-		<!-- OPTIONAL MATERIA JAVASCRIPT -->
-		<!-- <script src="materia.storage.manager.js"></script> -->
-		<!-- <script src="materia.storage.table.js"></script> -->
-
 		<!-- YOUR PREREQUISITES -->
 		<link href='//fonts.googleapis.com/css?family=Lato:100,400,700|Roboto+Slab' rel='stylesheet' type='text/css'>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.14.3/react.min.js"></script>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.14.3/react-dom.min.js"></script>
+		<script src='//cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.8/angular.min.js'></script>
 
 		<!-- MAIN PLAYER SCRIPT -->
-		<script src="dispatcher.js"></script>
-		<script src="constants.js"></script>
-		<script src="actions.js"></script>
-		<script src="store.js"></script>
-		<script src="ai.js"></script>
-		<script src="player.js"></script>
+		<script src="modules/player.js"></script>
+		<script src="services/ai.js"></script>
+		<script src="controllers/player.js"></script>
 	</head>
-	<body>
-		<div id="entrypoint"></div>
+	<body ng-app="dodgeball" ng-controller="dodgeballPlayerCtrl">
+		<header>
+			<div class='title'>{{ title }}</div>
+		</header>
+		<div class='modal' ng-show='tutorialStep <= 4 || choosingMode || choosingSize || roundOver'>
+			<div class='modal-content'>
+				<h1>
+					<span ng-if='choosingMode'>Choose a play mode</span>
+					<span ng-if='choosingSize'>Choose a board size</span>
+					<span ng-if='roundOver'>The Winner is:</span>
+					<span ng-if='!choosingMode && !choosingSize && !roundOver'>How to play Dodgeball</span>
+				</h1>
+				<div id='content-body'>
+					<!-- tutorial begin -->
+					<div ng-repeat='pageNumber in [1,2,3,4]'
+						ng-show='tutorialStep === pageNumber'
+						ng-include="'assets/tutorial-pages/page'+pageNumber+'.html'">
+					</div>
+					<!-- next button -->
+					<div class='centered' ng-show='tutorialStep <= 4'>
+						<button class='big-button' ng-click='tutorialNext()'>Next</button>
+					</div>
+					<!-- tutorial end -->
 
-		<!-- INITIALIZE -->
-		<script>
-			Materia.Engine.start(Dodgeball.Engine);
-		</script>
+					<!-- mode select -->
+					<div ng-show='choosingMode'>
+						<h3>Play against another person locally</h3>
+						<p>Have two players play at the same computer.</p>
+						<button class='big-button' ng-click='selectHuman()'>Play</button>
+						<h3>Play against the computer</h3>
+						<p>Play against the computer player.</p>
+						<button class='big-button' ng-click='selectAI()'>Play</button>
+						<div class='mode-select'>
+							<h4>AI Difficulty Level</h4>
+							<ul>
+								<li><label>Hard <input type='radio' value='3' ng-model='difficulty' /></label></li>
+								<li><label>Average <input type='radio' value='2' ng-model='difficulty' /></label></li>
+								<li><label>Easy <input type='radio' value='1' ng-model='difficulty' /></label></li>
+							</ul>
+						</div>
+					</div>
+
+					<!-- board size select -->
+					<div ng-show='choosingSize' class="size-select">
+						<h4>Board Size</h4>
+						<ul>
+							<li><label>2x2<input type='radio' value="2" ng-change='selectSize()' ng-model='boardSize'} /> </label></li>
+							<li><label>3x3<input type='radio' value="3" ng-change='selectSize()' ng-model='boardSize'} /> </label></li>
+							<li><label>4x4<input type='radio' value="4" ng-change='selectSize()' ng-model='boardSize'} /> </label></li>
+							<li><label>5x5<input type='radio' value="5" ng-change='selectSize()' ng-model='boardSize'} /> </label></li>
+							<li><label>6x6<input type='radio' value="6" ng-change='selectSize()' ng-model='boardSize'} /> </label></li>
+							<li><label>7x7<input type='radio' value="7" ng-change='selectSize()' ng-model='boardSize'} /> </label></li>
+						</ul>
+					</div>
+
+					<!-- round finish screen -->
+					<div ng-show='roundOver'>
+						<div class="demo-win">
+							<div id="winner-content-left">
+								<h2>Player {{ winningPlayer }}</h2>
+								<p ng-show='winningPlayer == 1'>
+									...wins because they matched the row in solid green (each square matches) with Player 2's single row.
+								</p>
+								<p ng-show='winningPlayer == 2'>
+									...wins because none of Player 1's rows are solid green (not all squares match the single row).
+								</p>
+							</div>
+							<div id="winner-content-right">
+								<table class="demo-table">
+									<tbody>
+										<tr ng-repeat='(rowIndex, row) in firstPlayerRows' ng-if='$index > 0'>
+											<td class='player1-board-number'>{{ rowIndex }}</td>
+											<td ng-repeat='(cellIndex, cell) in row'
+												class='red' ng-class='{green: cell.letter == secondPlayerCells[cellIndex].letter}'>
+												<div >
+													{{ cell.letter }}
+												</div>
+											</td>
+										</tr>
+										<tr><td class="blank-cell"></td></tr>
+										<tr><td class="blank-cell"></td></tr>
+										<tr>
+											<td class="blank-cell"></td>
+											<td ng-repeat='cell in secondPlayerCells'
+												ng-if='$index > 0'>
+												<div ng-class='{active: cell == currentCell}'>
+													{{ cell.letter }}
+												</div>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</div>
+						<div id='end-buttons' class='centered'>
+							<button class='big-button' ng-click='newRound()'>Play Again</button>
+							<button class='big-button' ng-click='end()'>Quit</button>
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</div>
+		<div class='game-board' ng-show='boardSize'>
+			<div class='player1-board'>
+				<table>
+					<tbody>
+						<tr ng-repeat='(rowIndex, row) in firstPlayerRows'
+							ng-if='$index > 0'
+							ng-class='{inactive: rowIndex != currentRow}'>
+							<td class='player1-board-number'>{{ rowIndex }}</td>
+							<td ng-repeat='cell in row'>
+								<div class='number-box'
+									ng-class='{active: cell == currentCell}'>
+									{{ cell.letter }}
+								</div>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div class='player2-board'>
+				<table>
+					<tbody>
+						<tr>
+							<td ng-repeat='i in [1,2,3,4,5,6,7] | limitTo : boardSize'
+								class='player2-board-number'>
+								{{ i }}
+							</td>
+						</tr>
+						<tr>
+							<td ng-repeat='cell in secondPlayerCells'
+								ng-if='$index > 0'>
+								<div class='number-box'
+									ng-class='{active: cell == currentCell}'>
+									{{ cell.letter }}
+								</div>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div class='play-controls' ng-class='{hidden: !currentPlayer, second: currentPlayer == 2}'>
+				<h1>Player {{ currentPlayer }}'s turn</h1>
+				<button ng-click='selectLetter("X")'>X</button>
+				<button ng-click='selectLetter("O")'>O</button>
+				<h2>Click to choose Your Move</h2>
+			</div>
+		</div>
+		<div class="turn-transition" ng-show='changingTurn'>
+			<p ng-show='gameMode == "2_PLAYER" || currentPlayer == 1'>
+				Player {{ currentPlayer }}'s turn
+			</p>
+			<p ng-show='gameMode == "1_PLAYER" && currentPlayer != 1'>
+				CPU is thinking...
+			</p>
+			<div class="loading"></div>
+		</div>
 	</body>
 </html>

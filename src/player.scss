@@ -2,38 +2,72 @@ body {
 	background: #FFFFFF;
 	font-family: Lato, sans-serif;
 }
+
+header {
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	right: 0px;
+	height: 33px;
+	background: #444;
+	padding: 8px;
+	z-index: 1000;
+	color: #fff;
+
+	&:before {
+		content: '';
+		display: inline-block;
+		background: url(assets/materialogo.png) no-repeat;
+		width: 60px;
+		height: 30px;
+		margin: 2px 0 2px 17px;
+		vertical-align: middle;
+	}
+
+	.title {
+		display: inline-block;
+		font-family: 'Lato', serif;
+		font-weight: 300;
+		font-size: 22px !important;
+		vertical-align: middle;
+		margin: 3px 0 0 0;
+		-webkit-font-smoothing: subpixel-antialiased;
+	}
+}
+
 hr {
 	margin: 2px 0px 20px 0px;
 }
-.GameBoard {
+
+.game-board {
 	position: relative;
 	top: 60px;
 	font-family: 'Roboto Slab', sans-serif;
 }
-.PlayerOneBoard {
+.player1-board {
 	position: relative;
 	margin: auto;
 	font-size: 28px;
 }
-.PlayerOneBoard_number {
+.player1-board-number {
 	background-color: none;
 	cursor: default;
 	padding: 5px;
 	-webkit-user-select: none;
 }
-.PlayerTwoBoard {
+.player2-board {
 	font-size: 28px;
 	left: 26px;
 	position: relative;
 	width: 500px;
 }
-.PlayerTwoBoard_number {
+.player2-board-number {
 	background-color: none;
 	cursor: default;
 	padding: 5px;
 	-webkit-user-select: none;
 }
-.NumberBox {
+.number-box {
 	background: #4DB2E4;
 	border: none;
 	color: #FFFFFF;
@@ -45,13 +79,14 @@ hr {
 	text-align: center;
 	-webkit-user-select: none;
 	width: 32px;
+
+	&.active {
+		background: #78DD5E;
+		animation: highlightPulse 1s infinite;
+	}
 }
-.NumberBox_active {
-	background: #78DD5E;
-	animation: highlightPulse 1s infinite;
-}
-.NumberBox_inactiveRow {
-	background: #4DB2E4;
+.inactive div {
+	background: #89C6E4;
 }
 @keyframes highlightPulse {
 	0% {
@@ -64,78 +99,49 @@ hr {
 		background: #78DD5E;
 	}
 }
-.PlayControls {
+.play-controls {
 	position: absolute;
 	right: 40px;
 	top: 0px;
 	text-align: center;
 
-	&.cpuPlaying {
+	button {
+		background: #5FAC4B;
+		border: solid 1px #4F9C3B;
+		color: #FFFFFF;
+		cursor: pointer;
+		display: inline-block;
+		font-family: Lato;
+		font-size: 20px;
+		margin: auto;
+		margin-right: 10px;
+		margin-left: 5px;
+		margin-bottom: 10px;
+		padding: 30px;
+		width: 100px;
+
+		&:hover {
+			background: #78DD5E;
+			color: #000;
+		}
+		&:active {
+			background: #5FAC4B;
+			color: #FFF;
+		}
+		&:focus {
+			outline: 0;
+		}
+	}
+
+	&.hidden {
 		display: none;
 	}
-	&.playerTwo {
-		top: 230px;
+	&.second {
+		top: 220px;
 	}
 }
-.PlayControls_button {
-	background: #5FAC4B;
-	border: solid 1px #4F9C3B;
-	color: #FFFFFF;
-	cursor: pointer;
-	display: inline-block;
-	font-family: Lato;
-	font-size: 20px;
-	margin: auto;
-	margin-right: 10px;
-	margin-left: 5px;
-	margin-bottom: 10px;
-	padding: 30px;
-	width: 100px;
 
-	&:hover {
-		background: #78DD5E;
-		color: #000;
-	}
-	&:active {
-		background: #5FAC4B;
-		color: #FFF;
-	}
-	&:focus {
-		outline: 0;
-	}
-}
-.Game_header {
-	position: absolute;
-	top: 0px;
-	left: 0px;
-	right: 0px;
-	height: 33px;
-	background: #444;
-	padding: 8px;
-	z-index: 1000;
-	color: #fff;
-
-	.Game_logo {
-		display: block;
-		background: url(assets/materialogo.png) no-repeat;
-		width: 60px;
-		height: 50px;
-		float: left;
-		margin-left: 17px;
-		margin-top: 2px;
-	}
-
-	.Game_title {
-		margin-left: 8px;
-		font-family: 'Lato', serif;
-		font-weight: 300;
-		font-size: 22px !important;
-		vertical-align: middle;
-		margin-top: 3px;
-		-webkit-font-smoothing: subpixel-antialiased;
-	}
-}
-.loadWheel {
+.loading {
 	background-color: #FFFFFF;
 	background: url("assets/loadingWheel.gif");
 	background-repeat: no-repeat;
@@ -148,20 +154,23 @@ hr {
 	z-index: 10000;
 	-webkit-animation: grow 0s;
 }
-.Game_turnTransition {
+.turn-transition {
 	position: fixed;
-	top: 100px;
 	text-align: center;
 	background: #000;
 	color: #fff;
-	font-size: 100px;
-	left: 10px;
+	font-size: 50px;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
 	padding: 50px;
 	background: #468DC8;
 	z-index: 100;
 	-webkit-animation: grow 0s;
 }
-.Modal_Background {
+
+.modal {
 	position: absolute;
 	left: 0;
 	right: 0;
@@ -170,7 +179,8 @@ hr {
 	background: rgba(0,0,0,0.6);
 	z-index: 99;
 }
-.Modal_Content {
+
+.modal-content {
 	position: absolute;
 	left: 50%;
 	top: 40%;
@@ -184,24 +194,28 @@ hr {
 	border-radius: 5px;
 	padding: 0px;
 	overflow-x: hidden;
+
+	h1 {
+		background-color: #BBBBBB;
+		color: #FFFFFF;
+		height: 62px;
+		margin: 0px 0px 20px 0px;
+		padding-top: 20px;
+		text-align: center;
+	}
+
+	h3 {
+		margin: 5px 0px;
+		padding: 0px 20px;
+	}
+
+	p {
+		margin: 5px 0px 30px 0px;
+		padding: 0px 20px;
+	}
 }
-.Modal_Content h1 {
-	background-color: #BBBBBB;
-	color: #FFFFFF;
-	height: 62px;
-	margin: 0px 0px 20px 0px;
-	padding-top: 20px;
-	text-align: center;
-}
-.Modal_Content h3 {
-	margin: 5px 0px;
-	padding: 0px 20px;
-}
-.Modal_Content p {
-	margin: 5px 0px 30px 0px;
-	padding: 0px 20px;
-}
-.BigButton {
+
+.big-button {
 	background: #5fac4b;
 	border: solid 1px #4f9c3b;
 	color: #fff;
@@ -224,62 +238,77 @@ hr {
 		color: #FFF;
 	}
 }
-.CenteredContent {
+
+.centered {
 	bottom: 0px;
 	left: 115px;
 	position: absolute;
 	margin: 0px;
 	text-align: center;
 }
-#endGame_buttons {
+
+#end-buttons {
 	left: 35px;
 }
-.ModeSelection {
-	float: right;
+
+.mode-select, .size-select {
+	position: absolute;
+	right: 0;
+	bottom: 30px;
 	font-size: 16px;
-	margin-top: -2px;
+
+	h4 {
+		display: block;
+		margin: 0px;
+		padding: 0px 20px 0px 0px;
+		text-align: center;
+	}
+
+	ul {
+		list-style: none;
+		margin: 0px;
+		padding: 0px 12px 0px 0px;
+	}
+
+	li {
+		display: inline-block;
+	}
+
+	label {
+		color: #4DB2E4;
+		font-weight: bold;
+	}
+
+	input[type=radio] {
+		cursor: pointer;
+		font-size: 22px;
+		margin-right: 8px;
+
+		&:after {
+			display: inline-block;
+			visibility: visible;
+		}
+
+		&:checked:after {
+			content: "\272A";
+			background-color: #FFFFFF;
+			position: relative;
+			top: -5px;
+			left: -2px;
+		}
+	}
 }
-.ModeSelection h4 {
-	display: block;
-	margin: 0px;
-	padding: 0px 20px 0px 0px;
-	text-align: center;
-}
-.ModeSelection ul{
-	list-style: none;
-	margin: 0px;
-	padding: 0px 12px 0px 0px;
-}
-.ModeSelection li {
-	display: inline-block;
-}
-.ModeSelection label {
-	color: #4DB2E4;
-	font-weight: bold;
-}
-.ModeSelection input[type=radio] {
-	cursor: pointer;
-	font-size: 22px;
-	margin-right: 8px;
-}
-.ModeSelection input[type=radio]:after {
-	display: inline-block;
-	visibility: visible;
-}
-.ModeSelection input[type=radio]:checked:after {
-	content: "\272A";
-	background-color: #FFFFFF;
+
+.size-select {
 	position: relative;
-	top: -5px;
-	left: -2px;
-}
-.SizeSelection {
-	float: left;
+	margin: 50px auto;
 	padding-left: 35px;
+
+	ul {
+		margin-top: 20px;
+	}
 }
-.SizeSelection ul {
-	margin-top: 20px;
-}
+
 @keyframes grow {
 	0% {
 		-webkit-transform: scale(0);
@@ -291,27 +320,27 @@ hr {
 		-webkit-transform: scale(1);
 	}
 }
-.Instructions_p1Tutorial {
+.player1-instructions {
 	position: relative;
 	height: 150px;
 
-	.Instructions_table td {
-		background-color: #4DB2E4;
-		border: solid 1px #4DB2E4;
-		color: #4DB2E4;
-		height: 32px;
-		left: 20px;
-		padding: 5px;
-		position: relative;
-		text-align: center;
-		width: 32px;
+	.instructions-table {
+		td {
+			background-color: #4DB2E4;
+			border: solid 1px #4DB2E4;
+			color: #4DB2E4;
+			height: 32px;
+			left: 20px;
+			padding: 5px;
+			position: relative;
+			text-align: center;
+			width: 32px;
 
-	}
-	.Instructions_table {
+		}
+
 		&.animate {
 			td {
 				animation: fadeInFromWhite 15s;
-				//animation-fill-mode: forwards;
 				animation-timing-function:steps(3, end);
 
 				&:nth-child(1) {
@@ -327,19 +356,18 @@ hr {
 					animation-delay: 4s;
 				}
 			}
-			.demonstration_cursor {
+			.demo-cursor {
 				animation: introCursor1 8s;
 			}
 		}
 	}
 }
-.Instructions_p2Tutorial {
+.player2-instructions {
 	position: relative;
 	height: 150px;
 
-	.Instructions_table td,
-	.Instructions_table td.oldMoves,
-	.Instructions_table2 td {
+	.instructions-table td,
+	.instructions-table2 td {
 		background-color: #4DB2E4;
 		border: solid 1px #4DB2E4;
 		height: 32px;
@@ -349,29 +377,33 @@ hr {
 		text-align: center;
 		width: 32px;
 	}
-	.Instructions_table td.oldMoves {
-		color: #FFFFFF;
-	}
-	.Instructions_table td.blankCell
-	{
-		background-color: #FFFFFF;
-		border: solid 1px #FFFFFF;
-	}
-	.Instructions_table2 td {
-		color: #4DB2E4;
-	}
-	.Instructions_table {
+
+	.instructions-table {
+		td {
+			&.old-moves {
+				color: #FFFFFF;
+			}
+			&.blank-cell
+			{
+				background-color: #FFFFFF;
+				border: solid 1px #FFFFFF;
+			}
+		}
+
 		&.animate {
-			.demonstration_cursor {
+			.demo-cursor {
 				animation: introCursor2 6s;
 			}
 		}
 	}
-	.Instructions_table2 {
+	.instructions-table2 {
+		td {
+			color: #4DB2E4;
+		}
+
 		&.animate {
 			td {
 				animation: fadeInFromWhite 8s;
-				//animation-fill-mode: forwards;
 				animation-timing-function:steps(1, end);
 
 				&:nth-child(1) {
@@ -381,22 +413,26 @@ hr {
 		}
 	}
 }
-.demonstration_win-scenario {
+.demo-win {
 	display: block;
 	height: 74px;
 	padding-right: 20px;
 	position: relative;
 
-	p .demonstration_subheader {
+	aside {
+		float: left;
+		width: 250px;
+	}
+
+	h2 {
+		margin: 0px;
+		padding-left: 20px;
 		display: inline-block;
 		font-size: 18px;
 		font-weight: bold;
 		margin-bottom: 10px;
 	}
-	p {
-		margin: 0px;
-		padding-left: 20px;
-	}
+
 	.left {
 		float: left;
 	}
@@ -404,7 +440,8 @@ hr {
 		float: right;
 		padding: 0px 20px;
 	}
-	.demonstration_table td:not(.PlayerOneBoard_number) {
+
+	.demo-table td:not(.player1-board-number) {
 		background-color: #4DB2E4;
 		border: solid 1px #4DB2E4;
 		color: #FFFFFF;
@@ -416,19 +453,19 @@ hr {
 		text-align: center;
 		width: 8px;
 	}
-	.demonstration_table td.blankCell {
+	.demo-table td.blank-cell {
 		background-color: #FFFFFF;
 		border: solid 1px #FFFFFF;
 		height: 2px;
 	}
-	.demonstration_table td.greenOutline {
+	.demo-table td.green {
 		border: 3px solid #78DD5E;
 	}
-	.demonstration_table td.redOutline {
+	.demo-table td.red:not(.green) {
 		border: 3px solid #FF3333;
 	}
-	td.PlayerOneBoard_number,
-	td.PlayerTwoBoard_number {
+	td.player1-board-number,
+	td.player2-board-number {
 		background-color: none;
 		cursor: default;
 		font-size: 9px;
@@ -441,6 +478,11 @@ hr {
 		width: 8px;
 	}
 }
+
+hr {
+	clear: both;
+}
+
 #winner-content-left {
 	display: block;
 	float: left;
@@ -451,7 +493,7 @@ hr {
 	float: right;
 	width: 45%;
 }
-.demonstration_cursor {
+.demo-cursor {
 	transform: translate(290px,80px);
 	z-index: 10;
 	width: 100px;
@@ -460,12 +502,12 @@ hr {
 	left: 0;
 	top: 0;
 }
-.demonstration_controls {
+.demo-controls {
 	position: absolute;
 	right: 20px;
 	top: 0;
 }
-.demonstration_button {
+.demo-button {
 	background-color: #4DB2E4;
 	border: solid 1px #4DB2E4;
 	color: #FFFFFF;
@@ -477,7 +519,7 @@ hr {
 	display: block;
 	text-align: center;
 }
-.demonstration_row {
+.demo-row {
 	height: 100px;
 	width: 100%;
 }

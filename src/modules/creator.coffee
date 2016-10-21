@@ -1,0 +1,1 @@
+MateriaCreator = angular.module 'materiaCreator', []
