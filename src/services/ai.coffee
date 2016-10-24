@@ -9,9 +9,10 @@ Dodgeball.service 'AI', ->
 	makeChoice = (playerLetter, level) ->
 		letter = playerLetter
 
-		switch level
+		switch parseInt level
 			when _DIFFICULTY_EASY
-				letter = _win letter if Math.random() > 0.8
+				if Math.random() > 0.8
+					letter = _win letter
 			when _DIFFICULTY_MEDIUM
 				if Math.random() > 0.5
 					letter = _win letter

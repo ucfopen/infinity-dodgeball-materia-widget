@@ -59,9 +59,9 @@
 						<div class='mode-select'>
 							<h4>AI Difficulty Level</h4>
 							<ul>
-								<li><label>Hard <input type='radio' value='3' ng-model='difficulty' /></label></li>
-								<li><label>Average <input type='radio' value='2' ng-model='difficulty' /></label></li>
-								<li><label>Easy <input type='radio' value='1' ng-model='difficulty' /></label></li>
+								<li><label>Hard<input type='radio' value='3' ng-click='selectDifficulty(3)' ng-checked='difficulty == 3' /></label></li>
+								<li><label>Average<input type='radio' value='2' ng-click='selectDifficulty(2)' ng-checked='difficulty == 2' /></label></li>
+								<li><label>Easy<input type='radio' value='1' ng-click='selectDifficulty(1)' ng-checked='difficulty == 1' /></label></li>
 							</ul>
 						</div>
 					</div>
@@ -70,12 +70,12 @@
 					<div ng-show='choosingSize' class="size-select">
 						<h4>Board Size</h4>
 						<ul>
-							<li><label>2x2<input type='radio' value="2" ng-change='selectSize()' ng-model='boardSize'} /> </label></li>
-							<li><label>3x3<input type='radio' value="3" ng-change='selectSize()' ng-model='boardSize'} /> </label></li>
-							<li><label>4x4<input type='radio' value="4" ng-change='selectSize()' ng-model='boardSize'} /> </label></li>
-							<li><label>5x5<input type='radio' value="5" ng-change='selectSize()' ng-model='boardSize'} /> </label></li>
-							<li><label>6x6<input type='radio' value="6" ng-change='selectSize()' ng-model='boardSize'} /> </label></li>
-							<li><label>7x7<input type='radio' value="7" ng-change='selectSize()' ng-model='boardSize'} /> </label></li>
+							<li><label>2x2<input type='radio' value="2" ng-click='selectSize(2)' ng-checked='boardSize == 2'} /> </label></li>
+							<li><label>3x3<input type='radio' value="3" ng-click='selectSize(3)' ng-checked='boardSize == 3'} /> </label></li>
+							<li><label>4x4<input type='radio' value="4" ng-click='selectSize(4)' ng-checked='boardSize == 4'} /> </label></li>
+							<li><label>5x5<input type='radio' value="5" ng-click='selectSize(5)' ng-checked='boardSize == 5'} /> </label></li>
+							<li><label>6x6<input type='radio' value="6" ng-click='selectSize(6)' ng-checked='boardSize == 6'} /> </label></li>
+							<li><label>7x7<input type='radio' value="7" ng-click='selectSize(7)' ng-checked='boardSize == 7'} /> </label></li>
 						</ul>
 					</div>
 
@@ -127,7 +127,7 @@
 				</div>
 			</div>
 		</div>
-		<div class='game-board' ng-show='boardSize'>
+		<div class='game-board' ng-show='currentCell || winningPlayer'>
 			<div class='player1-board'>
 				<table>
 					<tbody>

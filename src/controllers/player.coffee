@@ -1,8 +1,6 @@
 Dodgeball = angular.module 'dodgeball'
 
 Dodgeball.controller 'dodgeballPlayerCtrl', ['$scope', '$timeout', 'AI', ($scope, $timeout, AI) ->
-	_qset = null
-
 	_INSTRUCTIONS_LENGTH = 5
 
 	_DIFFICULTY_EASY   = 1
@@ -19,8 +17,10 @@ Dodgeball.controller 'dodgeballPlayerCtrl', ['$scope', '$timeout', 'AI', ($scope
 	_PLAYER_ONE = 1
 	_PLAYER_TWO = 2
 
+	_TURN_DELAY = 1000
+
 	$scope.title = 'Dodgeball'
-	# $scope.tutorialStep = 1 # PUT THIS BACK WHEN DONE BUILDING WIDGET
+	$scope.tutorialStep = 1
 
 	$scope.choosingMode = false
 	$scope.choosingSize = false
@@ -42,22 +42,21 @@ Dodgeball.controller 'dodgeballPlayerCtrl', ['$scope', '$timeout', 'AI', ($scope
 	$scope.roundsPlayed  = 0
 	$scope.winningPlayer = null
 
-	$scope.start = (instance, qset) ->
+	$scope.start = (instance) ->
 		$scope.title = instance.name
-		_qset = qset
 
 		Materia.Engine.setHeight()
 		$scope.$apply()
 
 	$scope.tutorialNext = ->
-		$scope.tutorialStep++ unless $scope.tutorialStep >= _INSTRUCTIONS_LENGTH
+		throw new Error 'Tutorial is already over!' unless $scope.tutorialStep > _INSTRUCTIONS_LENGTH or $scope.gameMode is null and !$scope.choosingMode
+		$scope.tutorialStep++
 		$scope.newRound() if $scope.tutorialStep is _INSTRUCTIONS_LENGTH
 
 	$scope.newRound = ->
 		$scope.roundsPlayed++
 
 		$scope.gameMode          = null
-		$scope.boardSize         = null
 		$scope.choosingMode      = true
 		$scope.choosingSize      = false
 		$scope.roundOver         = false
@@ -79,11 +78,20 @@ Dodgeball.controller 'dodgeballPlayerCtrl', ['$scope', '$timeout', 'AI', ($scope
 	$scope.selectHuman = ->
 		_selectMode _MODE_HUMAN
 
+	$scope.selectDifficulty = (difficulty) ->
+		throw new Error 'Valid difficulty not chosen!' unless difficulty >= _DIFFICULTY_EASY and difficulty <= _DIFFICULTY_HARD
+		$scope.difficulty = difficulty
+
 	$scope.selectAI = ->
+		throw new Error 'Valid difficulty not chosen!' unless $scope.difficulty >= _DIFFICULTY_EASY and $scope.difficulty <= _DIFFICULTY_HARD
 		_selectMode _MODE_AI
 
-	$scope.selectSize = ->
-		throw new Error 'Invalid board size!' unless $scope.boardSize >= _MINIMUM_SIZE and $scope.boardSize <= _MAXIMUM_SIZE
+	$scope.selectSize = (size) ->
+		throw new Error 'No size given!' unless size
+		throw new Error 'Game mode not chosen!' unless $scope.gameMode
+		throw new Error 'Board size already chosen!' unless $scope.choosingSize
+		throw new Error 'Invalid board size!' unless size >= _MINIMUM_SIZE and size <= _MAXIMUM_SIZE
+		$scope.boardSize = size
 		$scope.choosingSize = false
 		_generateTable()
 		_startRound()
@@ -111,6 +119,7 @@ Dodgeball.controller 'dodgeballPlayerCtrl', ['$scope', '$timeout', 'AI', ($scope
 		$scope.currentPlayer = _PLAYER_ONE
 
 	$scope.selectLetter = (letter) ->
+		throw new Error 'Wait for the next turn!' if $scope.changingTurn
 		throw new Error 'No cell to choose a letter for!' unless $scope.currentCell
 		throw new Error 'Valid letter not chosen!' if letter isnt 'X' and letter isnt 'O'
 		$scope.currentCell.letter = letter
@@ -153,26 +162,20 @@ Dodgeball.controller 'dodgeballPlayerCtrl', ['$scope', '$timeout', 'AI', ($scope
 		unless quiet
 			$scope.changingTurn = true
 			$timeout ->
+				$scope.changingTurn = false
 				if $scope.gameMode is _MODE_AI
 					_computerTurn()
-				$scope.changingTurn = false
-			, 1000
+			, _TURN_DELAY
 
 	_computerTurn = ->
 		$scope.selectLetter AI.makeChoice $scope.firstPlayerRows[$scope.currentRow][$scope.currentRow].letter, $scope.difficulty
 
 	$scope.end = ->
+		throw new Error 'Round is not over yet!' unless $scope.winningPlayer
 		Materia.Score.submitQuestionForScoring 0, "", 100
 		Materia.Score.addGlobalScoreFeedback "Rounds played: " + $scope.roundsPlayed
 		Materia.Engine.end
 		Materia.Engine.end yes
-
-	# GET RID OF THESE AFTER DONE BUILDING
-	$scope.tutorialStep = 5
-	$scope.gameMode = _MODE_AI
-	$scope.boardSize = 4
-	_generateTable()
-	_startRound()
 
 	Materia.Engine.start $scope
 ]

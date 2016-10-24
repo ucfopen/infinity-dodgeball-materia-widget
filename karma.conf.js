@@ -13,8 +13,8 @@ module.exports = function(config) {
 			'node_modules/angular-mocks/angular-mocks.js',
 			'build/demo.json',
 			'build/modules/*.js',
+			'build/services/*.js',
 			'build/controllers/*.js',
-			'build/directives/*.js',
 			'tests/*.js'
 		],
 
@@ -30,8 +30,9 @@ module.exports = function(config) {
 		],
 
 		preprocessors: {
+			'build/modules/*.js': ['coverage', 'eslint'],
+			'build/services/*.js': ['coverage', 'eslint'],
 			'build/controllers/*.js': ['coverage', 'eslint'],
-			'build/directives/*.js': ['coverage', 'eslint'],
 			'build/demo.json': ['json_fixtures']
 		},
 
