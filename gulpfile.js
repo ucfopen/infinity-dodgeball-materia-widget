@@ -24,7 +24,7 @@ var zip = require('gulp-zip');
 
 var configs = require('../../backend/config.json')
 
-var widget = sanitize("Dodgeball");
+var widget = sanitize("dodgeball");
 // When compiling this may be entered as an argument.
 var minify = argv.minify;
 var mangle = argv.mangle;
