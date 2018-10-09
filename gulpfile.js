@@ -22,7 +22,7 @@ var sass = require('gulp-sass');
 var uglify = require('gulp-uglify');
 var zip = require('gulp-zip');
 
-var configs = require('../../backend/config.json')
+var configs = null; //require('../../backend/config.json')
 
 var widget = sanitize("dodgeball");
 // When compiling this may be entered as an argument.
