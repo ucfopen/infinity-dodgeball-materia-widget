@@ -1,13 +1,3 @@
-/*
-
-Materia
-It's a thing
-
-Widget  : Dodgeball, Engine
-Authors : Jonathan Warner
-
-*/
-
 var INITIAL_SIZE = 6; //Player changes this value through modal at start of each round.
 var GameState = {
 	boardState: [],

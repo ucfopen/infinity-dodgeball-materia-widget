@@ -3,17 +3,20 @@
   "materia": {
     "cleanName": "dodgeball"
   },
-  "version": "1.0.0",
+  "version": "1.0.2",
   "scripts": {
     "start": "webpack-dev-server",
     "build-dev": "webpack",
-    "build": "webpack -p"
+    "build": "webpack -p",
+    "test": "echo 'no tests implemented'",
+    "test-ci": "echo 'no tests implemented'"
   },
-  "devDependencies": {
-    "materia-widget-development-kit": "v1.2.2"
-  },
-  "license": "AGPL-3.0",
   "dependencies": {
-    "babel-preset-react": "^6.24.1"
-  }
+    "babel-preset-react": "^6.24.1",
+    "materia-widget-development-kit": "^2.0.0"
+  },
+  "version": "1.0.1",
+  "author": "University of Central Florida, Center for Distributed Learning",
+  "description": "Materia widget of the mathmatical dodgeball game that teaches infinity concepts.",
+  "license": "AGPL-3.0"
 }
