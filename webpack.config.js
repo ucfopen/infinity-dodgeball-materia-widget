@@ -1,41 +1,29 @@
 const path = require('path')
-const ExtractTextPlugin = require('extract-text-webpack-plugin')
+const fs = require('fs')
+const srcPath = path.join(__dirname, 'src') + path.sep
+const outputPath = path.join(__dirname, 'build')
+const widgetWebpack = require('materia-widget-development-kit/webpack-widget')
 
-let srcPath = path.join(process.cwd(), 'src')
-let outputPath = path.join(process.cwd(), 'build')
+const rules = widgetWebpack.getDefaultRules()
+const entries = widgetWebpack.getDefaultEntries()
 
-// load the reusable legacy webpack config from materia-widget-dev
-let webpackConfig = require('materia-widget-development-kit/webpack-widget').getLegacyWidgetBuildConfig({
-	preCopy: [
-		{
-			from: srcPath+'/ai.js',
-			to: outputPath
-		},
-		{
-			from: srcPath+'/constants.js',
-			to: outputPath
-		},
-		{
-			from: srcPath+'/dispatcher.js',
-			to: outputPath
-		},
-		{
-			from: srcPath+'/store.js',
-			to: outputPath
-		},
-		{
-			from: srcPath+'/actions.js',
-			to: outputPath
-		}
-	]
-})
+// using default creator
+delete entries['creator.css']
+delete entries['creator.js']
 
-webpackConfig.entry['player.js'] = [path.join(__dirname, 'src', 'player.jsx')]
+entries['player.js'] = [
+	path.join(__dirname, 'src', 'dispatcher.js'),
+	path.join(__dirname, 'src', 'constants.js'),
+	path.join(__dirname, 'src', 'actions.js'),
+	path.join(__dirname, 'src', 'store.js'),
+	path.join(__dirname, 'src', 'ai.js'),
+	path.join(__dirname, 'src', 'player.jsx'),
+]
 
-webpackConfig.module.rules.push({
+const customReactRule = {
 	test: /\.jsx$/i,
 	exclude: /node_modules/,
-	loader: ExtractTextPlugin.extract({
+	loader: require('extract-text-webpack-plugin').extract({
 		use: [
 			'raw-loader',
 			{
@@ -46,6 +34,22 @@ webpackConfig.module.rules.push({
 			}
 		]
 	})
-})
+}
 
-module.exports = webpackConfig
+let customRules = [
+	rules.loaderDoNothingToJs,
+	rules.loaderCompileCoffee,
+	rules.copyImages,
+	rules.loadHTMLAndReplaceMateriaScripts,
+	rules.loadAndPrefixCSS,
+	rules.loadAndPrefixSASS,
+	customReactRule // add our custom rule
+]
+
+// options for the build
+let options = {
+	entries: entries,
+	moduleRules: customRules,
+}
+
+module.exports = widgetWebpack.getLegacyWidgetBuildConfig(options)
