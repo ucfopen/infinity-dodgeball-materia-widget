@@ -15,7 +15,6 @@
     "babel-preset-react": "^6.24.1",
     "materia-widget-development-kit": "^2.0.0"
   },
-  "version": "1.0.1",
   "author": "University of Central Florida, Center for Distributed Learning",
   "description": "Materia widget of the mathmatical dodgeball game that teaches infinity concepts.",
   "license": "AGPL-3.0"
