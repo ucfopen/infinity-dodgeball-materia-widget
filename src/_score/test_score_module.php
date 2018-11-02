@@ -5,7 +5,7 @@
  * @group Score
  * @group Matching
  */
-class Test_Score_Modules_Dodgeball extends \Basetest
+class Test_Score_Modules_InfinityDodgeball extends \Basetest
 {
 
 	protected function _get_qset()

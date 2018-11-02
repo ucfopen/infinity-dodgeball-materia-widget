@@ -1,26 +1,7 @@
 <?php
-/**
- * Materia
- * It's a thing
- *
- * @package	    Materia
- * @version    1.0
- * @author     UCF New Media
- * @copyright  2011 New Media
- * @link       http://kogneato.com
- */
-/**
- * NEEDS DOCUMENTATION
- *
- * The widget managers for the Materia package.
- *
- * @package	    Main
- * @subpackage  scoring
- * @category    Modules
- * @author      ADD NAME HERE
- */
+
 namespace Materia;
-class Score_Modules_Dodgeball extends Score_Module
+class Score_Modules_InfinityDodgeball extends Score_Module
 {
 	/**
 	 * NEEDS DOCUMENTATION

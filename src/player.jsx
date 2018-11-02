@@ -119,7 +119,7 @@ var Game = React.createClass({
 			<div>
 				<div className="Game_header">
 					<div className="Game_logo" />
-					<h1 className="Game_title">Dodgeball</h1>
+					<h1 className="Game_title">Infinity Dodgeball</h1>
 				</div>
 				{ this.state.instructionsShown ? <Instructions /> : null }
 				{ this.state.gameModeModalShown ? <GameModeSelectModal /> : null }
@@ -672,7 +672,7 @@ var Instructions = React.createClass({
 		}
 		return (
 			<Modal>
-				<h1>How to play Dodgeball</h1>
+				<h1>How to play Infinity Dodgeball</h1>
 				{ instruction }
 				<CenteredContent>
 					<BigButton onClick={this._handleNextButtonClicked}>Next</BigButton>
