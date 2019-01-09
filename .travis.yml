@@ -1,0 +1,28 @@
+language: node_js
+node_js:
+  - '6'
+cache:
+  yarn: true
+  directories:
+    - node_modules
+before_install:
+  - npm config set spin false
+  - npm install -g npm@^5
+script:
+  - yarn test-ci
+  - yarn build
+deploy:
+  skip_cleanup: true
+  provider: releases
+  api_key:
+    secure: "ZOXW8Qdu3gbh7cL34sRhYSCN0T7yeoHPHEyhUxefZDna3vtSxx6oKSDsCed8MMxGVqlFdOzOscNajF8/AXYLPoWFBhK92mLZR0qjD3zL1atDMfL8JSsCV50dHolHW+KttR/KpTKkVqUzTq295jjGwTgcH2QfhxWiQ1dyCieBDCzckjQv0/VB/pEgfzRsFxYdOnHTVYfRB+oc8MYvNMRiaVuSTz7WlyPOJ4suSPSCuY6SDhO1JckIvDfYPVK9pwWT1BWEjAJOJOelKLZdoDPp5Jm+6QUN4wd86p650Wse3R0VnHHrJn59wy85mekucjU8b5fjAEjchnCNN7NzPOp8sTqE9LVZf4cofvgjrbEJv0YH43OAqOC1COFMEhXSKCkY0WjjIcptsyaqbyGaIlat2vBSbph4jOZHx/lDKClVvmE7fuJoSE/FC9QibtZi4+hG/67Bk2yHti87EtAwpdnrt9Rd4CkL6f6zWoShKSmoMsGA4uzUVpkvae8vujEOPpx7QG+FUgB3dN3JLZGDcmJyhA4GiLO0nB7AElEEVxSp32+AHgBAqdutYcT8/GVI03nSVfzfx6RnZZ7zoHPH9z+JEt5zbPdzkqh8DQVecvtRTKZEpL9kUdLouTuR4RgZW4E7k/mxS92xsPbtSuAC1PuM+jtlQHO2G885S53pRg5/SsA="
+  file:
+    - build/_output/infinity-dodgeball.wigt
+    - build/_output/infinity-dodgeball-build-info.yml
+  on:
+    tags: true
+    repo: ucfopen/infinity-dodgeball-materia-widget
+notifications:
+  email: false
+  slack:
+    secure: "apRHAmQ4pa3lHZotGdGjvzxA784jc/bp7BSjcY/zIBEgoUy3oFq+mb9C3ZXFYNHQxNllHw1xxTxLdFVz0BVRCJB/x7zYNhOsFw5J6QOVFOXwOGvvvWFh868imrshtOIdk4XTnycSb/97xw4I/eQ+8nkQsi0sAlsmYW1/1+soatc0GfqzydR6jAkZK+ptjqZlt0W7IVfMXgGhO8vvQcgUt4vbNjwZyH90uafb0QtcVycKK6RGeW2iTmgyE94vlK+tM+jbCAYAwsaLZ75Nq9uqffMYuVi1q94R1U1z+ohX2dkbphqsBch6AXYbhqpaxOvRbLxxknjzcijT0hsfOkgGDnUdZVskI3fnHc5reI3zovd6QCMtNuJqqFKUihOWJZmvWDnu6gqVyLXL9SAmJwjRscATs5E6I/7LBB3Ykw6ntFzaVu/UqWXT9xcYeXAVvj1QaPrQ9c5U4F6SFhgA5Hrw1Xmt2x65/wvVX2m4tz5dGvc06cul/g1Nhx1lI8LX2rGe75sKCb7sBjyUVnLAOJOQmn+gBH5UvtomZegduBXY/E+U8Hz1ZNzXzZfPipVvsyvwQbcNvUPR3SFWcmmbpBoRlxpTboQw8K6VVZQCYX5VyxtkHDoUGQp3puDKPH7t9Om/djfH569DNmjpDC+tYRed05bblM13mcfVPAjPHB9Nd6U="
